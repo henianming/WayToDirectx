@@ -15,7 +15,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hInstPrev, LPSTR lpCmdLine, 
 	unsigned int width = 1024;
 	unsigned int height = 768;
 
-	//ÉùÃ÷´°¿ÚÀà
+	//å£°æ˜çª—å£ç±»
 	WNDCLASSEX wc = {};
 	wc.cbSize = sizeof(wc);
 	wc.style = CS_HREDRAW | CS_VREDRAW;
@@ -24,16 +24,16 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hInstPrev, LPSTR lpCmdLine, 
 	wc.hbrBackground = (HBRUSH)GetStockObject(BLACK_BRUSH);
 	wc.lpszClassName = WND_CLASS01;
 
-	//×¢²á´°¿ÚÀà
+	//æ³¨å†Œçª—å£ç±»
 	if (!RegisterClassEx(&wc))
 		return 0;
 
-	//´´½¨´°¿Ú£¬ÔØÈë×¢²áµÄ´°¿ÚÀà
+	//åˆ›å»ºçª—å£ï¼Œè½½å…¥æ³¨å†Œçš„çª—å£ç±»
 	HWND hwnd = CreateWindowEx(WS_EX_ACCEPTFILES, WND_CLASS01, WND_NAME01,
 							   WS_CAPTION, posX, posY, posX + width, posY + height,
 							   0, 0, hInstance, NULL);
 
-						   //½«´°¿ÚÉèÖÃÎª¿É¼û
+						   //å°†çª—å£è®¾ç½®ä¸ºå¯è§
 	ShowWindow(hwnd, nCmdShow);
 
 	MSG msg = {};

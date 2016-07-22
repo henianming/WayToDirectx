@@ -3,15 +3,15 @@
 
 #include <d3dx9.h>
 
-//´°¿ÚÀàÃûºê¶¨Òå
+//çª—å£ç±»åå®å®šä¹‰
 #define WND_CLASS01 L"csdn_lesson002_001_class"
-//´°¿ÚÃûºê¶¨Òå
+//çª—å£åå®å®šä¹‰
 #define WND_NAME01 L"csdn_lesson002_001_wnd"
 
 LPDIRECT3D9 d3dManager = NULL;
 LPDIRECT3DDEVICE9 d3dDevice = NULL;
 
-//×Ô¶¨º¯ÊıÉùÃ÷
+//è‡ªå®šå‡½æ•°å£°æ˜
 LRESULT CALLBACK wndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 bool initailizeD3D(HWND hwnd);
 void renderSence();
@@ -23,7 +23,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hInstPrev, LPSTR lpCmdLine, 
 	unsigned int width = 1024;
 	unsigned int height = 768;
 
-	//ÉùÃ÷´°¿ÚÀà
+	//å£°æ˜çª—å£ç±»
 	WNDCLASSEX wc = {};
 	wc.cbSize = sizeof(wc);
 	wc.style = CS_HREDRAW | CS_VREDRAW;
@@ -32,17 +32,17 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hInstPrev, LPSTR lpCmdLine, 
 	wc.hbrBackground = (HBRUSH)GetStockObject(BLACK_BRUSH);
 	wc.lpszClassName = WND_CLASS01;
 
-	//×¢²á´°¿ÚÀà
+	//æ³¨å†Œçª—å£ç±»
 	if (!RegisterClassEx(&wc))
 		return 0;
 
-	//´´½¨´°¿Ú£¬ÔØÈë×¢²áµÄ´°¿ÚÀà
+	//åˆ›å»ºçª—å£ï¼Œè½½å…¥æ³¨å†Œçš„çª—å£ç±»
 	HWND hwnd = CreateWindowEx(WS_EX_ACCEPTFILES, WND_CLASS01, WND_NAME01,
 							   WS_CAPTION, posX, posY, posX + width, posY + height,
 							   0, 0, hInstance, NULL);
 
 	if (initailizeD3D(hwnd)) {
-		//½«´°¿ÚÉèÖÃÎª¿É¼û
+		//å°†çª—å£è®¾ç½®ä¸ºå¯è§
 		ShowWindow(hwnd, nCmdShow);
 	}
 

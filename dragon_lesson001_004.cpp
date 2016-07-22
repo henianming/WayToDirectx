@@ -4,14 +4,14 @@
 #include <d3d9.h>
 
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hInstancePrev, LPSTR lpCmdLine, int nCmdShow) {
-	HWND hwnd; //≤‚ ‘”√
+	HWND hwnd; //ÊµãËØïÁî®
 
-	//IDirect3D≥ı ºªØÀƒ≤ø«˙
-	//1.ªÒ»°÷∏œÚΩ”ø⁄IDirect3D9µƒ÷∏’Î
-	IDirect3D9 *iDirect3d9; //∏√Ω”ø⁄÷˜“™”√Õæ°∞…Ë±∏√∂æŸ°±º∞°∞¥¥Ω®IDirect3DDevice9¿‡–Õµƒ∂‘œÛ°±
+	//IDirect3DÂàùÂßãÂåñÂõõÈÉ®Êõ≤
+	//1.Ëé∑ÂèñÊåáÂêëÊé•Âè£IDirect3D9ÁöÑÊåáÈíà
+	IDirect3D9 *iDirect3d9; //ËØ•Êé•Âè£‰∏ªË¶ÅÁî®ÈÄî‚ÄúËÆæÂ§áÊûö‰∏æ‚ÄùÂèä‚ÄúÂàõÂª∫IDirect3DDevice9Á±ªÂûãÁöÑÂØπË±°‚Äù
 	iDirect3d9 = Direct3DCreate9(D3D_SDK_VERSION);
 
-	//2.–£—È”≤º˛–‘ƒ‹(“‘”≤º˛∂•µ„‘ÀÀ„Œ™¿˝)
+	//2.Ê†°È™åÁ°¨‰ª∂ÊÄßËÉΩ(‰ª•Á°¨‰ª∂È°∂ÁÇπËøêÁÆó‰∏∫‰æã)
 	D3DCAPS9 d3dCaps9;
 	iDirect3d9->GetDeviceCaps(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, &d3dCaps9);
 	int vp = 0;
@@ -21,7 +21,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hInstancePrev, LPSTR lpCmdLi
 		vp = D3DCREATE_SOFTWARE_VERTEXPROCESSING;
 	}
 
-	//3.ÃÓ≥‰D3DPRESENT_PARAMETERSΩ·ππ
+	//3.Â°´ÂÖÖD3DPRESENT_PARAMETERSÁªìÊûÑ
 	D3DPRESENT_PARAMETERS d3dPresent_Parameters;
 	d3dPresent_Parameters.BackBufferWidth = 800;
 	d3dPresent_Parameters.BackBufferHeight = 600;
@@ -38,13 +38,13 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hInstancePrev, LPSTR lpCmdLi
 	d3dPresent_Parameters.FullScreen_RefreshRateInHz = D3DPRESENT_RATE_DEFAULT;
 	d3dPresent_Parameters.PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE;
 
-	//4.¥¥Ω®IDirect3DDevice9Ω”ø⁄
+	//4.ÂàõÂª∫IDirect3DDevice9Êé•Âè£
 	IDirect3DDevice9 *iDirect3DDevice9;
 	HRESULT hResult = iDirect3d9->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hwnd, D3DCREATE_HARDWARE_VERTEXPROCESSING, &d3dPresent_Parameters, &iDirect3DDevice9);
 	if (FAILED(hResult)) {
-		// ß∞‹
+		//Â§±Ë¥•
 	} else {
-		//≥…π¶
+		//ÊàêÂäü
 	}
 
 	while (1);

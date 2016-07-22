@@ -5,24 +5,24 @@
 
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hInstancePrev, LPSTR lpCmdLine, int nCmdShow) {
 	if (false) {
-		IDirect3DSurface9 *surface; //Éú³ÉÒ»¸ö±íÃæÀàĞÍsurface£¬´ËÎª²âÊÔ´úÂë£¬Î´·ÖÅäÄÚ´æ
+		IDirect3DSurface9 *surface; //ç”Ÿæˆä¸€ä¸ªè¡¨é¢ç±»å‹surfaceï¼Œæ­¤ä¸ºæµ‹è¯•ä»£ç ï¼Œæœªåˆ†é…å†…å­˜
 
-		//»ñÈ¡¸Ã±íÃæµÄĞÅÏ¢£¬±£´æµ½descÖĞ
-		//Width±£´æÁË±íÃæµÄ¿í¶È£¬ÒÔÏñËØÎªµ¥Î»£¬ºöÂÔ×îºóµÄ»º´æÇøµÄ¿Õ¼ä
-		//Height±£´æÁË±íÃæµÄ¸ß¶È£¬ÒÔÏñËØÎªµ¥Î»
+		//è·å–è¯¥è¡¨é¢çš„ä¿¡æ¯ï¼Œä¿å­˜åˆ°descä¸­
+		//Widthä¿å­˜äº†è¡¨é¢çš„å®½åº¦ï¼Œä»¥åƒç´ ä¸ºå•ä½ï¼Œå¿½ç•¥æœ€åçš„ç¼“å­˜åŒºçš„ç©ºé—´
+		//Heightä¿å­˜äº†è¡¨é¢çš„é«˜åº¦ï¼Œä»¥åƒç´ ä¸ºå•ä½
 		D3DSURFACE_DESC desc;
 		surface->GetDesc(&desc);
 
-		//Ëø×¡¸Ã±íÃæµÄÏñËØĞÅÏ¢£¬±£´æµ½rectÖĞ
-		//Pitch±£´æÁË±íÃæµÄÏñËØÒ»ĞĞµÄÊı¾İ³¤¶È£¬ÒÔ×Ö½ÚÎªµ¥Î»
-		//pBits±£´æÁË±íÃæµÄÏñËØµÄÊı¾İ¾ØÕóµÄÖ¸Õë£¬Ö¸ÕëÖ¸ÏòµÄ4×Ö½Ú¿Õ¼ä±£´æÁËÏñËØµÄÑÕÉ«ĞÅÏ¢
+		//é”ä½è¯¥è¡¨é¢çš„åƒç´ ä¿¡æ¯ï¼Œä¿å­˜åˆ°rectä¸­
+		//Pitchä¿å­˜äº†è¡¨é¢çš„åƒç´ ä¸€è¡Œçš„æ•°æ®é•¿åº¦ï¼Œä»¥å­—èŠ‚ä¸ºå•ä½
+		//pBitsä¿å­˜äº†è¡¨é¢çš„åƒç´ çš„æ•°æ®çŸ©é˜µçš„æŒ‡é’ˆï¼ŒæŒ‡é’ˆæŒ‡å‘çš„4å­—èŠ‚ç©ºé—´ä¿å­˜äº†åƒç´ çš„é¢œè‰²ä¿¡æ¯
 		D3DLOCKED_RECT rect;
 		surface->LockRect(&rect, 0, 0);
 		{
 			DWORD *imageData = (DWORD*)rect.pBits;
 			for (UINT i = 0; i < desc.Height; i++) {
 				for (UINT j = 0; j < desc.Width; j++) {
-					//ÒòPitchÒÔ×Ö½ÚÎªµ¥Î»£¬pBitsÒÔDWORDµÄ4×Ö½Ú³¤¶ÈÎª¿ç¶Èµ±Ë÷Òı£¬¹ÊPitchĞèÒª³ıÒÔ4À´µ±Ë÷ÒıÓÃ
+					//å› Pitchä»¥å­—èŠ‚ä¸ºå•ä½ï¼ŒpBitsä»¥DWORDçš„4å­—èŠ‚é•¿åº¦ä¸ºè·¨åº¦å½“ç´¢å¼•ï¼Œæ•…Pitchéœ€è¦é™¤ä»¥4æ¥å½“ç´¢å¼•ç”¨
 					int index = i*rect.Pitch / 4 + j;
 					imageData[index] = 0xFFFF0000;
 				}
@@ -31,7 +31,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hInstancePrev, LPSTR lpCmdLi
 		surface->UnlockRect();
 	}
 
-	//¶àÖØ²ÉÑù¼¶±ğÃ¶¾Ù
+	//å¤šé‡é‡‡æ ·çº§åˆ«æšä¸¾
 	D3DMULTISAMPLE_TYPE d3dMultiSample_Type;
 	d3dMultiSample_Type = D3DMULTISAMPLE_NONE;
 	d3dMultiSample_Type = D3DMULTISAMPLE_NONMASKABLE;
@@ -51,9 +51,9 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hInstancePrev, LPSTR lpCmdLi
 	d3dMultiSample_Type = D3DMULTISAMPLE_15_SAMPLES;
 	d3dMultiSample_Type = D3DMULTISAMPLE_16_SAMPLES;
 	d3dMultiSample_Type = D3DMULTISAMPLE_FORCE_DWORD;
-	//IDirect3D9::CheckDeviceMultiSampleType¸Ã·½·¨¼ì²âµ±Ç°ÊÇ·ñÖ§³ÖËù¸ø¶àÖØ²ÉÑù¼¶±ğ
+	//IDirect3D9::CheckDeviceMultiSampleTypeè¯¥æ–¹æ³•æ£€æµ‹å½“å‰æ˜¯å¦æ”¯æŒæ‰€ç»™å¤šé‡é‡‡æ ·çº§åˆ«
 
-	//ÏñËØ¸ñÊ½Ã¶¾Ù
+	//åƒç´ æ ¼å¼æšä¸¾
 	D3DFORMAT d3dFormat;
 	d3dFormat = D3DFMT_R8G8B8;
 	d3dFormat = D3DFMT_A8R8G8B8;
@@ -61,7 +61,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hInstancePrev, LPSTR lpCmdLi
 	d3dFormat = D3DFMT_A16B16G16R16F;
 	d3dFormat = D3DFMT_A32B32G32R32F;
 
-	//ÄÚ´æ³ØÃ¶¾Ù
+	//å†…å­˜æ± æšä¸¾
 	D3DPOOL d3dPool;
 	d3dPool = D3DPOOL_DEFAULT;
 	d3dPool = D3DPOOL_MANAGED;
@@ -69,17 +69,17 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hInstancePrev, LPSTR lpCmdLi
 	d3dPool = D3DPOOL_SCRATCH;
 	d3dPool = D3DPOOL_FORCE_DWORD;
 
-	//½»»»Á´
+	//äº¤æ¢é“¾
 	IDirect3DSwapChain9 *swapChain;
 
-	//Éî¶È»º´æ¸ñÊ½Ã¶¾Ù
+	//æ·±åº¦ç¼“å­˜æ ¼å¼æšä¸¾
 	d3dFormat = D3DFMT_D32;
 	d3dFormat = D3DFMT_D24S8;
 	d3dFormat = D3DFMT_D24X8;
 	d3dFormat = D3DFMT_D24X4S4;
 	d3dFormat = D3DFMT_D16;
 
-	//¼ì²éÉè±¸ÊÇ·ñÖ§³ÖÄ³Ò»¸ö¹¦ÄÜ(ÀıÈçÓ²¼ş¶¥µãÔËËã)
+	//æ£€æŸ¥è®¾å¤‡æ˜¯å¦æ”¯æŒæŸä¸€ä¸ªåŠŸèƒ½(ä¾‹å¦‚ç¡¬ä»¶é¡¶ç‚¹è¿ç®—)
 	bool bSupportsHardwareVertexProcessing;
 	D3DCAPS9 caps;
 	if (caps.DevCaps & D3DDEVCAPS_HWTRANSFORMANDLIGHT) {

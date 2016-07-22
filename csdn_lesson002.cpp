@@ -3,15 +3,15 @@
 
 #include <d3dx9.h>
 
-//´°¿ÚÀàÃûºê¶¨Òå
+//çª—å£ç±»åå®å®šä¹‰
 #define WND_CLASS01 L"csdn_lesson002_001_class"
-//´°¿ÚÃûºê¶¨Òå
+//çª—å£åå®å®šä¹‰
 #define WND_NAME01 L"csdn_lesson002_001_wnd"
 
 LPDIRECT3D9 d3dManager = NULL;
 LPDIRECT3DDEVICE9 d3dDevice = NULL;
 
-//×Ô¶¨º¯ÊýÉùÃ÷
+//è‡ªå®šå‡½æ•°å£°æ˜Ž
 LRESULT CALLBACK wndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 bool initializeD3D(HWND hwnd);
 void renderScene();
@@ -23,7 +23,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hInstPrev, LPSTR lpCmdLine, 
 	unsigned int width = 1024;
 	unsigned int height = 768;
 
-	//ÉùÃ÷´°¿ÚÀà
+	//å£°æ˜Žçª—å£ç±»
 	WNDCLASSEX wc = {};
 	wc.cbSize = sizeof(wc);
 	wc.style = CS_HREDRAW | CS_VREDRAW;
@@ -32,17 +32,17 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hInstPrev, LPSTR lpCmdLine, 
 	wc.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH);
 	wc.lpszClassName = WND_CLASS01;
 
-	//×¢²á´°¿ÚÀà
+	//æ³¨å†Œçª—å£ç±»
 	if (!RegisterClassEx(&wc))
 		return 0;
 
-	//´´½¨´°¿Ú£¬ÔØÈë×¢²áµÄ´°¿ÚÀà
+	//åˆ›å»ºçª—å£ï¼Œè½½å…¥æ³¨å†Œçš„çª—å£ç±»
 	HWND hwnd = CreateWindowEx(WS_EX_ACCEPTFILES, WND_CLASS01, WND_NAME01,
 							   WS_CAPTION, posX, posY, posX + width, posY + height,
 							   0, 0, hInstance, NULL);
 
 	if (initializeD3D(hwnd)) {
-		//½«´°¿ÚÉèÖÃÎª¿É¼û
+		//å°†çª—å£è®¾ç½®ä¸ºå¯è§
 		ShowWindow(hwnd, nCmdShow);
 	}
 
@@ -78,23 +78,23 @@ LRESULT CALLBACK wndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 }
 
 bool initializeD3D(HWND hwnd) {
-	//´´½¨Ò»¸öd3d¹ÜÀíÆ÷
+	//åˆ›å»ºä¸€ä¸ªd3dç®¡ç†å™¨
 	d3dManager = Direct3DCreate9(D3D_SDK_VERSION);
 	if (d3dManager == NULL)
 		return false;
 
-	//´´½¨Ò»·Ýd3dÅäÖÃ
+	//åˆ›å»ºä¸€ä»½d3dé…ç½®
 	D3DPRESENT_PARAMETERS d3dCfg = {};
 	d3dCfg.Windowed = TRUE;
 	d3dCfg.BackBufferWidth = 1024;
 	d3dCfg.BackBufferHeight = 768;
 	d3dCfg.SwapEffect = D3DSWAPEFFECT_DISCARD;
-	D3DDISPLAYMODE displayMode;//ÓÃd3d¹ÜÀíÆ÷¶ÁÈ¡ÏÔÊ¾Æ÷ÏÔÊ¾Ä£Ê½
+	D3DDISPLAYMODE displayMode;//ç”¨d3dç®¡ç†å™¨è¯»å–æ˜¾ç¤ºå™¨æ˜¾ç¤ºæ¨¡å¼
 	if (FAILED(d3dManager->GetAdapterDisplayMode(D3DADAPTER_DEFAULT, &displayMode)))
 		return false;
 	d3dCfg.BackBufferFormat = displayMode.Format;
 
-	//ÓÃd3d¹ÜÀíÆ÷¸ù¾Ýd3dÅäÖÃ´´½¨Ò»¸öd3dÉè±¸
+	//ç”¨d3dç®¡ç†å™¨æ ¹æ®d3dé…ç½®åˆ›å»ºä¸€ä¸ªd3dè®¾å¤‡
 	if (FAILED(d3dManager->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL,
 										hwnd, D3DCREATE_SOFTWARE_VERTEXPROCESSING,
 										&d3dCfg, &d3dDevice)))
@@ -106,22 +106,22 @@ bool initializeD3D(HWND hwnd) {
 void renderScene() {
 	d3dDevice->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_ARGB(1, 0, 0, 0), 1.0f, 0);
 
-	//äÖÈ¾¹ý³Ì
-	d3dDevice->BeginScene();//±ØÐëÓëEndScene()³É¶Ô³öÏÖ£¬Ö¸Ê¾GPU¶ÁÈ¡ÒªäÖÈ¾µÄÊý¾Ý
+	//æ¸²æŸ“è¿‡ç¨‹
+	d3dDevice->BeginScene();//å¿…é¡»ä¸ŽEndScene()æˆå¯¹å‡ºçŽ°ï¼ŒæŒ‡ç¤ºGPUè¯»å–è¦æ¸²æŸ“çš„æ•°æ®
 	/*
-	  ... äÖÈ¾Êý¾Ý ...
+	  ... æ¸²æŸ“æ•°æ® ...
 	  Draw(Box0);
 	  Draw(Box1);
 	  Draw(Box2);
 	  Draw(Box3);
 	*/
-	d3dDevice->EndScene();//ÓëBeginScene()³É¶Ô³öÏÖ£¬Ö¸Ê¾GPUÍ£Ö¹¶ÁÈ¡äÖÈ¾Êý¾Ý£¬²¢¿ªÊ¼¶ÔÒÑ¶ÁÈ¡µÄÊý¾Ý½øÐÐ¼ÆËãäÖÈ¾
+	d3dDevice->EndScene();//ä¸ŽBeginScene()æˆå¯¹å‡ºçŽ°ï¼ŒæŒ‡ç¤ºGPUåœæ­¢è¯»å–æ¸²æŸ“æ•°æ®ï¼Œå¹¶å¼€å§‹å¯¹å·²è¯»å–çš„æ•°æ®è¿›è¡Œè®¡ç®—æ¸²æŸ“
 	/*
-	  ... CPU´¦ÀíÊÂÏî ...
+	  ... CPUå¤„ç†äº‹é¡¹ ...
 	  AI
-	  Âß¼­
+	  é€»è¾‘
 	*/
-	d3dDevice->Present(NULL, NULL, NULL, NULL);//Ö¸Ê¾CPU´ÓGPU¶ÁÈ¡äÖÈ¾½á¹û£¬²¢³ÊÏÖ  (´Ë²Ù×÷»áµÈ´ýGPU¼ÆËãäÖÈ¾Íê³É²Å»á·µ»Ø£¬¹Ê²»ÒË¾àÀëEndScene()¹ý½ü£¬Ê¹CPU³¤ÆÚ´¦ÓÚ×èÈû×´Ì¬£¬ÒÔÖÂÊ§È¥CPUÓëGPU²¢·¢Ä¿µÄ£¬ÀË·ÑÐÔÄÜ)
+	d3dDevice->Present(NULL, NULL, NULL, NULL);//æŒ‡ç¤ºCPUä»ŽGPUè¯»å–æ¸²æŸ“ç»“æžœï¼Œå¹¶å‘ˆçŽ°  (æ­¤æ“ä½œä¼šç­‰å¾…GPUè®¡ç®—æ¸²æŸ“å®Œæˆæ‰ä¼šè¿”å›žï¼Œæ•…ä¸å®œè·ç¦»EndScene()è¿‡è¿‘ï¼Œä½¿CPUé•¿æœŸå¤„äºŽé˜»å¡žçŠ¶æ€ï¼Œä»¥è‡´å¤±åŽ»CPUä¸ŽGPUå¹¶å‘ç›®çš„ï¼Œæµªè´¹æ€§èƒ½)
 }
 
 void shutDown() {
