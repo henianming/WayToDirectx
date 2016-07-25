@@ -1,4 +1,4 @@
-#include "lesson.h"
+﻿#include "lesson.h"
 #ifdef DRAGON_LESSON_EXTRA
 
 #include <windows.h>
@@ -16,6 +16,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hInstancePrev, LPSTR lpCmdLi
 		::MessageBox(0, L"Init - Failed", L"Error", MB_OK);
 		return 0;
 	}
+
 
 	return Run();
 }
@@ -39,7 +40,10 @@ bool InitWindowsApp(HINSTANCE hInstance, int show) {
 		return false;
 	}
 
-	MainWindowHandle = ::CreateWindow()
+	MainWindowHandle = ::CreateWindow(L"Hello", L"Hello",
+									  WS_OVERLAPPEDWINDOW,
+									  CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
+									  0, 0, hInstance, 0);
 }
 
 #endif // DRAGON_LESSON_EXTRA
