@@ -2,6 +2,8 @@
 #ifdef DRAGON_LESSON_EXTRA
 
 #include <windows.h>
+#include <iostream>
+using namespace std;
 
 HWND MainWindowHandle = 0;
 
@@ -13,6 +15,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 	case WM_KEYDOWN:
 		if (wParam == VK_ESCAPE) {
 			::DestroyWindow(MainWindowHandle);
+		}
+		if (wParam == 'A') {
+			::MessageBox(0, L"Hello, World", L"Hello", MB_OK);
+		}
+		return 0;
+	case WM_CHAR:
+		if (wParam == 'a') {
+			::MessageBox(0, L"CHAR", L"Hello", MB_OK);
 		}
 		return 0;
 	case WM_DESTROY:
