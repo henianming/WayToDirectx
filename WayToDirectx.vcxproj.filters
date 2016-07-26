@@ -56,5 +56,8 @@
     <ClCompile Include="csdn_lesson003.cpp">
       <Filter>源文件\CSDN</Filter>
     </ClCompile>
+    <ClCompile Include="dragon_lesson_extra_1.cpp">
+      <Filter>源文件\DRAGON</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

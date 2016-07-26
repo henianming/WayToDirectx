@@ -129,6 +129,7 @@
     <ClCompile Include="dragon_lesson001_004.cpp" />
     <ClCompile Include="dragon_lesson001_005.cpp" />
     <ClCompile Include="dragon_lesson_extra.cpp" />
+    <ClCompile Include="dragon_lesson_extra_1.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
