@@ -45,7 +45,7 @@ nCmdShow:指定应用程序窗口的显示形式
 		 SW_SHOWMAXIMIZED:以最大化运行
 ------------------------------------------------------------------------------*/
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hInstancePrev, LPSTR lpCmdLine, int nCmdShow) {
-	//定义一个窗口类
+	//定义一个窗口类，以下必须全部指定明确的值
 	WNDCLASS wc;
 	wc.cbClsExtra = 0;
 	wc.cbWndExtra = 0;
