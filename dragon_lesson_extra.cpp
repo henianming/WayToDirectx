@@ -77,14 +77,26 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hInstancePrev, LPSTR lpCmdLi
 	int ret;
 	MSG msg;
 	//从系统捕获消息，只要不是捕获的QUIT信号，均返回非0值
-	while ((ret = GetMessage(&msg, 0, 0, 0)) != 0) {
-		if (ret == -1) { //返回-1，表示消息出错了
-			MessageBox(0, L"Message Error!", L"Error", MB_OK);
-		} else { //正常
-			//翻译虚拟按键消息为字符按键
-			TranslateMessage(&msg);
-			//把捕获的消息发送到对应的窗口过程
-			DispatchMessage(&msg);
+	if (false) {
+		while ((ret = GetMessage(&msg, 0, 0, 0)) != 0) {
+			if (ret == -1) { //返回-1，表示消息出错了
+				MessageBox(0, L"Message Error!", L"Error", MB_OK);
+			} else { //正常
+				//翻译虚拟按键消息为字符按键
+				TranslateMessage(&msg);
+				//把捕获的消息发送到对应的窗口过程
+				DispatchMessage(&msg);
+			}
+		}
+	} else {
+		while (true) {
+			if (PeekMessage(&msg, 0, 0, 0, PM_REMOVE)) {
+				TranslateMessage(&msg);
+				DispatchMessage(&msg);
+				if (msg.message == WM_QUIT) {
+					return 0;
+				}
+			}
 		}
 	}
 
