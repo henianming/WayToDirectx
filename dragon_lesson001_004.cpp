@@ -67,17 +67,19 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hInstancePrev, LPSTR lpCmdLi
 	//2.校验硬件性能(以硬件顶点运算为例)
 	D3DCAPS9 d3dCaps9;
 	iDirect3d9->GetDeviceCaps(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, &d3dCaps9);
-	int vp = 0;
+	DWORD BehaviorFlags = 0;
 	if (d3dCaps9.DevCaps & D3DDEVCAPS_HWTRANSFORMANDLIGHT) {
-		vp = D3DCREATE_HARDWARE_VERTEXPROCESSING;
+		BehaviorFlags = D3DCREATE_HARDWARE_VERTEXPROCESSING;
 	} else {
-		vp = D3DCREATE_SOFTWARE_VERTEXPROCESSING;
+		BehaviorFlags = D3DCREATE_SOFTWARE_VERTEXPROCESSING;
 	}
 
 	//3.填充D3DPRESENT_PARAMETERS结构
+	RECT rect;
+	GetWindowRect(hWnd, &rect);
 	D3DPRESENT_PARAMETERS d3dPresent_Parameters;
-	d3dPresent_Parameters.BackBufferWidth = 800;
-	d3dPresent_Parameters.BackBufferHeight = 600;
+	d3dPresent_Parameters.BackBufferWidth = rect.right - rect.left;
+	d3dPresent_Parameters.BackBufferHeight = rect.bottom - rect.top;
 	d3dPresent_Parameters.BackBufferFormat = D3DFMT_A8R8G8B8;
 	d3dPresent_Parameters.BackBufferCount = 1;
 	d3dPresent_Parameters.MultiSampleType = D3DMULTISAMPLE_2_SAMPLES;
@@ -87,13 +89,13 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hInstancePrev, LPSTR lpCmdLi
 	d3dPresent_Parameters.Windowed = TRUE;
 	d3dPresent_Parameters.EnableAutoDepthStencil = TRUE;
 	d3dPresent_Parameters.AutoDepthStencilFormat = D3DFMT_D24S8;
-	d3dPresent_Parameters.Flags = 0; //
+	d3dPresent_Parameters.Flags = 0;
 	d3dPresent_Parameters.FullScreen_RefreshRateInHz = D3DPRESENT_RATE_DEFAULT;
 	d3dPresent_Parameters.PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE;
 
 	//4.创建IDirect3DDevice9接口
 	IDirect3DDevice9 *iDirect3DDevice9;
-	HRESULT hResult = iDirect3d9->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd, D3DCREATE_HARDWARE_VERTEXPROCESSING, &d3dPresent_Parameters, &iDirect3DDevice9);
+	HRESULT hResult = iDirect3d9->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd, BehaviorFlags, &d3dPresent_Parameters, &iDirect3DDevice9);
 	if (FAILED(hResult)) {
 		//失败
 	} else {
