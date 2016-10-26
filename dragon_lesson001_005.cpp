@@ -1,82 +1,109 @@
-﻿#include "lesson.h"
+#include "lesson.h"
 #ifdef DRAGON_LESSON001_005
 
-#include "d3d9.h"
+#include <d3d9.h>
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 	switch (msg) {
 	case WM_KEYUP:
 		switch (wParam) {
-		case VK_RETURN:
-			MessageBox(0, L"Enter", L"Msg", MB_OK);
-			break;
 		case VK_ESCAPE:
 			DestroyWindow(hWnd);
-			break;
+			return 0;
 		}
-		break;
+		return 0;
 	case WM_DESTROY:
 		PostQuitMessage(0);
-		break;
+		return 0;
 	}
 
 	return DefWindowProc(hWnd, msg, wParam, lParam);
 }
 
-void InitWNDCLASS(WNDCLASS &wc, HINSTANCE hInstance) {
-	wc.cbClsExtra = 0;
-	wc.cbWndExtra = 0;
-	wc.hbrBackground = static_cast<HBRUSH>(GetStockObject(BLACK_BRUSH));
-	wc.hCursor = LoadCursor(0, IDC_ARROW);
-	wc.hIcon = LoadIcon(0, IDI_APPLICATION);
-	wc.hInstance = hInstance;
-	wc.lpfnWndProc = WndProc;
-	wc.lpszClassName = L"Direct Main Window Class";
-	wc.lpszMenuName = 0;
-	wc.style = CS_HREDRAW | CS_VREDRAW;
+void InitWNDCLASS(WNDCLASS *wc, HINSTANCE hInstance) {
+	wc->cbClsExtra = 0;
+	wc->cbWndExtra = 0;
+	wc->hbrBackground = static_cast<HBRUSH>(GetStockObject(WHITE_BRUSH));
+	wc->hCursor = LoadCursor(0, IDC_ARROW);
+	wc->hIcon = LoadIcon(0, IDI_APPLICATION);
+	wc->hInstance = hInstance;
+	wc->lpfnWndProc = WndProc;
+	wc->lpszClassName = L"DX WND CLASS";
+	wc->lpszMenuName = 0;
+	wc->style = CS_HREDRAW | CS_VREDRAW;
 }
 
-void MsgLoop() {
+bool DisplayFunc(IDirect3DDevice9 *dev, float timeInterval) {
+	if (dev) {
+		dev->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER,
+				   0x00000000, 1.0f, 0);
+		dev->Present(0, 0, 0, 0);
+	}
+	return true;
+}
+
+WPARAM MsgLoop(IDirect3DDevice9* dev, bool (*displayFunc)(IDirect3DDevice9*, float)) {
 	MSG msg = {};
+
+	float prevTime = (float)timeGetTime();
+	float curTime;
+
 	while (msg.message != WM_QUIT) {
 		if (PeekMessage(&msg, 0, 0, 0, PM_REMOVE)) {
 			DispatchMessage(&msg);
+		} else {
+			curTime = (float)timeGetTime();
+			displayFunc(dev, curTime - prevTime);
+			prevTime = curTime;
 		}
 	}
+	return msg.wParam;
 }
 
-void InitD3DPRESENT_PARAMETERS(D3DPRESENT_PARAMETERS &d3dPresent_Parameters, HWND hWnd, LONG width, LONG height, BOOL Windowed) {
-	d3dPresent_Parameters.AutoDepthStencilFormat = D3DFMT_D24S8;
-	d3dPresent_Parameters.BackBufferCount = 2;
-	d3dPresent_Parameters.BackBufferFormat = D3DFMT_A8R8G8B8;
-	d3dPresent_Parameters.BackBufferHeight = height;
-	d3dPresent_Parameters.BackBufferWidth = width;
-	d3dPresent_Parameters.EnableAutoDepthStencil = TRUE;
-	d3dPresent_Parameters.Flags = 0;
-	d3dPresent_Parameters.FullScreen_RefreshRateInHz = D3DPRESENT_RATE_DEFAULT;
-	d3dPresent_Parameters.hDeviceWindow = hWnd;
-	d3dPresent_Parameters.MultiSampleQuality = 0;
-	d3dPresent_Parameters.MultiSampleType = D3DMULTISAMPLE_2_SAMPLES;
-	d3dPresent_Parameters.PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE;
-	d3dPresent_Parameters.SwapEffect = D3DSWAPEFFECT_DISCARD;
-	d3dPresent_Parameters.Windowed = Windowed;
+void InitD3DParam(D3DPRESENT_PARAMETERS *d3dPresentParam, HWND hWnd, UINT d3dWidth, UINT d3dHeight, BOOL Windowed) {
+	d3dPresentParam->AutoDepthStencilFormat = D3DFMT_D24S8;
+	d3dPresentParam->BackBufferCount = 2;
+	d3dPresentParam->BackBufferFormat = D3DFMT_A8R8G8B8;
+	d3dPresentParam->BackBufferHeight = d3dHeight;
+	d3dPresentParam->BackBufferWidth = d3dWidth;
+	d3dPresentParam->EnableAutoDepthStencil = TRUE;
+	d3dPresentParam->Flags = 0;
+	d3dPresentParam->FullScreen_RefreshRateInHz = D3DPRESENT_RATE_DEFAULT;
+	d3dPresentParam->hDeviceWindow = hWnd;
+	d3dPresentParam->MultiSampleQuality = 0;
+	d3dPresentParam->MultiSampleType = D3DMULTISAMPLE_2_SAMPLES;
+	d3dPresentParam->PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE;
+	d3dPresentParam->SwapEffect = D3DSWAPEFFECT_DISCARD;
+	d3dPresentParam->Windowed = Windowed;
 }
 
-int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hInstancePrev, LPSTR cmdLine, int showWindowCommand) {
+bool Start() {
+	return true;
+}
+
+void End() {
+
+}
+
+
+
+int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hInstancePrev, LPSTR lpCmdLine, int nCmdShow) {
 	WNDCLASS wc;
 
-	InitWNDCLASS(wc, hInstance);
+	InitWNDCLASS(&wc, hInstance);
 
 	if (!RegisterClass(&wc)) {
 		MessageBox(0, L"RegisterClass Failed!", L"Error", MB_OK);
+		return 0;
 	}
 
-	HWND hWnd = CreateWindow(L"Direct Main Window Class", L"Direct Main Window",
+	HWND hWnd = CreateWindow(L"DX WND CLASS", L"Main Window",
 							 WS_OVERLAPPEDWINDOW,
 							 CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
 							 0, 0, hInstance, 0);
 
-//------------------------------------------------------------------------------
+	//------------------------------------------------------------------------------
+
 	IDirect3D9 *iDirect3D9;
 	iDirect3D9 = Direct3DCreate9(D3D_SDK_VERSION);
 
@@ -91,17 +118,33 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hInstancePrev, LPSTR cmdLine
 
 	RECT rect;
 	GetWindowRect(hWnd, &rect);
-	D3DPRESENT_PARAMETERS d3dPresent_Parameters;
-	InitD3DPRESENT_PARAMETERS(d3dPresent_Parameters, hWnd, rect.right - rect.left, rect.bottom - rect.top, TRUE);
+	D3DPRESENT_PARAMETERS d3dParam;
+	InitD3DParam(&d3dParam, hWnd, rect.right - rect.left, rect.bottom - rect.top, TRUE);
 
-	IDirect3DDevice9 *iDirect3DDevice9;
-	HRESULT hResult = iDirect3D9->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd, behavoirFlag, &d3dPresent_Parameters, &iDirect3DDevice9);
-//------------------------------------------------------------------------------
+	IDirect3DDevice9 *iDirect3dDevice9;
+	HRESULT hResult = iDirect3D9->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL,
+											   hWnd, behavoirFlag, &d3dParam, &iDirect3dDevice9);
+	if (FAILED(hResult)) {
+		MessageBox(0, L"CreateDevice Failed!", L"Error", MB_OK);
+		return 0;
+	}
 
-	ShowWindow(hWnd, showWindowCommand);
+	//------------------------------------------------------------------------------
 
-	MsgLoop();
+	ShowWindow(hWnd, nCmdShow);
+
+	if (!Start()) {
+		MessageBox(0, L"Start Failed!", L"Error", MB_OK);
+		return 0;
+	}
+
+	MsgLoop(iDirect3dDevice9, DisplayFunc);
+
+	End();
+
+	iDirect3dDevice9->Release();
+
 	return 0;
 }
 
-#endif // DRAGON_LESSON001_005
+#endif //DRAGON_LESSON001_005_1

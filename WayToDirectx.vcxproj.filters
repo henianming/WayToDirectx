@@ -41,9 +41,6 @@
     <ClCompile Include="dragon_lesson001_004.cpp">
       <Filter>源文件\DRAGON</Filter>
     </ClCompile>
-    <ClCompile Include="dragon_lesson001_005.cpp">
-      <Filter>源文件\DRAGON</Filter>
-    </ClCompile>
     <ClCompile Include="csdn_lesson001.cpp">
       <Filter>源文件\CSDN</Filter>
     </ClCompile>
@@ -55,6 +52,12 @@
     </ClCompile>
     <ClCompile Include="csdn_lesson003.cpp">
       <Filter>源文件\CSDN</Filter>
+    </ClCompile>
+    <ClCompile Include="dragon_lesson001_005.cpp">
+      <Filter>源文件\DRAGON</Filter>
+    </ClCompile>
+    <ClCompile Include="dragon_lesson003_000.cpp">
+      <Filter>源文件\DRAGON</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
