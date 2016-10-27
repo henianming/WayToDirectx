@@ -137,6 +137,7 @@
     <ClCompile Include="dragon_lesson001_003.cpp" />
     <ClCompile Include="dragon_lesson001_004.cpp" />
     <ClCompile Include="dragon_lesson001_005.cpp" />
+    <ClCompile Include="dragon_lesson004_000.cpp" />
     <ClCompile Include="dragon_lesson_extra.cpp" />
     <ClCompile Include="dragon_lesson003_000.cpp" />
   </ItemGroup>

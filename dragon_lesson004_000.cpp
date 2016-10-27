@@ -1,10 +1,12 @@
 #include "lesson.h"
-#ifdef DRAGON_LESSON003_000
+#ifdef DRAGON_LESSON004_000
 
 #include <d3d9.h>
 #include <d3dx9math.h>
 #include <sstream>
 #include <iostream>
+
+IDirect3DDevice9 *device = 0;
 
 IDirect3DVertexBuffer9 *vb = 0;
 IDirect3DIndexBuffer9 *ib = 0;
@@ -24,12 +26,13 @@ public:
 
 	}
 
-	MyVertex(float x, float y, float z)
-		: m_x(x), m_y(y), m_z(z) {
+	MyVertex(float x, float y, float z, D3DCOLOR color)
+		: m_x(x), m_y(y), m_z(z), m_color(color) {
 	}
 
 	float m_x, m_y, m_z;
-	static DWORD const FVF = D3DFVF_XYZ;
+	D3DCOLOR m_color;
+	static DWORD const FVF = D3DFVF_XYZ | D3DFVF_DIFFUSE;
 };
 
 bool Setup(IDirect3DDevice9 *device) {
@@ -54,14 +57,14 @@ bool Setup(IDirect3DDevice9 *device) {
 	MyVertex *vertex;
 	vb->Lock(0, 0, (void**)&vertex, 0);
 
-	vertex[0] = MyVertex(-1.0F, -1.0F, -1.0F);
-	vertex[1] = MyVertex(-1.0F,  1.0F, -1.0F);
-	vertex[2] = MyVertex( 1.0F,  1.0F, -1.0F);
-	vertex[3] = MyVertex( 1.0F, -1.0F, -1.0F);
-	vertex[4] = MyVertex(-1.0F, -1.0F,  1.0F);
-	vertex[5] = MyVertex(-1.0F,  1.0F,  1.0F);
-	vertex[6] = MyVertex( 1.0F,  1.0F,  1.0F);
-	vertex[7] = MyVertex( 1.0F, -1.0F,  1.0F);
+	vertex[0] = MyVertex(-1.0F, -1.0F, -1.0F, D3DCOLOR_XRGB(  0,   0,   0));
+	vertex[1] = MyVertex(-1.0F,  1.0F, -1.0F, D3DCOLOR_XRGB(  0, 255,   0));
+	vertex[2] = MyVertex( 1.0F,  1.0F, -1.0F, D3DCOLOR_XRGB(255, 255,   0));
+	vertex[3] = MyVertex( 1.0F, -1.0F, -1.0F, D3DCOLOR_XRGB(255,   0,   0));
+	vertex[4] = MyVertex(-1.0F, -1.0F,  1.0F, D3DCOLOR_XRGB(  0,   0, 255));
+	vertex[5] = MyVertex(-1.0F,  1.0F,  1.0F, D3DCOLOR_XRGB(  0, 255, 255));
+	vertex[6] = MyVertex( 1.0F,  1.0F,  1.0F, D3DCOLOR_XRGB(255, 255, 255));
+	vertex[7] = MyVertex( 1.0F, -1.0F,  1.0F, D3DCOLOR_XRGB(255,   0, 255));
 
 	vb->Unlock();
 
@@ -86,8 +89,6 @@ bool Setup(IDirect3DDevice9 *device) {
 		idx[i] = idxs[i];
 	}
 
-	idx[0] = 0;
-
 	ib->Unlock();
 
 	D3DXVECTOR3 position(0.0F, 0.0F, -5.0F);
@@ -109,11 +110,17 @@ bool Setup(IDirect3DDevice9 *device) {
 	);
 	device->SetTransform(D3DTS_PROJECTION, &proj);
 
-	device->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
+	device->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
 	device->SetRenderState(D3DRS_MULTISAMPLEANTIALIAS, true);
 	device->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+	device->SetRenderState(D3DRS_SHADEMODE, D3DSHADE_GOURAUD);
+	device->SetRenderState(D3DRS_LIGHTING, false);
 
 	return true;
+}
+
+void SetDefRenderState(IDirect3DDevice9 *dev) {
+
 }
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
@@ -135,6 +142,55 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 		case VK_ESCAPE:
 			DestroyWindow(hWnd);
 			return 0;
+		case 'Z':
+		{
+			DWORD out;
+			device->GetRenderState(D3DRS_FILLMODE, &out);
+			out++;
+			if (out == 4) {
+				out = 1;
+			}
+			device->SetRenderState(D3DRS_FILLMODE, out);
+		}
+			return 0;
+		case 'X':
+		{
+			DWORD out;
+			device->GetRenderState(D3DRS_MULTISAMPLEANTIALIAS, &out);
+			out = !(bool)out;
+			device->SetRenderState(D3DRS_MULTISAMPLEANTIALIAS, out);
+		}
+			return 0;
+		case 'C':
+		{
+			DWORD out;
+			device->GetRenderState(D3DRS_CULLMODE, &out);
+			out++;
+			if (out == 4) {
+				out = 1;
+			}
+			device->SetRenderState(D3DRS_CULLMODE, out);
+		}
+			return 0;
+		case 'V':
+		{
+			DWORD out;
+			device->GetRenderState(D3DRS_SHADEMODE, &out);
+			out++;
+			if (out == 4) {
+				out = 1;
+			}
+			device->SetRenderState(D3DRS_SHADEMODE, out);
+		}
+		return 0;
+		case 'B':
+		{
+			DWORD out;
+			device->GetRenderState(D3DRS_LIGHTING, &out);
+			out = !(bool)out;
+			device->SetRenderState(D3DRS_LIGHTING, out);
+		}
+		return 0;
 		}
 		return 0;
 	case WM_LBUTTONDOWN:
@@ -197,12 +253,14 @@ bool DisplayFunc(HWND hwnd, IDirect3DDevice9 *dev, float timeInterval) {
 		dev->SetTransform(D3DTS_WORLD, &p);
 
 		dev->Clear(0, 0, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER,
-				   0xFFFFFFFF, 1.0F, 0);
+				   0xFF000000, 1.0F, 0);
 		dev->BeginScene();
+
+		dev->SetFVF(MyVertex::FVF);
 
 		dev->SetStreamSource(0, vb, 0, sizeof(MyVertex));
 		dev->SetIndices(ib);
-		dev->SetFVF(MyVertex::FVF);
+		
 
 		dev->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, 8, 0, 12);
 
@@ -304,9 +362,8 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hInstancePrev, LPSTR lpCmdLi
 	D3DPRESENT_PARAMETERS d3dParam;
 	InitD3DParam(&d3dParam, hWnd, rect.right - rect.left, rect.bottom - rect.top, TRUE);
 
-	IDirect3DDevice9 *iDirect3dDevice9;
 	HRESULT hResult = iDirect3D9->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL,
-											   hWnd, behavoirFlag, &d3dParam, &iDirect3dDevice9);
+											   hWnd, behavoirFlag, &d3dParam, &device);
 	if (FAILED(hResult)) {
 		MessageBox(0, L"CreateDevice Failed!", L"Error", MB_OK);
 		return 0;
@@ -320,16 +377,16 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hInstancePrev, LPSTR lpCmdLi
 		MessageBox(0, L"Start Failed!", L"Error", MB_OK);
 		return 0;
 	}
-	Setup(iDirect3dDevice9);
+	Setup(device);
 
-	MsgLoop(hWnd, iDirect3dDevice9, DisplayFunc);
+	MsgLoop(hWnd, device, DisplayFunc);
 
 	End();
 
 	Clearup();
-	iDirect3dDevice9->Release();
+	device->Release();
 
 	return 0;
 }
 
-#endif //DRAGON_LESSON003_000
+#endif //DRAGON_LESSON004_000
