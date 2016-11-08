@@ -129,6 +129,7 @@
     <ClInclude Include="lesson.h" />
     <ClInclude Include="MyDirectX\directx_window.h" />
     <ClInclude Include="MyDirectX\graphic3.h" />
+    <ClInclude Include="MyDirectX\graphic4.h" />
     <ClInclude Include="MyDirectX\i_graphic_object.h" />
   </ItemGroup>
   <ItemGroup>
@@ -148,6 +149,7 @@
     <ClCompile Include="dragon_lesson003_000.cpp" />
     <ClCompile Include="MyDirectX\directx_window.cpp" />
     <ClCompile Include="MyDirectX\graphic3.cpp" />
+    <ClCompile Include="MyDirectX\graphic4.cpp" />
     <ClCompile Include="MyDirectX\main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -5,6 +5,7 @@
 #include <map>
 #include "i_graphic_object.h"
 #include "graphic3.h"
+#include "graphic4.h"
 
 class DirectXWindow {
 	typedef std::map<HWND, DirectXWindow*> ObjMap;

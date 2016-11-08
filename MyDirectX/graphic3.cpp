@@ -86,7 +86,7 @@ BOOL Graphic3::Show() {
 
 	m_indexBuffer->Unlock();
 
-	m_cameraPos = D3DXVECTOR3(0.0f, 0.0f, -5.0f);
+	m_cameraPos = D3DXVECTOR3(1.5f, 1.5f, -5.0f);
 	m_targetPos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	m_up = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
 

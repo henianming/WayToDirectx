@@ -32,6 +32,9 @@
     <ClInclude Include="MyDirectX\i_graphic_object.h">
       <Filter>源文件\MyDirectX</Filter>
     </ClInclude>
+    <ClInclude Include="MyDirectX\graphic4.h">
+      <Filter>源文件\MyDirectX</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dragon_lesson_extra.cpp">
@@ -83,6 +86,9 @@
       <Filter>源文件\MyDirectX</Filter>
     </ClCompile>
     <ClCompile Include="MyDirectX\main.cpp">
+      <Filter>源文件\MyDirectX</Filter>
+    </ClCompile>
+    <ClCompile Include="MyDirectX\graphic4.cpp">
       <Filter>源文件\MyDirectX</Filter>
     </ClCompile>
   </ItemGroup>
