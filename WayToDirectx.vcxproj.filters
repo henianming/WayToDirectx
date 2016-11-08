@@ -9,20 +9,28 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
-    <Filter Include="资源文件">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
     <Filter Include="源文件\CSDN">
       <UniqueIdentifier>{4b47b587-5e91-4acd-aee7-c60af9d09557}</UniqueIdentifier>
     </Filter>
     <Filter Include="源文件\DRAGON">
       <UniqueIdentifier>{4d46cd34-de02-4c4d-959f-7bdeea1f7550}</UniqueIdentifier>
     </Filter>
+    <Filter Include="源文件\MyDirectX">
+      <UniqueIdentifier>{8a64dda7-bc39-4170-b6c2-ba63f76b7b9c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lesson.h">
       <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="MyDirectX\directx_window.h">
+      <Filter>源文件\MyDirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="MyDirectX\graphic3.h">
+      <Filter>源文件\MyDirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="MyDirectX\i_graphic_object.h">
+      <Filter>源文件\MyDirectX</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -61,6 +69,21 @@
     </ClCompile>
     <ClCompile Include="dragon_lesson004_000.cpp">
       <Filter>源文件\DRAGON</Filter>
+    </ClCompile>
+    <ClCompile Include="dragon_lesson006_000.cpp">
+      <Filter>源文件\DRAGON</Filter>
+    </ClCompile>
+    <ClCompile Include="dragon_lesson005_000（略失败）.cpp">
+      <Filter>源文件\DRAGON</Filter>
+    </ClCompile>
+    <ClCompile Include="MyDirectX\directx_window.cpp">
+      <Filter>源文件\MyDirectX</Filter>
+    </ClCompile>
+    <ClCompile Include="MyDirectX\graphic3.cpp">
+      <Filter>源文件\MyDirectX</Filter>
+    </ClCompile>
+    <ClCompile Include="MyDirectX\main.cpp">
+      <Filter>源文件\MyDirectX</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

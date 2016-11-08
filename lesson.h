@@ -1,1 +1,1 @@
-﻿#define DRAGON_LESSON004_000
+﻿#define MyDirectX

@@ -104,6 +104,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -126,6 +127,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="lesson.h" />
+    <ClInclude Include="MyDirectX\directx_window.h" />
+    <ClInclude Include="MyDirectX\graphic3.h" />
+    <ClInclude Include="MyDirectX\i_graphic_object.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="csdn_lesson001.cpp" />
@@ -138,8 +142,13 @@
     <ClCompile Include="dragon_lesson001_004.cpp" />
     <ClCompile Include="dragon_lesson001_005.cpp" />
     <ClCompile Include="dragon_lesson004_000.cpp" />
+    <ClCompile Include="dragon_lesson005_000（略失败）.cpp" />
+    <ClCompile Include="dragon_lesson006_000.cpp" />
     <ClCompile Include="dragon_lesson_extra.cpp" />
     <ClCompile Include="dragon_lesson003_000.cpp" />
+    <ClCompile Include="MyDirectX\directx_window.cpp" />
+    <ClCompile Include="MyDirectX\graphic3.cpp" />
+    <ClCompile Include="MyDirectX\main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
