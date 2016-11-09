@@ -79,7 +79,7 @@ BOOL DirectXWindow::CreateDirectX() {
 		return FALSE;
 	}
 
-	m_graphicObject = new Graphic3();
+	m_graphicObject = new Graphic4();
 	m_graphicObject->Load(m_hWnd, m_device);
 	m_graphicObject->Show();
 

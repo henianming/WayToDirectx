@@ -25,7 +25,7 @@ BOOL Graphic3::Show() {
 	HRESULT hResult;
 
 	hResult = m_device->CreateVertexBuffer(
-		8 * sizeof(MyVertex3),
+		3 * sizeof(MyVertex3),
 		D3DUSAGE_WRITEONLY,
 		MyVertex3::FVF,
 		D3DPOOL_MANAGED,
@@ -39,20 +39,14 @@ BOOL Graphic3::Show() {
 	MyVertex3 *myVertex;
 	m_vertexBuffer->Lock(0, 0, (void**)(&myVertex), 0);
 
-	myVertex[0] = MyVertex3(-1.0f, 1.0f, -1.0f, D3DCOLOR_XRGB(0, 255, 0));
-	myVertex[1] = MyVertex3(1.0f, 1.0f, -1.0f, D3DCOLOR_XRGB(255, 255, 0));
-	myVertex[2] = MyVertex3(1.0f, -1.0f, -1.0f, D3DCOLOR_XRGB(255, 0, 0));
-	myVertex[3] = MyVertex3(-1.0f, -1.0f, -1.0f, D3DCOLOR_XRGB(0, 0, 0));
-
-	myVertex[4] = MyVertex3(-1.0f, 1.0f, 1.0f, D3DCOLOR_XRGB(0, 255, 255));
-	myVertex[5] = MyVertex3(1.0f, 1.0f, 1.0f, D3DCOLOR_XRGB(255, 255, 255));
-	myVertex[6] = MyVertex3(1.0f, -1.0f, 1.0f, D3DCOLOR_XRGB(255, 0, 255));
-	myVertex[7] = MyVertex3(-1.0f, -1.0f, 1.0f, D3DCOLOR_XRGB(0, 0, 255));
+	myVertex[0] = MyVertex3(-1.0f, 0.0f, 0.0f, D3DCOLOR_XRGB(200, 0, 0));
+	myVertex[1] = MyVertex3(0.0f, 1.0f, 0.0f, D3DCOLOR_XRGB(125, 255, 0));
+	myVertex[2] = MyVertex3(1.0f, 0.0f, 0.0f, D3DCOLOR_XRGB(255, 0, 0));
 
 	m_vertexBuffer->Unlock();
 
 	hResult = m_device->CreateIndexBuffer(
-		36 * sizeof(DWORD),
+		3 * sizeof(DWORD),
 		D3DUSAGE_WRITEONLY,
 		D3DFMT_INDEX32,
 		D3DPOOL_MANAGED,
@@ -66,23 +60,9 @@ BOOL Graphic3::Show() {
 	DWORD *index;
 	m_indexBuffer->Lock(0, 0, (void**)(&index), 0);
 
-	DWORD temp[] = {
-		0, 1, 2,
-		0, 2, 3,
-		4, 5, 0,
-		5, 1, 0,
-		5, 4, 7,
-		5, 7, 6,
-		3, 2, 7,
-		2, 6, 7,
-		1, 5, 2,
-		2, 5, 6,
-		7, 0, 3,
-		7, 4, 0
-	};
-	for (int i = 1; i < 36; i++) {
-		index[i] = temp[i];
-	}
+	index[0] = 0;
+	index[1] = 1;
+	index[2] = 3;
 
 	m_indexBuffer->Unlock();
 
@@ -148,7 +128,7 @@ BOOL Graphic3::Update(void *data) {
 		m_device->SetFVF(MyVertex3::FVF);
 		m_device->SetStreamSource(0, m_vertexBuffer, 0, sizeof(MyVertex3));
 		m_device->SetIndices(m_indexBuffer);
-		m_device->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, 8, 0, 12);
+		m_device->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, 3, 0, 1);
 	}
 	m_device->EndScene();
 

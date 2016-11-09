@@ -13,6 +13,10 @@ public:
 };
 
 class Graphic4 : public IGraphicObject {
+private:
+	IDirect3DVertexBuffer9 *m_vertexBuffer;
+	IDirect3DIndexBuffer9 *m_indexBuffer;
+
 public:
 	Graphic4();
 	virtual ~Graphic4();
