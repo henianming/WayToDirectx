@@ -2,6 +2,7 @@
 #define GRAPHIC4
 
 #include "i_graphic_object.h"
+#include <d3dx9.h>
 
 class MyVertex4 {
 public:
@@ -16,6 +17,10 @@ class Graphic4 : public IGraphicObject {
 private:
 	IDirect3DVertexBuffer9 *m_vertexBuffer;
 	IDirect3DIndexBuffer9 *m_indexBuffer;
+
+	D3DXVECTOR3 m_eye;
+	D3DXVECTOR3 m_at;
+	D3DXVECTOR3 m_up;
 
 public:
 	Graphic4();

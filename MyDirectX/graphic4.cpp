@@ -38,11 +38,11 @@ BOOL Graphic4::Show() {
 	m_vertexBuffer->Lock(0, 0, (void**)(&vertex), 0);
 
 	vertex[0] = MyVertex4(0.0f, 1.0f, 0.0f, D3DCOLOR_XRGB(125, 255, 125));
-	vertex[1] = MyVertex4(0.0f, -1.0f, 0.0f, D3DCOLOR_XRGB(125, 0, 125));
-	vertex[2] = MyVertex4(1.0f, 0.0f, 0.0f, D3DCOLOR_XRGB(255, 125, 125));
+	vertex[1] = MyVertex4(1.0f, 0.0f, 0.0f, D3DCOLOR_XRGB(255, 125, 125));
+	vertex[2] = MyVertex4(0.0f, 0.0f, 1.0f, D3DCOLOR_XRGB(125, 125, 255));
 	vertex[3] = MyVertex4(-1.0f, 0.0f, 0.0f, D3DCOLOR_XRGB(0, 125, 125));
-	vertex[4] = MyVertex4(0.0f, 0.0f, 1.0f, D3DCOLOR_XRGB(125, 125, 255));
-	vertex[5] = MyVertex4(0.0f, 0.0f, -1.0f, D3DCOLOR_XRGB(125, 125, 0));
+	vertex[4] = MyVertex4(0.0f, 0.0f, -1.0f, D3DCOLOR_XRGB(125, 125, 0));
+	vertex[5] = MyVertex4(0.0f, -1.0f, 0.0f, D3DCOLOR_XRGB(125, 0, 125));
 
 	m_vertexBuffer->Unlock();
 
@@ -58,14 +58,14 @@ BOOL Graphic4::Show() {
 	m_indexBuffer->Lock(0, 0, (void**)(&index), 0);
 
 	DWORD idx[24] = {
-		0,2,5,
-		0,4,2,
-		0,3,4,
-		0,5,3,
-		3,5,1,
-		5,2,1,
-		2,4,1,
-		4,3,1
+		0,1,4,
+		0,4,3,
+		0,3,2,
+		0,2,1,
+		4,1,5,
+		1,2,5,
+		2,3,5,
+		3,4,5
 	};
 	for (int i = 0; i < 24; i++) {
 		index[i] = idx[i];
@@ -73,7 +73,29 @@ BOOL Graphic4::Show() {
 
 	m_indexBuffer->Unlock();
 
+	m_eye = D3DXVECTOR3(0.0f, 0.0f, -5.0f);
+	m_at = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	m_up = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
+	D3DXMATRIX v;
+	D3DXMatrixLookAtLH(&v, &m_eye, &m_at, &m_up);
+	m_device->SetTransform(D3DTS_VIEW, &v);
 
+	RECT rect;
+	GetWindowRect(m_hWnd, &rect);
+	int w = rect.right - rect.left;
+	int h = rect.bottom - rect.top;
+	D3DXMATRIX pf;
+	D3DXMatrixPerspectiveFovLH(
+		&pf,
+		D3DX_PI * 0.5f,
+		(float)w / (float)h,
+		1.0f,
+		1000.0f
+	);
+	m_device->SetTransform(D3DTS_PROJECTION, &pf);
+
+	m_device->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
+	m_device->SetRenderState(D3DRS_LIGHTING, false);
 
 	return TRUE;
 }
@@ -83,9 +105,64 @@ BOOL Graphic4::Hide() {
 }
 
 BOOL Graphic4::Update(void *data) {
+	m_device->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(0, 0, 0), 1.0f, 0);
+
+
+	m_device->BeginScene();
+	{
+		m_device->SetStreamSource(0, m_vertexBuffer, 0, sizeof(MyVertex4));
+		m_device->SetFVF(MyVertex4::FVF);
+		m_device->SetIndices(m_indexBuffer);
+		m_device->DrawIndexedPrimitive(
+			D3DPT_TRIANGLELIST,
+			0, 0, 6, 0, 8
+		);
+	}
+	m_device->EndScene();
+
+	m_device->Present(NULL, NULL, NULL, NULL);
+
 	return TRUE;
 }
 
 BOOL Graphic4::OnMessage(UINT msg, WPARAM wParam, LPARAM lParam) {
+	switch (msg) {
+	case WM_KEYDOWN:
+	{
+		switch (wParam) {
+		case 'W':
+		{
+		}break;
+		case 'S':
+		{
+		}break;
+		case 'A':
+		{
+		}break;
+		case 'D':
+		{
+		}break;
+		case 'Q':
+		{
+		}break;
+		case 'E':
+		{
+		}break;
+		}
+	}break;
+	case WM_KEYUP:
+	{
+		switch (wParam) {
+		case VK_ESCAPE:
+		{
+			DestroyWindow(m_hWnd);
+		}break;
+		}
+	}break;
+	case WM_DESTROY:
+	{
+		PostQuitMessage(0);
+	}break;
+	}
 	return FALSE;
 }
