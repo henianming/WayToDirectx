@@ -31,6 +31,27 @@ BOOL Graphic4::Show() {
 		D3DUSAGE_WRITEONLY,
 		MyVertex4::FVF,
 		D3DPOOL_MANAGED,
+		&m_lineBuffer,
+		0
+		);
+	MyVertex4 *line;
+	m_lineBuffer->Lock(0, 0, (void**)(&line), 0);
+
+	int const coordinateLen = 100.0f;
+	line[0] = MyVertex4(0.0f, 0.0f, 0.0f, D3DCOLOR_XRGB(255, 0, 0));
+	line[1] = MyVertex4(coordinateLen, 0.0f, 0.0f, D3DCOLOR_XRGB(255, 0, 0));
+	line[2] = MyVertex4(0.0f, 0.0f, 0.0f, D3DCOLOR_XRGB(0, 255, 0));
+	line[3] = MyVertex4(0.0f, coordinateLen, 0.0f, D3DCOLOR_XRGB(0, 255, 0));
+	line[4] = MyVertex4(0.0f, 0.0f, 0.0f, D3DCOLOR_XRGB(0, 0, 255));
+	line[5] = MyVertex4(0.0f, 0.0f, coordinateLen, D3DCOLOR_XRGB(0, 0, 255));
+
+	m_lineBuffer->Unlock();
+
+	m_device->CreateVertexBuffer(
+		6 * sizeof(MyVertex4),
+		D3DUSAGE_WRITEONLY,
+		MyVertex4::FVF,
+		D3DPOOL_MANAGED,
 		&m_vertexBuffer,
 		0
 		);
@@ -107,9 +128,15 @@ BOOL Graphic4::Hide() {
 BOOL Graphic4::Update(void *data) {
 	m_device->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(0, 0, 0), 1.0f, 0);
 
-
 	m_device->BeginScene();
 	{
+		m_device->SetStreamSource(0, m_lineBuffer, 0, sizeof(MyVertex4));
+		m_device->SetFVF(MyVertex4::FVF);
+		m_device->DrawPrimitive(
+			D3DPT_LINELIST,
+			0, 3
+			);
+
 		m_device->SetStreamSource(0, m_vertexBuffer, 0, sizeof(MyVertex4));
 		m_device->SetFVF(MyVertex4::FVF);
 		m_device->SetIndices(m_indexBuffer);

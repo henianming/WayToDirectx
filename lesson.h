@@ -1,1 +1,1 @@
-﻿#define MyDirectX
+﻿#define DirectXProject
