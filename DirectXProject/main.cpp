@@ -5,47 +5,25 @@
 #include "program.h"
 
 Program *g_program;
-BOOL g_isDataRunning = TRUE;
-
-HANDLE g_displayHandle;
-BOOL g_isDisplayRunning = TRUE;
 
 WPARAM MsgLoop() {
 	MSG msg = {};
-	while (g_isDisplayRunning && msg.message != WM_QUIT) {
+	while (msg.message != WM_QUIT) {
 		if (PeekMessage(&msg, 0, 0, 0, PM_REMOVE)) {
 			DispatchMessage(&msg);
 		} else {
-			g_program->DataUpdate();
+			g_program->Update();
 		}
 	}
-
-	g_isDataRunning = FALSE;
-
-	if (msg.message != WM_QUIT) {
-		return 0;
-	} else {
-		return msg.wParam;
-	}
-}
-
-DWORD APIENTRY DisplayLoop(LPVOID argv) {
-	while (g_isDataRunning && g_program->DisplayUpdate()) {
-
-	}
-
-	g_isDisplayRunning = FALSE;
-
-	return 0;
+	return msg.wParam;
 }
 
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hInstancePrev, LPSTR argv, int showType) {
 	g_program = new Program();
 
-	g_program->Create(hInstance);
+	g_program->Create(hInstance, showType);
 
 	WPARAM wParam = MsgLoop();
-	g_displayHandle = CreateThread(NULL, 0, DisplayLoop, NULL, 0, NULL);
 
 	g_program->Release();
 
