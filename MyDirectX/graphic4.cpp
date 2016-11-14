@@ -37,7 +37,7 @@ BOOL Graphic4::Show() {
 	MyVertex4 *line;
 	m_lineBuffer->Lock(0, 0, (void**)(&line), 0);
 
-	int const coordinateLen = 100.0f;
+	float const coordinateLen = 100.0f;
 	line[0] = MyVertex4(0.0f, 0.0f, 0.0f, D3DCOLOR_XRGB(255, 0, 0));
 	line[1] = MyVertex4(coordinateLen, 0.0f, 0.0f, D3DCOLOR_XRGB(255, 0, 0));
 	line[2] = MyVertex4(0.0f, 0.0f, 0.0f, D3DCOLOR_XRGB(0, 255, 0));
