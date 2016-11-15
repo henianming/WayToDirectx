@@ -1,10 +1,20 @@
 #include "../lesson.h"
 #ifdef DirectXProject
 
-#include <windows.h>
+#include <Windows.h>
 #include "program.h"
 
 Program *g_program;
+
+HRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
+	if (g_program) {
+		if (!(g_program->GetWndProcEventMgr()->FireEvent())) {
+			return DefWindowProc(hWnd, msg, wParam, lParam);
+		}
+	}
+
+	return DefWindowProc(hWnd, msg, wParam, lParam);
+}
 
 WPARAM MsgLoop() {
 	MSG msg = {};
