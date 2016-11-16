@@ -4,7 +4,7 @@
 #include <d3d9.h>
 #include "EventCenter/WndProcEventMgr.h"
 
-class Program {
+class Program : public WndProcEventReceiver {
 private:
 	//program system
 	LARGE_INTEGER m_frequency;
@@ -17,6 +17,10 @@ private:
 	//event system
 	WndProcEventMgr m_wndProcEventMgr;
 
+	//self data
+	double m_oldTimeStamp;
+	double m_fps;
+
 private:
 	void InitWndClass(HINSTANCE hInstance);
 	BOOL CreateWnd(HINSTANCE hInstance, int showType);
@@ -24,8 +28,14 @@ private:
 	void InitDirectPresentParameters();
 	BOOL CreateDirectX();
 	BOOL ReleaseDirectX();
+	void SubscribeEvent();
+	void UnsubscribeEvent();
+	void UpdataFps();
+	void TitleView();
 
 public:
+	virtual BOOL OnMessage(EventType eventType, WPARAM wParam, LPARAM lParam);
+
 	Program();
 
 	BOOL Create(HINSTANCE hInstance, int showType);

@@ -1,6 +1,8 @@
 #include "program.h"
 #include "Common/CommonCode.h"
 
+extern HRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+
 void Program::InitWndClass(HINSTANCE hInstance) {
 	m_wndClass.cbClsExtra = 0;
 	m_wndClass.cbWndExtra = 0;
@@ -22,7 +24,7 @@ BOOL Program::CreateWnd(HINSTANCE hInstance, int showType) {
 	m_hWnd = CreateWindow(
 		m_wndClass.lpszClassName, L"DirectX Program Window",
 		WS_OVERLAPPEDWINDOW,
-		CW_USEDEFAULT, CW_USEDEFAULT, 800, 450,
+		CW_USEDEFAULT, CW_USEDEFAULT, 1600, 900,
 		0, 0, m_wndClass.hInstance, 0
 		);
 	if (m_hWnd == 0) {
@@ -106,6 +108,43 @@ BOOL Program::ReleaseDirectX() {
 	return TRUE;
 }
 
+void Program::SubscribeEvent() {
+	m_wndProcEventMgr.Subscribe(this, EventType_KeyUp);
+}
+
+void Program::UnsubscribeEvent() {
+	m_wndProcEventMgr.Unsubscribe(this, EventType_KeyUp);
+}
+
+void Program::UpdataFps() {
+	double nowTimeStamp = GetCurTimeStamp();
+	m_fps = (double)1 / (nowTimeStamp - m_oldTimeStamp);
+	m_oldTimeStamp = nowTimeStamp;
+}
+
+void Program::TitleView() {
+	wchar_t wc[256];
+	swprintf(wc, 256, L"DirectX Program Window       fps->%d", (int)m_fps);
+	SetWindowText(m_hWnd, wc);
+}
+
+BOOL Program::OnMessage(EventType eventType, WPARAM wParam, LPARAM lParam) {
+	switch (eventType) {
+	case EventType_KeyUp:
+	{
+		switch (wParam) {
+		case VK_ESCAPE:
+		{
+			DestroyWindow(m_hWnd);
+			return TRUE;
+		}break;
+		}
+	}break;
+	}
+
+	return FALSE;
+}
+
 Program::Program() {
 	QueryPerformanceFrequency(&m_frequency);
 }
@@ -117,10 +156,14 @@ BOOL Program::Create(HINSTANCE hInstance, int showType) {
 
 	RETURN_IF_FAILED(CreateDirectX());
 
+	SubscribeEvent();
+
 	return TRUE;
 }
 
 BOOL Program::Release() {
+	UnsubscribeEvent();
+
 	RETURN_IF_FAILED(ReleaseDirectX());
 
 	RETURN_IF_FAILED(ReleaseWnd());
@@ -131,6 +174,10 @@ BOOL Program::Release() {
 }
 
 BOOL Program::Update() {
+	UpdataFps();
+	
+	//TitleView();
+	
 	return TRUE;
 }
 

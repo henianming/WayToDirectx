@@ -6,6 +6,8 @@ BOOL WndProcEventMgr::Create() {
 	for (i = 0; i < EventType_Max; i++) {
 		m_etv.push_back(new M_RL());
 	}
+
+	return TRUE;
 }
 
 BOOL WndProcEventMgr::Release() {
@@ -16,6 +18,8 @@ BOOL WndProcEventMgr::Release() {
 		it++;
 	}
 	m_etv.clear();
+
+	return TRUE;
 }
 
 void WndProcEventMgr::Subscribe(WndProcEventReceiver *receiver, EventType eventType) {
@@ -46,14 +50,15 @@ void WndProcEventMgr::Unsubscribe(WndProcEventReceiver *receiver, EventType even
 	}
 }
 
-BOOL WndProcEventMgr::FireEvent(EventType eventType, void const *param) {
+BOOL WndProcEventMgr::FireEvent(EventType eventType, WPARAM wParam, LPARAM lParam) {
 	BOOL isDealed = FALSE;
 
 	M_RL *rl = m_etv.at(eventType);
 	M_RL::iterator it = rl->begin();
 	while (it != rl->end()) {
-		(*it)->OnMessage(eventType, param);
-		isDealed = TRUE;
+		if ((*it)->OnMessage(eventType, wParam, lParam) == TRUE) {
+			isDealed = TRUE;
+		}
 		it++;
 	}
 
