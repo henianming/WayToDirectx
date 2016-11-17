@@ -3,8 +3,9 @@
 
 #include <d3d9.h>
 #include "EventCenter/WndProcEventMgr.h"
+#include "TimerCenter/Timer.h"
 
-class Program : public WndProcEventReceiver {
+class Program : public WndProcEventReceiver, public TimerMgrReceiver {
 private:
 	//program system
 	LARGE_INTEGER m_frequency;
@@ -16,6 +17,9 @@ private:
 
 	//event system
 	WndProcEventMgr m_wndProcEventMgr;
+
+	//timer system
+	TimerMgr m_timerMgr;
 
 	//self data
 	double m_oldTimeStamp;
@@ -30,11 +34,15 @@ private:
 	BOOL ReleaseDirectX();
 	void SubscribeEvent();
 	void UnsubscribeEvent();
+	void RegisteTimer();
+	void UnregisteTimer();
 	void UpdataFps();
 	void TitleView();
 
 public:
 	virtual BOOL OnMessage(EventType eventType, WPARAM wParam, LPARAM lParam);
+
+	virtual void OnTimer(int id);
 
 	Program();
 

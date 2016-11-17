@@ -1,8 +1,17 @@
 #ifndef TIMER_H
 #define TIMER_H
 
-#include <minwindef.h>
+#include <Windows.h>
 #include <map>
+
+struct TimerData {
+public:
+	double m_intervalTime;
+	double m_lastActiveTime;
+
+public:
+	TimerData(double intervalTime, double lastActiveTime);
+};
 
 class TimerMgrReceiver {
 public:
@@ -11,17 +20,23 @@ public:
 
 class TimerMgr {
 private:
-	typedef std::map<int, UINT> M_ID_INTERVAL;
+	typedef std::map<int, TimerData> M_ID_INTERVAL;
 	typedef std::map<TimerMgrReceiver*, M_ID_INTERVAL*> M_RECEIVER_ID;
 
 private:
 	M_RECEIVER_ID m_receiver_id;
+	LARGE_INTEGER m_frequency;
 
 public:
-	void Register(TimerMgrReceiver *receiver, int id, UINT intervalMilliSecond);
-	void Unregister(TimerMgrReceiver *receiver, int id);
+	TimerMgr();
+
+	void Registe(TimerMgrReceiver *receiver, int id, double intervalSecond);
+	void Unregiste(TimerMgrReceiver *receiver, int id);
 
 	void Update();
+
+private:
+	double GetCurTimeStamp();
 };
 
 #endif //TIMER_H

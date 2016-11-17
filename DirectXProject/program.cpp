@@ -116,6 +116,14 @@ void Program::UnsubscribeEvent() {
 	m_wndProcEventMgr.Unsubscribe(this, EventType_KeyUp);
 }
 
+void Program::RegisteTimer() {
+	m_timerMgr.Registe(this, 1, 0.1);
+}
+
+void Program::UnregisteTimer() {
+	m_timerMgr.Unregiste(this, 1);
+}
+
 void Program::UpdataFps() {
 	double nowTimeStamp = GetCurTimeStamp();
 	m_fps = (double)1 / (nowTimeStamp - m_oldTimeStamp);
@@ -145,6 +153,15 @@ BOOL Program::OnMessage(EventType eventType, WPARAM wParam, LPARAM lParam) {
 	return FALSE;
 }
 
+void Program::OnTimer(int id) {
+	switch (id) {
+	case 1:
+	{
+		TitleView();
+	}break;
+	}
+}
+
 Program::Program() {
 	QueryPerformanceFrequency(&m_frequency);
 }
@@ -158,10 +175,14 @@ BOOL Program::Create(HINSTANCE hInstance, int showType) {
 
 	SubscribeEvent();
 
+	RegisteTimer();
+
 	return TRUE;
 }
 
 BOOL Program::Release() {
+	UnregisteTimer();
+
 	UnsubscribeEvent();
 
 	RETURN_IF_FAILED(ReleaseDirectX());
@@ -176,7 +197,7 @@ BOOL Program::Release() {
 BOOL Program::Update() {
 	UpdataFps();
 	
-	//TitleView();
+	m_timerMgr.Update();
 	
 	return TRUE;
 }
