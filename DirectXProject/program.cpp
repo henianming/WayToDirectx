@@ -3,6 +3,66 @@
 
 extern HRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
+Program::Program() {
+	QueryPerformanceFrequency(&m_frequency);
+}
+
+BOOL Program::Create(HINSTANCE hInstance, int showType) {
+	RETURN_IF_FAILED(m_wndProcEventMgr.Create());
+
+	RETURN_IF_FAILED(CreateWnd(hInstance, showType));
+
+	RETURN_IF_FAILED(CreateDirectX());
+
+	SubscribeEvent();
+
+	RegisteTimer();
+
+	RETURN_IF_FAILED(m_viewObjectMgr.Create());
+
+	return TRUE;
+}
+
+BOOL Program::Release() {
+	RETURN_IF_FAILED(m_viewObjectMgr.Release());
+
+	UnregisteTimer();
+
+	UnsubscribeEvent();
+
+	RETURN_IF_FAILED(ReleaseDirectX());
+
+	RETURN_IF_FAILED(ReleaseWnd());
+
+	RETURN_IF_FAILED(m_wndProcEventMgr.Release());
+
+	return TRUE;
+}
+
+BOOL Program::Update() {
+	UpdataFps();
+	
+	m_timerMgr.Update();
+
+	m_viewObjectMgr.Update();
+	
+	return TRUE;
+}
+
+IDirect3DDevice9* Program::Get_m_device() {
+	return m_device;
+}
+
+WndProcEventMgr* Program::GetWndProcEventMgr() {
+	return &m_wndProcEventMgr;
+}
+
+double Program::GetCurTimeStamp() {
+	LARGE_INTEGER count;
+	QueryPerformanceCounter(&count);
+	return ((float)(count.QuadPart) / (float)(m_frequency.QuadPart));
+}
+
 void Program::InitWndClass(HINSTANCE hInstance) {
 	m_wndClass.cbClsExtra = 0;
 	m_wndClass.cbWndExtra = 0;
@@ -26,7 +86,7 @@ BOOL Program::CreateWnd(HINSTANCE hInstance, int showType) {
 		WS_OVERLAPPEDWINDOW,
 		CW_USEDEFAULT, CW_USEDEFAULT, 1600, 900,
 		0, 0, m_wndClass.hInstance, 0
-		);
+	);
 	if (m_hWnd == 0) {
 		return FALSE;
 	}
@@ -160,54 +220,4 @@ void Program::OnTimer(int id) {
 		TitleView();
 	}break;
 	}
-}
-
-Program::Program() {
-	QueryPerformanceFrequency(&m_frequency);
-}
-
-BOOL Program::Create(HINSTANCE hInstance, int showType) {
-	RETURN_IF_FAILED(m_wndProcEventMgr.Create());
-
-	RETURN_IF_FAILED(CreateWnd(hInstance, showType));
-
-	RETURN_IF_FAILED(CreateDirectX());
-
-	SubscribeEvent();
-
-	RegisteTimer();
-
-	return TRUE;
-}
-
-BOOL Program::Release() {
-	UnregisteTimer();
-
-	UnsubscribeEvent();
-
-	RETURN_IF_FAILED(ReleaseDirectX());
-
-	RETURN_IF_FAILED(ReleaseWnd());
-
-	RETURN_IF_FAILED(m_wndProcEventMgr.Release());
-
-	return TRUE;
-}
-
-BOOL Program::Update() {
-	UpdataFps();
-	
-	m_timerMgr.Update();
-	
-	return TRUE;
-}
-
-WndProcEventMgr* Program::GetWndProcEventMgr() {
-	return &m_wndProcEventMgr;
-}
-
-double Program::GetCurTimeStamp() {
-	LARGE_INTEGER count;
-	QueryPerformanceCounter(&count);
-	return ((float)(count.QuadPart) / (float)(m_frequency.QuadPart));
 }

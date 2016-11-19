@@ -69,7 +69,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;$(IncludePath)</IncludePath>
+    <IncludePath>F:\workspace\WayToDirectx\DirectXProject;$(IncludePath)</IncludePath>
     <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -125,6 +125,10 @@
     <ClCompile Include="DirectXProject\main.cpp" />
     <ClCompile Include="DirectXProject\program.cpp" />
     <ClCompile Include="DirectXProject\TimerCenter\Timer.cpp" />
+    <ClCompile Include="DirectXProject\ViewCenter\ViewObjectMgr.cpp" />
+    <ClCompile Include="DirectXProject\ViewCenter\ViewObject\CoordinateAxis.cpp" />
+    <ClCompile Include="DirectXProject\ViewCenter\ViewObject\InitialViewObject.cpp" />
+    <ClCompile Include="DirectXProject\ViewCenter\ViewObject\Prismatic.cpp" />
     <ClCompile Include="dragon_lesson000_000.cpp" />
     <ClCompile Include="dragon_lesson001_001.cpp" />
     <ClCompile Include="dragon_lesson001_003.cpp" />
@@ -145,6 +149,10 @@
     <ClInclude Include="DirectXProject\EventCenter\WndProcEventMgr.h" />
     <ClInclude Include="DirectXProject\program.h" />
     <ClInclude Include="DirectXProject\TimerCenter\Timer.h" />
+    <ClInclude Include="DirectXProject\ViewCenter\ViewObjectMgr.h" />
+    <ClInclude Include="DirectXProject\ViewCenter\ViewObject\CoordinateAxis.h" />
+    <ClInclude Include="DirectXProject\ViewCenter\ViewObject\InitialViewObject.h" />
+    <ClInclude Include="DirectXProject\ViewCenter\ViewObject\Prismatic.h" />
     <ClInclude Include="lesson.h" />
     <ClInclude Include="MyDirectX\directx_window.h" />
     <ClInclude Include="MyDirectX\graphic3.h" />

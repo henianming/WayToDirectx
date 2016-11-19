@@ -17,14 +17,14 @@ enum EventType {
 	EventType_Max,
 };
 
-class WndProcEventReceiver {
+class IWndProcEventReceiver {
 public:
 	virtual BOOL OnMessage(EventType eventType, WPARAM wParam, LPARAM lParam) = 0;
 };
 
 class WndProcEventMgr {
 private:
-	typedef std::list<WndProcEventReceiver*> M_RL;
+	typedef std::list<IWndProcEventReceiver*> M_RL;
 	typedef std::vector<M_RL*> M_ETV;
 
 private:
@@ -34,8 +34,8 @@ public:
 	BOOL Create();
 	BOOL Release();
 
-	void Subscribe(WndProcEventReceiver *receiver, EventType eventType);
-	void Unsubscribe(WndProcEventReceiver *receiver, EventType eventType);
+	void Subscribe(IWndProcEventReceiver *receiver, EventType eventType);
+	void Unsubscribe(IWndProcEventReceiver *receiver, EventType eventType);
 	BOOL FireEvent(EventType eventType, WPARAM wParam, LPARAM lParam);
 };
 

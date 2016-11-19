@@ -22,7 +22,7 @@ BOOL WndProcEventMgr::Release() {
 	return TRUE;
 }
 
-void WndProcEventMgr::Subscribe(WndProcEventReceiver *receiver, EventType eventType) {
+void WndProcEventMgr::Subscribe(IWndProcEventReceiver *receiver, EventType eventType) {
 	M_RL *rl = m_etv.at(eventType);
 	M_RL::iterator it = rl->begin();
 	while (it != rl->end()) {
@@ -37,7 +37,7 @@ void WndProcEventMgr::Subscribe(WndProcEventReceiver *receiver, EventType eventT
 	m_etv.at(eventType)->push_back(receiver);
 }
 
-void WndProcEventMgr::Unsubscribe(WndProcEventReceiver *receiver, EventType eventType) {
+void WndProcEventMgr::Unsubscribe(IWndProcEventReceiver *receiver, EventType eventType) {
 	M_RL *rl = m_etv.at(eventType);
 	M_RL::iterator it = rl->begin();
 	while (it != rl->end()) {

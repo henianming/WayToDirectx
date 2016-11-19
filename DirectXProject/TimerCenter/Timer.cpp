@@ -10,10 +10,10 @@ TimerMgr::TimerMgr() {
 	QueryPerformanceFrequency(&m_frequency);
 }
 
-void TimerMgr::Registe(TimerMgrReceiver *receiver, int id, double intervalSecond) {
+void TimerMgr::Registe(ITimerMgrReceiver *receiver, int id, double intervalSecond) {
 	M_RECEIVER_ID::iterator riIt = m_receiver_id.find(receiver);
 	if (riIt == m_receiver_id.end()) {
-		m_receiver_id.insert(std::pair<TimerMgrReceiver*, M_ID_INTERVAL*>(receiver, new M_ID_INTERVAL()));
+		m_receiver_id.insert(std::pair<ITimerMgrReceiver*, M_ID_INTERVAL*>(receiver, new M_ID_INTERVAL()));
 	}
 
 	M_ID_INTERVAL *mii = m_receiver_id.at(receiver);
@@ -24,7 +24,7 @@ void TimerMgr::Registe(TimerMgrReceiver *receiver, int id, double intervalSecond
 	}
 }
 
-void TimerMgr::Unregiste(TimerMgrReceiver *receiver, int id) {
+void TimerMgr::Unregiste(ITimerMgrReceiver *receiver, int id) {
 	M_RECEIVER_ID::iterator riIt = m_receiver_id.find(receiver);
 	if (riIt == m_receiver_id.end()) {
 		return;

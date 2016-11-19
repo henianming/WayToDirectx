@@ -4,8 +4,9 @@
 #include <d3d9.h>
 #include "EventCenter/WndProcEventMgr.h"
 #include "TimerCenter/Timer.h"
+#include "ViewCenter/ViewObjectMgr.h"
 
-class Program : public WndProcEventReceiver, public TimerMgrReceiver {
+class Program : public IWndProcEventReceiver, public ITimerMgrReceiver {
 private:
 	//program system
 	LARGE_INTEGER m_frequency;
@@ -21,9 +22,24 @@ private:
 	//timer system
 	TimerMgr m_timerMgr;
 
+	//view object system
+	ViewObjectMgr m_viewObjectMgr;
+
 	//self data
 	double m_oldTimeStamp;
 	double m_fps;
+
+public:
+	Program();
+
+	BOOL Create(HINSTANCE hInstance, int showType);
+	BOOL Release();
+	BOOL Update();
+
+	IDirect3DDevice9* Get_m_device();
+
+	WndProcEventMgr* GetWndProcEventMgr();
+	double GetCurTimeStamp();
 
 private:
 	void InitWndClass(HINSTANCE hInstance);
@@ -41,18 +57,7 @@ private:
 
 public:
 	virtual BOOL OnMessage(EventType eventType, WPARAM wParam, LPARAM lParam);
-
 	virtual void OnTimer(int id);
-
-	Program();
-
-	BOOL Create(HINSTANCE hInstance, int showType);
-	BOOL Release();
-	BOOL Update();
-
-	WndProcEventMgr* GetWndProcEventMgr();
-
-	double GetCurTimeStamp();
 };
 
 #endif //PROGRAM_H

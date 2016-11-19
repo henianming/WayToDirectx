@@ -13,7 +13,7 @@ public:
 	TimerData(double intervalTime, double lastActiveTime);
 };
 
-class TimerMgrReceiver {
+class ITimerMgrReceiver {
 public:
 	virtual void OnTimer(int id) = 0;
 };
@@ -21,7 +21,7 @@ public:
 class TimerMgr {
 private:
 	typedef std::map<int, TimerData> M_ID_INTERVAL;
-	typedef std::map<TimerMgrReceiver*, M_ID_INTERVAL*> M_RECEIVER_ID;
+	typedef std::map<ITimerMgrReceiver*, M_ID_INTERVAL*> M_RECEIVER_ID;
 
 private:
 	M_RECEIVER_ID m_receiver_id;
@@ -30,8 +30,8 @@ private:
 public:
 	TimerMgr();
 
-	void Registe(TimerMgrReceiver *receiver, int id, double intervalSecond);
-	void Unregiste(TimerMgrReceiver *receiver, int id);
+	void Registe(ITimerMgrReceiver *receiver, int id, double intervalSecond);
+	void Unregiste(ITimerMgrReceiver *receiver, int id);
 
 	void Update();
 

@@ -28,6 +28,9 @@
     <Filter Include="DirectXProject\ViewCenter">
       <UniqueIdentifier>{8db87126-26a0-404f-992b-9184a5c5a681}</UniqueIdentifier>
     </Filter>
+    <Filter Include="DirectXProject\ViewCenter\ViewObject">
+      <UniqueIdentifier>{b0b7080d-5c36-4d30-ade0-abae011a5bb9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="csdn_lesson001.cpp">
@@ -99,6 +102,18 @@
     <ClCompile Include="DirectXProject\TimerCenter\Timer.cpp">
       <Filter>DirectXProject\TimerCenter</Filter>
     </ClCompile>
+    <ClCompile Include="DirectXProject\ViewCenter\ViewObjectMgr.cpp">
+      <Filter>DirectXProject\ViewCenter</Filter>
+    </ClCompile>
+    <ClCompile Include="DirectXProject\ViewCenter\ViewObject\InitialViewObject.cpp">
+      <Filter>DirectXProject\ViewCenter\ViewObject</Filter>
+    </ClCompile>
+    <ClCompile Include="DirectXProject\ViewCenter\ViewObject\CoordinateAxis.cpp">
+      <Filter>DirectXProject\ViewCenter\ViewObject</Filter>
+    </ClCompile>
+    <ClCompile Include="DirectXProject\ViewCenter\ViewObject\Prismatic.cpp">
+      <Filter>DirectXProject\ViewCenter\ViewObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lesson.h" />
@@ -125,6 +140,18 @@
     </ClInclude>
     <ClInclude Include="DirectXProject\TimerCenter\Timer.h">
       <Filter>DirectXProject\TimerCenter</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectXProject\ViewCenter\ViewObjectMgr.h">
+      <Filter>DirectXProject\ViewCenter</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectXProject\ViewCenter\ViewObject\InitialViewObject.h">
+      <Filter>DirectXProject\ViewCenter\ViewObject</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectXProject\ViewCenter\ViewObject\CoordinateAxis.h">
+      <Filter>DirectXProject\ViewCenter\ViewObject</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectXProject\ViewCenter\ViewObject\Prismatic.h">
+      <Filter>DirectXProject\ViewCenter\ViewObject</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
