@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{08E72E27-F009-49B2-9A6E-AF2B5E18BF33}</ProjectGuid>
+    <ProjectGuid>{5543C6BA-5A27-49E0-99F1-E88C27DCE734}</ProjectGuid>
     <RootNamespace>WayToDirectx</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
@@ -35,7 +35,7 @@
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -72,23 +72,15 @@
     <IncludePath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;$(IncludePath)</IncludePath>
     <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x86;$(LibraryPath)</LibraryPath>
-  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <BrowseInformation>true</BrowseInformation>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>d3d9.lib;d3dx9.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3d9.lib;d3dx9.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
-    <Bscmake>
-      <PreserveSbr>true</PreserveSbr>
-    </Bscmake>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -104,12 +96,10 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>d3d9.lib;d3dx9.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -126,31 +116,40 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="lesson.h" />
-    <ClInclude Include="MyDirectX\directx_window.h" />
-    <ClInclude Include="MyDirectX\graphic3.h" />
-    <ClInclude Include="MyDirectX\graphic4.h" />
-    <ClInclude Include="MyDirectX\i_graphic_object.h" />
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="csdn_lesson001.cpp" />
     <ClCompile Include="csdn_lesson002.cpp" />
     <ClCompile Include="csdn_lesson002_1.cpp" />
     <ClCompile Include="csdn_lesson003.cpp" />
+    <ClCompile Include="DirectXProject\Common\CommonCode.cpp" />
+    <ClCompile Include="DirectXProject\EventCenter\WndProcEventMgr.cpp" />
+    <ClCompile Include="DirectXProject\main.cpp" />
+    <ClCompile Include="DirectXProject\program.cpp" />
+    <ClCompile Include="DirectXProject\TimerCenter\Timer.cpp" />
     <ClCompile Include="dragon_lesson000_000.cpp" />
     <ClCompile Include="dragon_lesson001_001.cpp" />
     <ClCompile Include="dragon_lesson001_003.cpp" />
     <ClCompile Include="dragon_lesson001_004.cpp" />
     <ClCompile Include="dragon_lesson001_005.cpp" />
+    <ClCompile Include="dragon_lesson003_000.cpp" />
     <ClCompile Include="dragon_lesson004_000.cpp" />
     <ClCompile Include="dragon_lesson005_000（略失败）.cpp" />
     <ClCompile Include="dragon_lesson006_000.cpp" />
     <ClCompile Include="dragon_lesson_extra.cpp" />
-    <ClCompile Include="dragon_lesson003_000.cpp" />
     <ClCompile Include="MyDirectX\directx_window.cpp" />
     <ClCompile Include="MyDirectX\graphic3.cpp" />
     <ClCompile Include="MyDirectX\graphic4.cpp" />
-    <ClCompile Include="MyDirectX\main.cpp" />
+    <ClCompile Include="MyDirectX\MyDirectXmain.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="DirectXProject\Common\CommonCode.h" />
+    <ClInclude Include="DirectXProject\EventCenter\WndProcEventMgr.h" />
+    <ClInclude Include="DirectXProject\program.h" />
+    <ClInclude Include="DirectXProject\TimerCenter\Timer.h" />
+    <ClInclude Include="lesson.h" />
+    <ClInclude Include="MyDirectX\directx_window.h" />
+    <ClInclude Include="MyDirectX\graphic3.h" />
+    <ClInclude Include="MyDirectX\graphic4.h" />
+    <ClInclude Include="MyDirectX\i_graphic_object.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

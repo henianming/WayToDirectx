@@ -1,95 +1,130 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="源文件">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    <Filter Include="CSDN">
+      <UniqueIdentifier>{c01b37d0-4492-4b13-b484-bb7bde0f2cae}</UniqueIdentifier>
     </Filter>
-    <Filter Include="头文件">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    <Filter Include="DRAGON">
+      <UniqueIdentifier>{911d4950-e888-4b95-af04-2a129e9be3e8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="源文件\CSDN">
-      <UniqueIdentifier>{4b47b587-5e91-4acd-aee7-c60af9d09557}</UniqueIdentifier>
+    <Filter Include="MyDirectX">
+      <UniqueIdentifier>{df74578b-e3db-4473-b5ad-34c39ab128c3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="源文件\DRAGON">
-      <UniqueIdentifier>{4d46cd34-de02-4c4d-959f-7bdeea1f7550}</UniqueIdentifier>
+    <Filter Include="DirectXProject">
+      <UniqueIdentifier>{b9761769-d861-4770-baf9-3fdb7a233016}</UniqueIdentifier>
     </Filter>
-    <Filter Include="源文件\MyDirectX">
-      <UniqueIdentifier>{8a64dda7-bc39-4170-b6c2-ba63f76b7b9c}</UniqueIdentifier>
+    <Filter Include="DirectXProject\Common">
+      <UniqueIdentifier>{dd735c8e-5f47-415e-aed4-fe285abde277}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DirectXProject\DataCenter">
+      <UniqueIdentifier>{b250d6a6-b1d0-4530-8dc4-a85e2bd29144}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DirectXProject\EventCenter">
+      <UniqueIdentifier>{e1a8ffcc-ccf3-4984-bbce-42d6e8a05796}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DirectXProject\TimerCenter">
+      <UniqueIdentifier>{839e4858-7af1-4ad2-835b-4b14fc1e598d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DirectXProject\ViewCenter">
+      <UniqueIdentifier>{8db87126-26a0-404f-992b-9184a5c5a681}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="lesson.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="MyDirectX\directx_window.h">
-      <Filter>源文件\MyDirectX</Filter>
-    </ClInclude>
-    <ClInclude Include="MyDirectX\graphic3.h">
-      <Filter>源文件\MyDirectX</Filter>
-    </ClInclude>
-    <ClInclude Include="MyDirectX\i_graphic_object.h">
-      <Filter>源文件\MyDirectX</Filter>
-    </ClInclude>
-    <ClInclude Include="MyDirectX\graphic4.h">
-      <Filter>源文件\MyDirectX</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="dragon_lesson_extra.cpp">
-      <Filter>源文件\DRAGON</Filter>
-    </ClCompile>
-    <ClCompile Include="dragon_lesson000_000.cpp">
-      <Filter>源文件\DRAGON</Filter>
-    </ClCompile>
-    <ClCompile Include="dragon_lesson001_001.cpp">
-      <Filter>源文件\DRAGON</Filter>
-    </ClCompile>
-    <ClCompile Include="dragon_lesson001_003.cpp">
-      <Filter>源文件\DRAGON</Filter>
-    </ClCompile>
-    <ClCompile Include="dragon_lesson001_004.cpp">
-      <Filter>源文件\DRAGON</Filter>
-    </ClCompile>
     <ClCompile Include="csdn_lesson001.cpp">
-      <Filter>源文件\CSDN</Filter>
+      <Filter>CSDN</Filter>
     </ClCompile>
     <ClCompile Include="csdn_lesson002.cpp">
-      <Filter>源文件\CSDN</Filter>
+      <Filter>CSDN</Filter>
     </ClCompile>
     <ClCompile Include="csdn_lesson002_1.cpp">
-      <Filter>源文件\CSDN</Filter>
+      <Filter>CSDN</Filter>
     </ClCompile>
     <ClCompile Include="csdn_lesson003.cpp">
-      <Filter>源文件\CSDN</Filter>
+      <Filter>CSDN</Filter>
+    </ClCompile>
+    <ClCompile Include="dragon_lesson_extra.cpp">
+      <Filter>DRAGON</Filter>
+    </ClCompile>
+    <ClCompile Include="dragon_lesson000_000.cpp">
+      <Filter>DRAGON</Filter>
+    </ClCompile>
+    <ClCompile Include="dragon_lesson001_001.cpp">
+      <Filter>DRAGON</Filter>
+    </ClCompile>
+    <ClCompile Include="dragon_lesson001_003.cpp">
+      <Filter>DRAGON</Filter>
+    </ClCompile>
+    <ClCompile Include="dragon_lesson001_004.cpp">
+      <Filter>DRAGON</Filter>
     </ClCompile>
     <ClCompile Include="dragon_lesson001_005.cpp">
-      <Filter>源文件\DRAGON</Filter>
+      <Filter>DRAGON</Filter>
     </ClCompile>
     <ClCompile Include="dragon_lesson003_000.cpp">
-      <Filter>源文件\DRAGON</Filter>
+      <Filter>DRAGON</Filter>
     </ClCompile>
     <ClCompile Include="dragon_lesson004_000.cpp">
-      <Filter>源文件\DRAGON</Filter>
-    </ClCompile>
-    <ClCompile Include="dragon_lesson006_000.cpp">
-      <Filter>源文件\DRAGON</Filter>
+      <Filter>DRAGON</Filter>
     </ClCompile>
     <ClCompile Include="dragon_lesson005_000（略失败）.cpp">
-      <Filter>源文件\DRAGON</Filter>
+      <Filter>DRAGON</Filter>
+    </ClCompile>
+    <ClCompile Include="dragon_lesson006_000.cpp">
+      <Filter>DRAGON</Filter>
     </ClCompile>
     <ClCompile Include="MyDirectX\directx_window.cpp">
-      <Filter>源文件\MyDirectX</Filter>
+      <Filter>MyDirectX</Filter>
     </ClCompile>
     <ClCompile Include="MyDirectX\graphic3.cpp">
-      <Filter>源文件\MyDirectX</Filter>
-    </ClCompile>
-    <ClCompile Include="MyDirectX\main.cpp">
-      <Filter>源文件\MyDirectX</Filter>
+      <Filter>MyDirectX</Filter>
     </ClCompile>
     <ClCompile Include="MyDirectX\graphic4.cpp">
-      <Filter>源文件\MyDirectX</Filter>
+      <Filter>MyDirectX</Filter>
     </ClCompile>
+    <ClCompile Include="MyDirectX\MyDirectXmain.cpp">
+      <Filter>MyDirectX</Filter>
+    </ClCompile>
+    <ClCompile Include="DirectXProject\main.cpp">
+      <Filter>DirectXProject</Filter>
+    </ClCompile>
+    <ClCompile Include="DirectXProject\program.cpp">
+      <Filter>DirectXProject</Filter>
+    </ClCompile>
+    <ClCompile Include="DirectXProject\Common\CommonCode.cpp">
+      <Filter>DirectXProject\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="DirectXProject\EventCenter\WndProcEventMgr.cpp">
+      <Filter>DirectXProject\EventCenter</Filter>
+    </ClCompile>
+    <ClCompile Include="DirectXProject\TimerCenter\Timer.cpp">
+      <Filter>DirectXProject\TimerCenter</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="lesson.h" />
+    <ClInclude Include="MyDirectX\directx_window.h">
+      <Filter>MyDirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="MyDirectX\graphic3.h">
+      <Filter>MyDirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="MyDirectX\graphic4.h">
+      <Filter>MyDirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="MyDirectX\i_graphic_object.h">
+      <Filter>MyDirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectXProject\program.h">
+      <Filter>DirectXProject</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectXProject\Common\CommonCode.h">
+      <Filter>DirectXProject\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectXProject\EventCenter\WndProcEventMgr.h">
+      <Filter>DirectXProject\EventCenter</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectXProject\TimerCenter\Timer.h">
+      <Filter>DirectXProject\TimerCenter</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
