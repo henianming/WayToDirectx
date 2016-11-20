@@ -30,28 +30,13 @@ void CoordinateAxis::Load() {
 	vertexTemp[5] = XYZCVertex(0.0f, 0.0f, coordinateLen, D3DCOLOR_XRGB(0, 0, 255));
 
 	m_vertexBuffer->Unlock();
-
-	hr = device->CreateIndexBuffer(
-		24 * sizeof(DWORD),
-		D3DUSAGE_WRITEONLY,
-		D3DFMT_INDEX32,
-		D3DPOOL_MANAGED,
-		&m_indexBuffer,
-		0
-	);
-	if (FAILED(hr)) {
-		return;
-	}
-	DWORD *index;
-	m_indexBuffer->Lock(0, 0, (void**)(&index), 0);
-
-
-
-	m_indexBuffer->Unlock();
 }
 
 void CoordinateAxis::Unload() {
-
+	if (m_vertexBuffer) {
+		m_vertexBuffer->Release();
+		m_vertexBuffer = NULL;
+	}
 }
 
 void CoordinateAxis::Show() {
@@ -63,5 +48,15 @@ void CoordinateAxis::Hide() {
 }
 
 void CoordinateAxis::Update() {
+	IDirect3DDevice9* device = g_program->Get_m_device();
+	device->SetRenderState(D3DRS_LIGHTING, FALSE);
+	device->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
 
+	device->BeginScene();
+	{
+		device->SetStreamSource(0, m_vertexBuffer, 0, sizeof(XYZCVertex));
+		device->SetFVF(XYZCVertex::FVF);
+		device->DrawPrimitive(D3DPT_LINELIST, 0, 3);
+	}
+	device->EndScene();
 }

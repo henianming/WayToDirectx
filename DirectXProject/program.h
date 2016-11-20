@@ -36,6 +36,7 @@ public:
 	BOOL Release();
 	BOOL Update();
 
+	HWND Get_m_hWnd();
 	IDirect3DDevice9* Get_m_device();
 
 	WndProcEventMgr* GetWndProcEventMgr();

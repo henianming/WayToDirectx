@@ -1,12 +1,12 @@
 #include "InitialViewObject.h"
 
-#include "CoordinateAxis.h"
-
 void InitialViewObject::Load() {
 	AddChildViewObject(&m_coordinateAxis);
+	m_coordinateAxis.Load();
 }
 
 void InitialViewObject::Unload() {
+	m_coordinateAxis.Unload();
 	DelChildViewObject(&m_coordinateAxis);
 }
 

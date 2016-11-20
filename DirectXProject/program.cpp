@@ -49,6 +49,10 @@ BOOL Program::Update() {
 	return TRUE;
 }
 
+HWND Program::Get_m_hWnd() {
+	return m_hWnd;
+}
+
 IDirect3DDevice9* Program::Get_m_device() {
 	return m_device;
 }

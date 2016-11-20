@@ -2,8 +2,9 @@
 #define INITIAL_VIEW_OBJECT_H
 
 #include "../ViewObjectMgr.h"
+#include "CoordinateAxis.h"
 
-class InitialViewObject : public IViewObject {
+class InitialViewObject : public HIViewObject {
 	CoordinateAxis m_coordinateAxis;
 
 public:

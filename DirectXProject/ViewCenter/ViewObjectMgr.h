@@ -1,19 +1,19 @@
 #ifndef VIEW_OBJECT_MGR_H
 #define VIEW_OBJECT_MGR_H
 
-#include <Windows.h>
 #include <list>
+#include <d3dx9.h>
 
-class IViewObject {
+class HIViewObject {
 private:
-	IViewObject *m_parentViewObject;
-	std::list<IViewObject*> m_childViewObjectList;
+	HIViewObject *m_parentViewObject;
+	std::list<HIViewObject*> m_childViewObjectList;
 
 public:
-	void SetParentViewObject(IViewObject *parent, BOOL isOtherCall = TRUE);
+	void SetParentViewObject(HIViewObject *parent, BOOL isOtherCall = TRUE);
 	void UnsetParentViewObject(BOOL isOtherCall = TRUE);
-	void AddChildViewObject(IViewObject *child, BOOL isOtherCall = TRUE);
-	void DelChildViewObject(IViewObject *child, BOOL isOtherCall = TRUE);
+	void AddChildViewObject(HIViewObject *child, BOOL isOtherCall = TRUE);
+	void DelChildViewObject(HIViewObject *child, BOOL isOtherCall = TRUE);
 	void UpdateChile();
 
 public:
@@ -26,7 +26,11 @@ public:
 
 class ViewObjectMgr {
 private:
-	IViewObject *m_rootViewObject;
+	HIViewObject *m_rootViewObject;
+
+	D3DXVECTOR3 m_eye;
+	D3DXVECTOR3 m_target;
+	D3DXVECTOR3 m_up;
 
 public:
 	BOOL Create();

@@ -5,10 +5,9 @@
 #include <d3d9.h>
 #include "Common/CommonCode.h"
 
-class CoordinateAxis : public IViewObject {
+class CoordinateAxis : public HIViewObject {
 private:
 	IDirect3DVertexBuffer9 *m_vertexBuffer;
-	IDirect3DIndexBuffer9 *m_indexBuffer;
 
 public:
 	virtual void Load();
