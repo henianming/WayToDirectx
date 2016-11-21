@@ -6,6 +6,22 @@
 
 extern Program *g_program;
 
+HIViewObject::~HIViewObject() {
+	//clear child
+	std::list<HIViewObject*>::iterator it = m_childViewObjectList.begin();
+	while (it != m_childViewObjectList.end()) {
+		delete (*it);
+
+		it++;
+	}
+
+	Hide();
+	Unload();
+	UnsetParentViewObject();
+
+	//clear self data
+}
+
 void HIViewObject::SetParentViewObject(HIViewObject *parent, BOOL isOtherCall) {
 	if (m_parentViewObject != NULL) {
 		UnsetParentViewObject();
@@ -67,9 +83,14 @@ void HIViewObject::Update() {
 
 }
 
+ViewObjectMgr::ViewObjectMgr()
+	:m_cameraSpeed(1.0f) {
+
+}
+
 BOOL ViewObjectMgr::Create() {
-	m_eye = D3DXVECTOR3(1.0f, 0.0f, -5.0f);
-	m_target = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	m_eye = D3DXVECTOR3(1.0f, 1.0f, -5.0f);
+	m_target = D3DXVECTOR3(1.0f, 1.0f, 0.0f);
 	m_up = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
 
 	IDirect3DDevice9 *device = g_program->Get_m_device();
@@ -114,4 +135,69 @@ void ViewObjectMgr::Update() {
 	m_rootViewObject->UpdateChile();
 
 	device->Present(NULL, NULL, 0, NULL);
+}
+
+void ViewObjectMgr::SubscribeEvent() {
+	g_program->Get_m_wndProcEventMgr()->Subscribe(this, EventType_KeyDown);
+	g_program->Get_m_wndProcEventMgr()->Subscribe(this, EventType_KeyUp);
+}
+
+void ViewObjectMgr::UnsubscribeEvent() {
+	g_program->Get_m_wndProcEventMgr()->Unsubscribe(this, EventType_KeyUp);
+	g_program->Get_m_wndProcEventMgr()->Unsubscribe(this, EventType_KeyDown);
+}
+
+void ViewObjectMgr::MoveCameraToPosition(D3DXVECTOR3 const *position) {
+	D3DXVECTOR3 moveVector = *position - m_eye;
+	m_eye = *position;
+	m_target = moveVector + m_target;
+}
+
+BOOL ViewObjectMgr::OnMessage(EventType eventType, WPARAM wParam, LPARAM lParam) {
+	switch (eventType) {
+	case EventType_KeyDown:
+	{
+		switch (wParam) {
+		case 'W':
+		{
+			return TRUE;
+		}break;
+		case 'S':
+		{
+			return TRUE;
+		}break;
+		case 'A':
+		{
+			return TRUE;
+		}break;
+		case 'D':
+		{
+			return TRUE;
+		}break;
+		}
+	}break;
+	case EventType_KeyUp:
+	{
+		switch (wParam) {
+		case 'W':
+		{
+			return TRUE;
+		}break;
+		case 'S':
+		{
+			return TRUE;
+		}break;
+		case 'A':
+		{
+			return TRUE;
+		}break;
+		case 'D':
+		{
+			return TRUE;
+		}break;
+		}
+	}break;
+	}
+
+	return FALSE;
 }

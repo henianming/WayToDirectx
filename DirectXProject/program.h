@@ -38,8 +38,8 @@ public:
 
 	HWND Get_m_hWnd();
 	IDirect3DDevice9* Get_m_device();
+	WndProcEventMgr* Get_m_wndProcEventMgr();
 
-	WndProcEventMgr* GetWndProcEventMgr();
 	double GetCurTimeStamp();
 
 private:

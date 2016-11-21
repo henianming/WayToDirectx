@@ -57,7 +57,7 @@ IDirect3DDevice9* Program::Get_m_device() {
 	return m_device;
 }
 
-WndProcEventMgr* Program::GetWndProcEventMgr() {
+WndProcEventMgr* Program::Get_m_wndProcEventMgr() {
 	return &m_wndProcEventMgr;
 }
 

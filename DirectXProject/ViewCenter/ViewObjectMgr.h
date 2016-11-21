@@ -3,6 +3,7 @@
 
 #include <list>
 #include <d3dx9.h>
+#include "EventCenter\WndProcEventMgr.h"
 
 class HIViewObject {
 private:
@@ -10,6 +11,8 @@ private:
 	std::list<HIViewObject*> m_childViewObjectList;
 
 public:
+	~HIViewObject();
+
 	void SetParentViewObject(HIViewObject *parent, BOOL isOtherCall = TRUE);
 	void UnsetParentViewObject(BOOL isOtherCall = TRUE);
 	void AddChildViewObject(HIViewObject *child, BOOL isOtherCall = TRUE);
@@ -24,18 +27,29 @@ public:
 	virtual void Update();
 };
 
-class ViewObjectMgr {
+class ViewObjectMgr : public IWndProcEventReceiver {
 private:
 	HIViewObject *m_rootViewObject;
-
+	
+	float m_cameraSpeed;
 	D3DXVECTOR3 m_eye;
 	D3DXVECTOR3 m_target;
 	D3DXVECTOR3 m_up;
 
 public:
+	ViewObjectMgr();
+
 	BOOL Create();
 	BOOL Release();
 	void Update();
+	void SubscribeEvent();
+	void UnsubscribeEvent();
+
+private:
+	void MoveCameraToPosition(D3DXVECTOR3 const *position);
+
+public:
+	virtual BOOL OnMessage(EventType eventType, WPARAM wParam, LPARAM lParam);
 };
 
 #endif //VIEW_OBJECT_MGR_H
