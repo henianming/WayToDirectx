@@ -1,3 +1,4 @@
+#if 0
 #ifndef VIEW_OBJECT_MGR_H
 #define VIEW_OBJECT_MGR_H
 
@@ -53,3 +54,4 @@ public:
 };
 
 #endif //VIEW_OBJECT_MGR_H
+#endif

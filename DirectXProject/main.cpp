@@ -58,7 +58,6 @@ HRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 		}break;
 		}
 	}
-
 	return DefWindowProc(hWnd, msg, wParam, lParam);
 }
 

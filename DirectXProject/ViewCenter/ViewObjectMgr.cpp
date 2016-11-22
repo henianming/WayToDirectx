@@ -1,3 +1,5 @@
+#if 0
+
 #include "ViewObjectMgr.h"
 
 #include "ViewObject/InitialViewObject.h"
@@ -15,8 +17,8 @@ HIViewObject::~HIViewObject() {
 		it++;
 	}
 
-	Hide();
-	Unload();
+	//Hide();
+	//Unload();
 	UnsetParentViewObject();
 
 	//clear self data
@@ -201,3 +203,4 @@ BOOL HViewObjectMgr::OnMessage(HEventType eventType, WPARAM wParam, LPARAM lPara
 
 	return FALSE;
 }
+#endif

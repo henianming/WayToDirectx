@@ -12,17 +12,17 @@ BOOL HProgram::Create(HINSTANCE hInstance, int showType) {
 
 	SubscribeEvent();
 
-	RegisteTimer();
+	//RegisteTimer();
 
-	RETURN_IF_FAILED(m_viewObjectMgr.Create());
+	//RETURN_IF_FAILED(m_viewObjectMgr.Create());
 
 	return TRUE;
 }
 
 BOOL HProgram::Release() {
-	RETURN_IF_FAILED(m_viewObjectMgr.Release());
+	//RETURN_IF_FAILED(m_viewObjectMgr.Release());
 
-	UnregisteTimer();
+	//UnregisteTimer();
 
 	UnsubscribeEvent();
 
@@ -36,11 +36,11 @@ BOOL HProgram::Release() {
 }
 
 BOOL HProgram::Update() {
-	UpdataFps();
+	//UpdataFps();
 	
-	m_timerMgr.Update();
+	//m_timerMgr.Update();
 
-	m_viewObjectMgr.Update();
+	//m_viewObjectMgr.Update();
 	
 	return TRUE;
 }
@@ -56,10 +56,10 @@ IDirect3DDevice9* HProgram::Get_m_device() {
 HWndProcEventMgr* HProgram::Get_m_wndProcEventMgr() {
 	return &m_wndProcEventMgr;
 }
-
+/*
 double HProgram::GetCurTimeStamp() {
-	m_time.Get_m_curTimeStamp();
-}
+	return m_time.Get_m_curTimeStamp();
+}*/
 
 void HProgram::InitWndClass(HINSTANCE hInstance) {
 	m_wndClass.cbClsExtra = 0;
@@ -80,7 +80,7 @@ BOOL HProgram::CreateWnd(HINSTANCE hInstance, int showType) {
 	RegisterClass(&m_wndClass);
 
 	m_hWnd = CreateWindow(
-		m_wndClass.lpszClassName, L"DirectX Program Window",
+		m_wndClass.lpszClassName, L"",
 		WS_OVERLAPPEDWINDOW,
 		CW_USEDEFAULT, CW_USEDEFAULT, 1600, 900,
 		0, 0, m_wndClass.hInstance, 0
@@ -173,7 +173,7 @@ void HProgram::SubscribeEvent() {
 void HProgram::UnsubscribeEvent() {
 	m_wndProcEventMgr.Unsubscribe(this, EventType_KeyUp);
 }
-
+/*
 void HProgram::RegisteTimer() {
 	m_timerMgr.Registe(this, 1, 0.1);
 }
@@ -193,7 +193,7 @@ void HProgram::TitleView() {
 	swprintf(wc, 256, L"DirectX Program Window       fps->%d", (int)m_fps);
 	SetWindowText(m_hWnd, wc);
 }
-
+*/
 BOOL HProgram::OnMessage(HEventType eventType, WPARAM wParam, LPARAM lParam) {
 	switch (eventType) {
 	case EventType_KeyUp:
@@ -210,7 +210,7 @@ BOOL HProgram::OnMessage(HEventType eventType, WPARAM wParam, LPARAM lParam) {
 
 	return FALSE;
 }
-
+/*
 void HProgram::OnTimer(int id) {
 	switch (id) {
 	case 1:
@@ -218,4 +218,4 @@ void HProgram::OnTimer(int id) {
 		TitleView();
 	}break;
 	}
-}
+}*/

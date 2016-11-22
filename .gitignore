@@ -4,3 +4,4 @@ Release/
 
 *.db
 *.opendb
+*.~$lock

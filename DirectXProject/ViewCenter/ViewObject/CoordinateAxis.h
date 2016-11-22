@@ -5,7 +5,7 @@
 #include <d3d9.h>
 #include "Common/CommonCode.h"
 
-class HCoordinateAxis : public HIViewObject {
+class HCoordinateAxis /*: public HIViewObject */{
 private:
 	IDirect3DVertexBuffer9 *m_vertexBuffer;
 
