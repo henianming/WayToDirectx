@@ -27,7 +27,7 @@ public:
 	virtual void Update();
 };
 
-class ViewObjectMgr : public IWndProcEventReceiver {
+class HViewObjectMgr : public HIWndProcEventReceiver {
 private:
 	HIViewObject *m_rootViewObject;
 	
@@ -37,7 +37,7 @@ private:
 	D3DXVECTOR3 m_up;
 
 public:
-	ViewObjectMgr();
+	HViewObjectMgr();
 
 	BOOL Create();
 	BOOL Release();
@@ -49,7 +49,7 @@ private:
 	void MoveCameraToPosition(D3DXVECTOR3 const *position);
 
 public:
-	virtual BOOL OnMessage(EventType eventType, WPARAM wParam, LPARAM lParam);
+	virtual BOOL OnMessage(HEventType eventType, WPARAM wParam, LPARAM lParam);
 };
 
 #endif //VIEW_OBJECT_MGR_H

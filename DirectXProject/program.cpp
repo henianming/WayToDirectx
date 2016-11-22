@@ -3,11 +3,7 @@
 
 extern HRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
-Program::Program() {
-	QueryPerformanceFrequency(&m_frequency);
-}
-
-BOOL Program::Create(HINSTANCE hInstance, int showType) {
+BOOL HProgram::Create(HINSTANCE hInstance, int showType) {
 	RETURN_IF_FAILED(m_wndProcEventMgr.Create());
 
 	RETURN_IF_FAILED(CreateWnd(hInstance, showType));
@@ -23,7 +19,7 @@ BOOL Program::Create(HINSTANCE hInstance, int showType) {
 	return TRUE;
 }
 
-BOOL Program::Release() {
+BOOL HProgram::Release() {
 	RETURN_IF_FAILED(m_viewObjectMgr.Release());
 
 	UnregisteTimer();
@@ -39,7 +35,7 @@ BOOL Program::Release() {
 	return TRUE;
 }
 
-BOOL Program::Update() {
+BOOL HProgram::Update() {
 	UpdataFps();
 	
 	m_timerMgr.Update();
@@ -49,25 +45,23 @@ BOOL Program::Update() {
 	return TRUE;
 }
 
-HWND Program::Get_m_hWnd() {
+HWND HProgram::Get_m_hWnd() {
 	return m_hWnd;
 }
 
-IDirect3DDevice9* Program::Get_m_device() {
+IDirect3DDevice9* HProgram::Get_m_device() {
 	return m_device;
 }
 
-WndProcEventMgr* Program::Get_m_wndProcEventMgr() {
+HWndProcEventMgr* HProgram::Get_m_wndProcEventMgr() {
 	return &m_wndProcEventMgr;
 }
 
-double Program::GetCurTimeStamp() {
-	LARGE_INTEGER count;
-	QueryPerformanceCounter(&count);
-	return ((float)(count.QuadPart) / (float)(m_frequency.QuadPart));
+double HProgram::GetCurTimeStamp() {
+	m_time.Get_m_curTimeStamp();
 }
 
-void Program::InitWndClass(HINSTANCE hInstance) {
+void HProgram::InitWndClass(HINSTANCE hInstance) {
 	m_wndClass.cbClsExtra = 0;
 	m_wndClass.cbWndExtra = 0;
 	m_wndClass.hbrBackground = static_cast<HBRUSH>(GetStockObject(BLACK_BRUSH));
@@ -80,7 +74,7 @@ void Program::InitWndClass(HINSTANCE hInstance) {
 	m_wndClass.style = CS_HREDRAW | CS_VREDRAW;
 }
 
-BOOL Program::CreateWnd(HINSTANCE hInstance, int showType) {
+BOOL HProgram::CreateWnd(HINSTANCE hInstance, int showType) {
 	InitWndClass(hInstance);
 
 	RegisterClass(&m_wndClass);
@@ -100,13 +94,13 @@ BOOL Program::CreateWnd(HINSTANCE hInstance, int showType) {
 	return TRUE;
 }
 
-BOOL Program::ReleaseWnd() {
+BOOL HProgram::ReleaseWnd() {
 	UnregisterClass(m_wndClass.lpszClassName, m_wndClass.hInstance);
 
 	return TRUE;
 }
 
-void Program::InitDirectPresentParameters() {
+void HProgram::InitDirectPresentParameters() {
 	RECT rect;
 	GetWindowRect(m_hWnd, &rect);
 	LONG w = rect.right - rect.left;
@@ -128,7 +122,7 @@ void Program::InitDirectPresentParameters() {
 	m_d3dPresentParameters.Windowed = TRUE;
 }
 
-BOOL Program::CreateDirectX() {
+BOOL HProgram::CreateDirectX() {
 	HRESULT hResult;
 
 	m_iDirect3D9 = Direct3DCreate9(D3D_SDK_VERSION);
@@ -158,7 +152,7 @@ BOOL Program::CreateDirectX() {
 	return TRUE;
 }
 
-BOOL Program::ReleaseDirectX() {
+BOOL HProgram::ReleaseDirectX() {
 	if (m_device) {
 		m_device->Release();
 		m_device = NULL;
@@ -172,35 +166,35 @@ BOOL Program::ReleaseDirectX() {
 	return TRUE;
 }
 
-void Program::SubscribeEvent() {
+void HProgram::SubscribeEvent() {
 	m_wndProcEventMgr.Subscribe(this, EventType_KeyUp);
 }
 
-void Program::UnsubscribeEvent() {
+void HProgram::UnsubscribeEvent() {
 	m_wndProcEventMgr.Unsubscribe(this, EventType_KeyUp);
 }
 
-void Program::RegisteTimer() {
+void HProgram::RegisteTimer() {
 	m_timerMgr.Registe(this, 1, 0.1);
 }
 
-void Program::UnregisteTimer() {
+void HProgram::UnregisteTimer() {
 	m_timerMgr.Unregiste(this, 1);
 }
 
-void Program::UpdataFps() {
+void HProgram::UpdataFps() {
 	double nowTimeStamp = GetCurTimeStamp();
 	m_fps = (double)1 / (nowTimeStamp - m_oldTimeStamp);
 	m_oldTimeStamp = nowTimeStamp;
 }
 
-void Program::TitleView() {
+void HProgram::TitleView() {
 	wchar_t wc[256];
 	swprintf(wc, 256, L"DirectX Program Window       fps->%d", (int)m_fps);
 	SetWindowText(m_hWnd, wc);
 }
 
-BOOL Program::OnMessage(EventType eventType, WPARAM wParam, LPARAM lParam) {
+BOOL HProgram::OnMessage(HEventType eventType, WPARAM wParam, LPARAM lParam) {
 	switch (eventType) {
 	case EventType_KeyUp:
 	{
@@ -217,7 +211,7 @@ BOOL Program::OnMessage(EventType eventType, WPARAM wParam, LPARAM lParam) {
 	return FALSE;
 }
 
-void Program::OnTimer(int id) {
+void HProgram::OnTimer(int id) {
 	switch (id) {
 	case 1:
 	{

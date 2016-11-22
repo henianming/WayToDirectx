@@ -4,7 +4,7 @@
 #include <Windows.h>
 #include "program.h"
 
-Program *g_program;
+HProgram *g_program;
 
 HRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 	if (g_program) {
@@ -75,7 +75,7 @@ WPARAM MsgLoop() {
 }
 
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hInstancePrev, LPSTR argv, int showType) {
-	g_program = new Program();
+	g_program = new HProgram();
 
 	g_program->Create(hInstance, showType);
 

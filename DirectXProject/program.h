@@ -3,42 +3,43 @@
 
 #include <d3d9.h>
 #include "EventCenter/WndProcEventMgr.h"
+#include "TimeCenter/Time.h"
 #include "TimerCenter/Timer.h"
 #include "ViewCenter/ViewObjectMgr.h"
 
-class Program : public IWndProcEventReceiver, public ITimerMgrReceiver {
+class HProgram : public HIWndProcEventReceiver, public HITimerMgrReceiver {
 private:
 	//program system
-	LARGE_INTEGER m_frequency;
 	WNDCLASS m_wndClass;
 	HWND m_hWnd;
 	IDirect3D9 *m_iDirect3D9;
 	D3DPRESENT_PARAMETERS m_d3dPresentParameters;
 	IDirect3DDevice9 *m_device;
 
+	//time system
+	HTime m_time;
+
 	//event system
-	WndProcEventMgr m_wndProcEventMgr;
+	HWndProcEventMgr m_wndProcEventMgr;
 
 	//timer system
-	TimerMgr m_timerMgr;
+	HTimerMgr m_timerMgr;
 
 	//view object system
-	ViewObjectMgr m_viewObjectMgr;
+	HViewObjectMgr m_viewObjectMgr;
 
 	//self data
 	double m_oldTimeStamp;
 	double m_fps;
 
 public:
-	Program();
-
 	BOOL Create(HINSTANCE hInstance, int showType);
 	BOOL Release();
 	BOOL Update();
 
 	HWND Get_m_hWnd();
 	IDirect3DDevice9* Get_m_device();
-	WndProcEventMgr* Get_m_wndProcEventMgr();
+	HWndProcEventMgr* Get_m_wndProcEventMgr();
 
 	double GetCurTimeStamp();
 
@@ -57,7 +58,7 @@ private:
 	void TitleView();
 
 public:
-	virtual BOOL OnMessage(EventType eventType, WPARAM wParam, LPARAM lParam);
+	virtual BOOL OnMessage(HEventType eventType, WPARAM wParam, LPARAM lParam);
 	virtual void OnTimer(int id);
 };
 

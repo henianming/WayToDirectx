@@ -31,6 +31,9 @@
     <Filter Include="DirectXProject\ViewCenter\ViewObject">
       <UniqueIdentifier>{b0b7080d-5c36-4d30-ade0-abae011a5bb9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="DirectXProject\TimeCenter">
+      <UniqueIdentifier>{ce550ea3-7d8b-4385-a31d-d512dfd96446}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="csdn_lesson001.cpp">
@@ -114,6 +117,9 @@
     <ClCompile Include="DirectXProject\ViewCenter\ViewObject\Prismatic.cpp">
       <Filter>DirectXProject\ViewCenter\ViewObject</Filter>
     </ClCompile>
+    <ClCompile Include="DirectXProject\TimeCenter\Time.cpp">
+      <Filter>DirectXProject\TimeCenter</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lesson.h" />
@@ -152,6 +158,10 @@
     </ClInclude>
     <ClInclude Include="DirectXProject\ViewCenter\ViewObject\Prismatic.h">
       <Filter>DirectXProject\ViewCenter\ViewObject</Filter>
+    </ClInclude>
+    <ClInclude Include="desc.h" />
+    <ClInclude Include="DirectXProject\TimeCenter\Time.h">
+      <Filter>DirectXProject\TimeCenter</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

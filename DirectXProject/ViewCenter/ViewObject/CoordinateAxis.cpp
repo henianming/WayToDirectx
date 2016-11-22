@@ -1,9 +1,9 @@
 #include "CoordinateAxis.h"
 
 #include "program.h"
-extern Program *g_program;
+extern HProgram *g_program;
 
-void CoordinateAxis::Load() {
+void HCoordinateAxis::Load() {
 	HRESULT hr;
 	IDirect3DDevice9* device = g_program->Get_m_device();
 
@@ -32,22 +32,22 @@ void CoordinateAxis::Load() {
 	m_vertexBuffer->Unlock();
 }
 
-void CoordinateAxis::Unload() {
+void HCoordinateAxis::Unload() {
 	if (m_vertexBuffer) {
 		m_vertexBuffer->Release();
 		m_vertexBuffer = NULL;
 	}
 }
 
-void CoordinateAxis::Show() {
+void HCoordinateAxis::Show() {
 
 }
 
-void CoordinateAxis::Hide() {
+void HCoordinateAxis::Hide() {
 
 }
 
-void CoordinateAxis::Update() {
+void HCoordinateAxis::Update() {
 	IDirect3DDevice9* device = g_program->Get_m_device();
 	device->SetRenderState(D3DRS_LIGHTING, FALSE);
 	device->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);

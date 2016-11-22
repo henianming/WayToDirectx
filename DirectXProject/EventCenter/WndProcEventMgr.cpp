@@ -1,6 +1,6 @@
 #include "WndProcEventMgr.h"
 
-BOOL WndProcEventMgr::Create() {
+BOOL HWndProcEventMgr::Create() {
 	int i;
 
 	for (i = 0; i < EventType_Max; i++) {
@@ -10,7 +10,7 @@ BOOL WndProcEventMgr::Create() {
 	return TRUE;
 }
 
-BOOL WndProcEventMgr::Release() {
+BOOL HWndProcEventMgr::Release() {
 	M_ETV::iterator it = m_etv.begin();
 	while (it != m_etv.end()) {
 		delete *it;
@@ -22,7 +22,7 @@ BOOL WndProcEventMgr::Release() {
 	return TRUE;
 }
 
-void WndProcEventMgr::Subscribe(IWndProcEventReceiver *receiver, EventType eventType) {
+void HWndProcEventMgr::Subscribe(HIWndProcEventReceiver *receiver, HEventType eventType) {
 	M_RL *rl = m_etv.at(eventType);
 	M_RL::iterator it = rl->begin();
 	while (it != rl->end()) {
@@ -37,7 +37,7 @@ void WndProcEventMgr::Subscribe(IWndProcEventReceiver *receiver, EventType event
 	m_etv.at(eventType)->push_back(receiver);
 }
 
-void WndProcEventMgr::Unsubscribe(IWndProcEventReceiver *receiver, EventType eventType) {
+void HWndProcEventMgr::Unsubscribe(HIWndProcEventReceiver *receiver, HEventType eventType) {
 	M_RL *rl = m_etv.at(eventType);
 	M_RL::iterator it = rl->begin();
 	while (it != rl->end()) {
@@ -50,7 +50,7 @@ void WndProcEventMgr::Unsubscribe(IWndProcEventReceiver *receiver, EventType eve
 	}
 }
 
-BOOL WndProcEventMgr::FireEvent(EventType eventType, WPARAM wParam, LPARAM lParam) {
+BOOL HWndProcEventMgr::FireEvent(HEventType eventType, WPARAM wParam, LPARAM lParam) {
 	BOOL isDealed = FALSE;
 
 	M_RL *rl = m_etv.at(eventType);

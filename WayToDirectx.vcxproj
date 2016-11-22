@@ -125,6 +125,7 @@
     <ClCompile Include="DirectXProject\EventCenter\WndProcEventMgr.cpp" />
     <ClCompile Include="DirectXProject\main.cpp" />
     <ClCompile Include="DirectXProject\program.cpp" />
+    <ClCompile Include="DirectXProject\TimeCenter\Time.cpp" />
     <ClCompile Include="DirectXProject\TimerCenter\Timer.cpp" />
     <ClCompile Include="DirectXProject\ViewCenter\ViewObjectMgr.cpp" />
     <ClCompile Include="DirectXProject\ViewCenter\ViewObject\CoordinateAxis.cpp" />
@@ -146,9 +147,11 @@
     <ClCompile Include="MyDirectX\MyDirectXmain.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="desc.h" />
     <ClInclude Include="DirectXProject\Common\CommonCode.h" />
     <ClInclude Include="DirectXProject\EventCenter\WndProcEventMgr.h" />
     <ClInclude Include="DirectXProject\program.h" />
+    <ClInclude Include="DirectXProject\TimeCenter\Time.h" />
     <ClInclude Include="DirectXProject\TimerCenter\Timer.h" />
     <ClInclude Include="DirectXProject\ViewCenter\ViewObjectMgr.h" />
     <ClInclude Include="DirectXProject\ViewCenter\ViewObject\CoordinateAxis.h" />

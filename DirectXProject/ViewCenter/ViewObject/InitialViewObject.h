@@ -4,8 +4,8 @@
 #include "../ViewObjectMgr.h"
 #include "CoordinateAxis.h"
 
-class InitialViewObject : public HIViewObject {
-	CoordinateAxis m_coordinateAxis;
+class HInitialViewObject : public HIViewObject {
+	HCoordinateAxis m_coordinateAxis;
 
 public:
 	virtual void Load();

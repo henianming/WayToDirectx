@@ -1,23 +1,23 @@
 #include "InitialViewObject.h"
 
-void InitialViewObject::Load() {
+void HInitialViewObject::Load() {
 	AddChildViewObject(&m_coordinateAxis);
 	m_coordinateAxis.Load();
 }
 
-void InitialViewObject::Unload() {
+void HInitialViewObject::Unload() {
 	m_coordinateAxis.Unload();
 	DelChildViewObject(&m_coordinateAxis);
 }
 
-void InitialViewObject::Show() {
+void HInitialViewObject::Show() {
 
 }
 
-void InitialViewObject::Hide() {
+void HInitialViewObject::Hide() {
 
 }
 
-void InitialViewObject::Update() {
+void HInitialViewObject::Update() {
 
 }

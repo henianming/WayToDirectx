@@ -5,7 +5,7 @@
 #include <vector>
 #include <list>
 
-enum EventType {
+enum HEventType {
 	EventType_Min = 0,
 	EventType_KeyDown,
 	EventType_KeyUp,
@@ -17,14 +17,14 @@ enum EventType {
 	EventType_Max,
 };
 
-class IWndProcEventReceiver {
+class HIWndProcEventReceiver {
 public:
-	virtual BOOL OnMessage(EventType eventType, WPARAM wParam, LPARAM lParam) = 0;
+	virtual BOOL OnMessage(HEventType eventType, WPARAM wParam, LPARAM lParam) = 0;
 };
 
-class WndProcEventMgr {
+class HWndProcEventMgr {
 private:
-	typedef std::list<IWndProcEventReceiver*> M_RL;
+	typedef std::list<HIWndProcEventReceiver*> M_RL;
 	typedef std::vector<M_RL*> M_ETV;
 
 private:
@@ -34,9 +34,9 @@ public:
 	BOOL Create();
 	BOOL Release();
 
-	void Subscribe(IWndProcEventReceiver *receiver, EventType eventType);
-	void Unsubscribe(IWndProcEventReceiver *receiver, EventType eventType);
-	BOOL FireEvent(EventType eventType, WPARAM wParam, LPARAM lParam);
+	void Subscribe(HIWndProcEventReceiver *receiver, HEventType eventType);
+	void Unsubscribe(HIWndProcEventReceiver *receiver, HEventType eventType);
+	BOOL FireEvent(HEventType eventType, WPARAM wParam, LPARAM lParam);
 };
 
 #endif
