@@ -77,7 +77,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <BrowseInformation>true</BrowseInformation>
     </ClCompile>
     <Link>
@@ -151,7 +151,6 @@
     <ClCompile Include="MyDirectX\MyDirectXmain.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="desc.h" />
     <ClInclude Include="DirectXProject\Common\CommonCode.h" />
     <ClInclude Include="DirectXProject\EventCenter\WndProcEventMgr.h" />
     <ClInclude Include="DirectXProject\program.h" />

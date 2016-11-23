@@ -10,7 +10,7 @@ BOOL HTime::Set_m_timeDensity(double timeDensity) {
 	return TRUE;
 }
 
-double HTime::Get_m_curTimeStamp() {
+double HTime::Get_m_curTimeStamp() const {
 	return m_curTimeStamp;
 }
 

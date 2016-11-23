@@ -12,7 +12,9 @@ BOOL HProgram::Create(HINSTANCE hInstance, int showType) {
 
 	SubscribeEvent();
 
-	//RegisteTimer();
+	RegisteTime();
+
+	RegisteTimer();
 
 	//RETURN_IF_FAILED(m_viewObjectMgr.Create());
 
@@ -22,7 +24,9 @@ BOOL HProgram::Create(HINSTANCE hInstance, int showType) {
 BOOL HProgram::Release() {
 	//RETURN_IF_FAILED(m_viewObjectMgr.Release());
 
-	//UnregisteTimer();
+	UnregisteTimer();
+
+	UnregisteTime();
 
 	UnsubscribeEvent();
 
@@ -34,11 +38,13 @@ BOOL HProgram::Release() {
 
 	return TRUE;
 }
-
+int iii = 0;
 BOOL HProgram::Update() {
-	//UpdataFps();
+	m_timeMgr.Update();
+
+	UpdataFps();
 	
-	//m_timerMgr.Update();
+	m_timerMgr.Update();
 
 	//m_viewObjectMgr.Update();
 	
@@ -53,13 +59,13 @@ IDirect3DDevice9* HProgram::Get_m_device() {
 	return m_device;
 }
 
+HTimeMgr* HProgram::Get_m_timeMgr() {
+	return &m_timeMgr;
+}
+
 HWndProcEventMgr* HProgram::Get_m_wndProcEventMgr() {
 	return &m_wndProcEventMgr;
 }
-/*
-double HProgram::GetCurTimeStamp() {
-	return m_time.Get_m_curTimeStamp();
-}*/
 
 void HProgram::InitWndClass(HINSTANCE hInstance) {
 	m_wndClass.cbClsExtra = 0;
@@ -173,17 +179,25 @@ void HProgram::SubscribeEvent() {
 void HProgram::UnsubscribeEvent() {
 	m_wndProcEventMgr.Unsubscribe(this, EventType_KeyUp);
 }
-/*
+
+void HProgram::RegisteTime() {
+	m_timeMgr.Registe(&m_time);
+}
+
+void HProgram::UnregisteTime() {
+	m_timeMgr.Unregiste(&m_time);
+}
+
 void HProgram::RegisteTimer() {
-	m_timerMgr.Registe(this, 1, 0.1);
+	m_timerMgr.Registe(this, 1, 0.1, &m_time);
 }
 
 void HProgram::UnregisteTimer() {
 	m_timerMgr.Unregiste(this, 1);
 }
-
+ 
 void HProgram::UpdataFps() {
-	double nowTimeStamp = GetCurTimeStamp();
+	double nowTimeStamp = m_time.Get_m_curTimeStamp();
 	m_fps = (double)1 / (nowTimeStamp - m_oldTimeStamp);
 	m_oldTimeStamp = nowTimeStamp;
 }
@@ -193,7 +207,7 @@ void HProgram::TitleView() {
 	swprintf(wc, 256, L"DirectX Program Window       fps->%d", (int)m_fps);
 	SetWindowText(m_hWnd, wc);
 }
-*/
+
 BOOL HProgram::OnMessage(HEventType eventType, WPARAM wParam, LPARAM lParam) {
 	switch (eventType) {
 	case EventType_KeyUp:
@@ -210,7 +224,7 @@ BOOL HProgram::OnMessage(HEventType eventType, WPARAM wParam, LPARAM lParam) {
 
 	return FALSE;
 }
-/*
+
 void HProgram::OnTimer(int id) {
 	switch (id) {
 	case 1:
@@ -218,4 +232,4 @@ void HProgram::OnTimer(int id) {
 		TitleView();
 	}break;
 	}
-}*/
+}

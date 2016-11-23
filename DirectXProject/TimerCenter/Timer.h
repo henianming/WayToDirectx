@@ -4,13 +4,16 @@
 #include <Windows.h>
 #include <map>
 
+#include "TimeCenter/Time.h"
+
 struct HTimerData {
 public:
+	HTime const *m_time;
 	double m_intervalTime;
 	double m_lastActiveTime;
 
 public:
-	HTimerData(double intervalTime, double lastActiveTime);
+	HTimerData(HTime const *time, double intervalTime, double lastActiveTime);
 };
 
 class HITimerMgrReceiver {
@@ -25,18 +28,15 @@ private:
 
 private:
 	M_RECEIVER_ID m_receiver_id;
-	LARGE_INTEGER m_frequency;
+	HTime m_time;
 
 public:
-	HTimerMgr();
-
-	void Registe(HITimerMgrReceiver *receiver, int id, double intervalSecond);
+	BOOL Create();
+	BOOL Release();
+	void Registe(HITimerMgrReceiver *receiver, int id, double intervalSecond, HTime const *time = NULL);
 	void Unregiste(HITimerMgrReceiver *receiver, int id);
 
 	void Update();
-
-private:
-	double GetCurTimeStamp();
 };
 
 #endif //TIMER_H

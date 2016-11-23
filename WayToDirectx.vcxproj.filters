@@ -159,7 +159,6 @@
     <ClInclude Include="DirectXProject\ViewCenter\ViewObject\Prismatic.h">
       <Filter>DirectXProject\ViewCenter\ViewObject</Filter>
     </ClInclude>
-    <ClInclude Include="desc.h" />
     <ClInclude Include="DirectXProject\TimeCenter\Time.h">
       <Filter>DirectXProject\TimeCenter</Filter>
     </ClInclude>

@@ -33,7 +33,6 @@ void HWndProcEventMgr::Subscribe(HIWndProcEventReceiver *receiver, HEventType ev
 		it++;
 	}
 
-
 	m_etv.at(eventType)->push_back(receiver);
 }
 

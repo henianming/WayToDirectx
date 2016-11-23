@@ -13,7 +13,7 @@ public:
 	HTime();
 
 	BOOL Set_m_timeDensity(double timeDensity);
-	double Get_m_curTimeStamp();
+	double Get_m_curTimeStamp() const;
 
 	void AddTime(double realTime);
 };
@@ -32,10 +32,8 @@ public:
 
 	void Registe(HTime *time);
 	void Unregiste(HTime *time);
-
 	void Update();
 
-private:
 	double GetCurRealTimeStamp();
 };
 
