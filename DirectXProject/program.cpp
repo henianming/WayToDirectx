@@ -10,6 +10,8 @@ BOOL HProgram::Create(HINSTANCE hInstance, int showType) {
 
 	RETURN_IF_FAILED(CreateDirectX());
 
+	RETURN_IF_FAILED(m_timeMgr.Create());
+
 	SubscribeEvent();
 
 	RegisteTime();
@@ -29,6 +31,8 @@ BOOL HProgram::Release() {
 	UnregisteTime();
 
 	UnsubscribeEvent();
+
+	RETURN_IF_FAILED(m_timeMgr.Release());
 
 	RETURN_IF_FAILED(ReleaseDirectX());
 

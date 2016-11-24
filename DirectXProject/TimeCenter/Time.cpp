@@ -22,6 +22,16 @@ HTimeMgr::HTimeMgr() {
 	QueryPerformanceFrequency(&m_frequency);
 }
 
+BOOL HTimeMgr::Create() {
+	m_curRealTimeStamp = GetCurRealTimeStamp();
+
+	return TRUE;
+}
+
+BOOL HTimeMgr::Release() {
+	return TRUE;
+}
+
 void HTimeMgr::Registe(HTime *time) {
 	M_TL::iterator it = m_timeList.begin();
 	while (it != m_timeList.end()) {

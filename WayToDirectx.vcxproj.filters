@@ -34,6 +34,9 @@
     <Filter Include="DirectXProject\TimeCenter">
       <UniqueIdentifier>{ce550ea3-7d8b-4385-a31d-d512dfd96446}</UniqueIdentifier>
     </Filter>
+    <Filter Include="DirectXProject\InputCenter">
+      <UniqueIdentifier>{9d9c750b-4478-443a-af5a-35a29d2b12f4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="csdn_lesson001.cpp">
@@ -120,6 +123,12 @@
     <ClCompile Include="DirectXProject\TimeCenter\Time.cpp">
       <Filter>DirectXProject\TimeCenter</Filter>
     </ClCompile>
+    <ClCompile Include="DirectXProject\InputCenter\Input.cpp">
+      <Filter>DirectXProject\InputCenter</Filter>
+    </ClCompile>
+    <ClCompile Include="DirectXProject\InputCenter\KeyboardInput.cpp">
+      <Filter>DirectXProject\InputCenter</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lesson.h" />
@@ -161,6 +170,12 @@
     </ClInclude>
     <ClInclude Include="DirectXProject\TimeCenter\Time.h">
       <Filter>DirectXProject\TimeCenter</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectXProject\InputCenter\Input.h">
+      <Filter>DirectXProject\InputCenter</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectXProject\InputCenter\KeyboardInput.h">
+      <Filter>DirectXProject\InputCenter</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

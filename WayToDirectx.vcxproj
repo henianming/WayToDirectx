@@ -127,6 +127,8 @@
     <ClCompile Include="csdn_lesson003.cpp" />
     <ClCompile Include="DirectXProject\Common\CommonCode.cpp" />
     <ClCompile Include="DirectXProject\EventCenter\WndProcEventMgr.cpp" />
+    <ClCompile Include="DirectXProject\InputCenter\Input.cpp" />
+    <ClCompile Include="DirectXProject\InputCenter\KeyboardInput.cpp" />
     <ClCompile Include="DirectXProject\main.cpp" />
     <ClCompile Include="DirectXProject\program.cpp" />
     <ClCompile Include="DirectXProject\TimeCenter\Time.cpp" />
@@ -153,6 +155,8 @@
   <ItemGroup>
     <ClInclude Include="DirectXProject\Common\CommonCode.h" />
     <ClInclude Include="DirectXProject\EventCenter\WndProcEventMgr.h" />
+    <ClInclude Include="DirectXProject\InputCenter\Input.h" />
+    <ClInclude Include="DirectXProject\InputCenter\KeyboardInput.h" />
     <ClInclude Include="DirectXProject\program.h" />
     <ClInclude Include="DirectXProject\TimeCenter\Time.h" />
     <ClInclude Include="DirectXProject\TimerCenter\Timer.h" />

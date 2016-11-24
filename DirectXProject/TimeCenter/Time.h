@@ -30,6 +30,8 @@ private:
 public:
 	HTimeMgr();
 
+	BOOL Create();
+	BOOL Release();
 	void Registe(HTime *time);
 	void Unregiste(HTime *time);
 	void Update();
