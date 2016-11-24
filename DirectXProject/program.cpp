@@ -208,7 +208,7 @@ void HProgram::UpdataFps() {
 
 void HProgram::TitleView() {
 	wchar_t wc[256];
-	swprintf(wc, 256, L"DirectX Program Window       fps->%d", (int)m_fps);
+	swprintf(wc, 256, L"DirectX Program Window       fps->%lf", m_fps);
 	SetWindowText(m_hWnd, wc);
 }
 

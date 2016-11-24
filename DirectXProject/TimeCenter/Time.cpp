@@ -2,7 +2,6 @@
 
 HTime::HTime()
 	: m_timeDensity(1.0) {
-
 }
 
 BOOL HTime::Set_m_timeDensity(double timeDensity) {
@@ -70,8 +69,10 @@ void HTimeMgr::Update() {
 	}
 }
 
+#include <stdio.h>
+
 double HTimeMgr::GetCurRealTimeStamp() {
 	LARGE_INTEGER count;
 	QueryPerformanceCounter(&count);
-	return ((float)(count.QuadPart) / (float)(m_frequency.QuadPart));
+	return ((double)(count.QuadPart) / (double)(m_frequency.QuadPart));
 }
