@@ -1,16 +1,16 @@
-#include "WndProcEventMgr.h"
+#include "InputEventMgr.h"
 
-BOOL HWndProcEventMgr::Create() {
+BOOL HInputEventMgr::Create() {
 	int i;
 
-	for (i = 0; i < WndProcEventType_Max; i++) {
+	for (i = 0; i < HInputEventType_Max; i++) {
 		m_etv.push_back(new M_RL());
 	}
 
 	return TRUE;
 }
 
-BOOL HWndProcEventMgr::Release() {
+BOOL HInputEventMgr::Release() {
 	M_ETV::iterator it = m_etv.begin();
 	while (it != m_etv.end()) {
 		delete *it;
@@ -22,7 +22,7 @@ BOOL HWndProcEventMgr::Release() {
 	return TRUE;
 }
 
-void HWndProcEventMgr::Subscribe(HIWndProcEventReceiver *receiver, HWndProcEventType eventType) {
+void HInputEventMgr::Subscribe(HIInputEventReceiver *receiver, HInputEventType eventType) {
 	M_RL *rl = m_etv.at(eventType);
 	M_RL::iterator it = rl->begin();
 	while (it != rl->end()) {
@@ -36,7 +36,7 @@ void HWndProcEventMgr::Subscribe(HIWndProcEventReceiver *receiver, HWndProcEvent
 	m_etv.at(eventType)->push_back(receiver);
 }
 
-void HWndProcEventMgr::Unsubscribe(HIWndProcEventReceiver *receiver, HWndProcEventType eventType) {
+void HInputEventMgr::Unsubscribe(HIInputEventReceiver *receiver, HInputEventType eventType) {
 	M_RL *rl = m_etv.at(eventType);
 	M_RL::iterator it = rl->begin();
 	while (it != rl->end()) {
@@ -49,13 +49,13 @@ void HWndProcEventMgr::Unsubscribe(HIWndProcEventReceiver *receiver, HWndProcEve
 	}
 }
 
-BOOL HWndProcEventMgr::FireEvent(HWndProcEventType eventType, WPARAM wParam, LPARAM lParam) {
+BOOL HInputEventMgr::FireEvent(HInputEventType eventType, double durationTime, BOOL isContinue) {
 	BOOL isDealed = FALSE;
 
 	M_RL *rl = m_etv.at(eventType);
 	M_RL::iterator it = rl->begin();
 	while (it != rl->end()) {
-		if ((*it)->OnMessage(eventType, wParam, lParam) == TRUE) {
+		if ((*it)->OnMessage(eventType, durationTime, isContinue) == TRUE) {
 			isDealed = TRUE;
 		}
 		it++;

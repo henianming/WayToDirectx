@@ -11,43 +11,43 @@ HRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 		switch (msg) {
 		case WM_KEYDOWN:
 		{
-			if (g_program->Get_m_wndProcEventMgr()->FireEvent(EventType_KeyDown, wParam, lParam)) {
+			if (g_program->Get_m_wndProcEventMgr()->FireEvent(WndProcEventType_KeyDown, wParam, lParam)) {
 				return 0;
 			}
 		}break;
 		case WM_KEYUP:
 		{
-			if (g_program->Get_m_wndProcEventMgr()->FireEvent(EventType_KeyUp, wParam, lParam)) {
+			if (g_program->Get_m_wndProcEventMgr()->FireEvent(WndProcEventType_KeyUp, wParam, lParam)) {
 				return 0;
 			}
 		}break;
 		case WM_LBUTTONDOWN:
 		{
-			if (g_program->Get_m_wndProcEventMgr()->FireEvent(EventType_LBUTTONDOWN, wParam, lParam)) {
+			if (g_program->Get_m_wndProcEventMgr()->FireEvent(WndProcEventType_LBUTTONDOWN, wParam, lParam)) {
 				return 0;
 			}
 		}break;
 		case WM_RBUTTONDOWN:
 		{
-			if (g_program->Get_m_wndProcEventMgr()->FireEvent(EventType_RBUTTONDOWN, wParam, lParam)) {
+			if (g_program->Get_m_wndProcEventMgr()->FireEvent(WndProcEventType_RBUTTONDOWN, wParam, lParam)) {
 				return 0;
 			}
 		}break;
 		case WM_MOUSEMOVE:
 		{
-			if (g_program->Get_m_wndProcEventMgr()->FireEvent(EventType_MOUSEMOVE, wParam, lParam)) {
+			if (g_program->Get_m_wndProcEventMgr()->FireEvent(WndProcEventType_MOUSEMOVE, wParam, lParam)) {
 				return 0;
 			}
 		}break;
 		case WM_LBUTTONUP:
 		{
-			if (g_program->Get_m_wndProcEventMgr()->FireEvent(EventType_LBUTTONUP, wParam, lParam)) {
+			if (g_program->Get_m_wndProcEventMgr()->FireEvent(WndProcEventType_LBUTTONUP, wParam, lParam)) {
 				return 0;
 			}
 		}break;
 		case WM_RBUTTONUP:
 		{
-			if (g_program->Get_m_wndProcEventMgr()->FireEvent(EventType_RBUTTONUP, wParam, lParam)) {
+			if (g_program->Get_m_wndProcEventMgr()->FireEvent(WndProcEventType_RBUTTONUP, wParam, lParam)) {
 				return 0;
 			}
 		}break;

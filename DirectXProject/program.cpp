@@ -177,11 +177,11 @@ BOOL HProgram::ReleaseDirectX() {
 }
 
 void HProgram::SubscribeEvent() {
-	m_wndProcEventMgr.Subscribe(this, EventType_KeyUp);
+	m_wndProcEventMgr.Subscribe(this, WndProcEventType_KeyUp);
 }
 
 void HProgram::UnsubscribeEvent() {
-	m_wndProcEventMgr.Unsubscribe(this, EventType_KeyUp);
+	m_wndProcEventMgr.Unsubscribe(this, WndProcEventType_KeyUp);
 }
 
 void HProgram::RegisteTime() {
@@ -212,9 +212,9 @@ void HProgram::TitleView() {
 	SetWindowText(m_hWnd, wc);
 }
 
-BOOL HProgram::OnMessage(HEventType eventType, WPARAM wParam, LPARAM lParam) {
+BOOL HProgram::OnMessage(HWndProcEventType eventType, WPARAM wParam, LPARAM lParam) {
 	switch (eventType) {
-	case EventType_KeyUp:
+	case WndProcEventType_KeyUp:
 	{
 		switch (wParam) {
 		case VK_ESCAPE:

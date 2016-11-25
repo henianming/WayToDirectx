@@ -5,21 +5,21 @@
 #include <vector>
 #include <list>
 
-enum HEventType {
-	EventType_Min = 0,
-	EventType_KeyDown,
-	EventType_KeyUp,
-	EventType_LBUTTONDOWN,
-	EventType_RBUTTONDOWN,
-	EventType_MOUSEMOVE,
-	EventType_LBUTTONUP,
-	EventType_RBUTTONUP,
-	EventType_Max,
+enum HWndProcEventType {
+	WndProcEventType_Min = 0,
+	WndProcEventType_KeyDown,
+	WndProcEventType_KeyUp,
+	WndProcEventType_LBUTTONDOWN,
+	WndProcEventType_RBUTTONDOWN,
+	WndProcEventType_MOUSEMOVE,
+	WndProcEventType_LBUTTONUP,
+	WndProcEventType_RBUTTONUP,
+	WndProcEventType_Max,
 };
 
 class HIWndProcEventReceiver {
 public:
-	virtual BOOL OnMessage(HEventType eventType, WPARAM wParam, LPARAM lParam) = 0;
+	virtual BOOL OnMessage(HWndProcEventType eventType, WPARAM wParam, LPARAM lParam) = 0;
 };
 
 class HWndProcEventMgr {
@@ -34,9 +34,9 @@ public:
 	BOOL Create();
 	BOOL Release();
 
-	void Subscribe(HIWndProcEventReceiver *receiver, HEventType eventType);
-	void Unsubscribe(HIWndProcEventReceiver *receiver, HEventType eventType);
-	BOOL FireEvent(HEventType eventType, WPARAM wParam, LPARAM lParam);
+	void Subscribe(HIWndProcEventReceiver *receiver, HWndProcEventType eventType);
+	void Unsubscribe(HIWndProcEventReceiver *receiver, HWndProcEventType eventType);
+	BOOL FireEvent(HWndProcEventType eventType, WPARAM wParam, LPARAM lParam);
 };
 
-#endif
+#endif //WNDPROC_EVENT_MGR_H

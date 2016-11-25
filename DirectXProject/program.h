@@ -63,7 +63,7 @@ private:
 	void TitleView();
 
 public:
-	virtual BOOL OnMessage(HEventType eventType, WPARAM wParam, LPARAM lParam);
+	virtual BOOL OnMessage(HWndProcEventType eventType, WPARAM wParam, LPARAM lParam);
 	virtual void OnTimer(int id);
 };
 

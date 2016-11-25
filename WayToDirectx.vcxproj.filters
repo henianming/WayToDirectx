@@ -129,6 +129,9 @@
     <ClCompile Include="DirectXProject\InputCenter\KeyboardInput.cpp">
       <Filter>DirectXProject\InputCenter</Filter>
     </ClCompile>
+    <ClCompile Include="DirectXProject\EventCenter\InputEventMgr.cpp">
+      <Filter>DirectXProject\EventCenter</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lesson.h" />
@@ -176,6 +179,9 @@
     </ClInclude>
     <ClInclude Include="DirectXProject\InputCenter\KeyboardInput.h">
       <Filter>DirectXProject\InputCenter</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectXProject\EventCenter\InputEventMgr.h">
+      <Filter>DirectXProject\EventCenter</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
