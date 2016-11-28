@@ -6,12 +6,16 @@
 #include <vector>
 
 enum HInputEventType {
-	HInputEventType_Min = 0,
 //原始按键
 //	键盘
+	HInputEventType_SK_Min,
+	HInputEventType_SK_Max,
 //	手柄
+	HInputEventType_SG_Min,
+	HInputEventType_SG_Max,
 //游戏识别按键
-	HInputEventType_Max,
+	HInputEventType_D_Min,
+	HInputEventType_D_Max,
 };
 
 class HIInputEventReceiver {
