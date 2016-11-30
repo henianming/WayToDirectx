@@ -4,11 +4,14 @@
 #include "Input.h"
 
 class HKeyboardInput : public HIInputDevice {
-public:
-	BOOL Create();
-	BOOL Release();
+private:
+	void SubscribeEvent();
+	void UnsubscribeEnent();
 
 public:
+	virtual BOOL Create();
+	virtual BOOL Release();
+	virtual BOOL Update();
 	virtual BOOL OnMessage(HWndProcEventType eventType, WPARAM wParam, LPARAM lParam);
 };
 

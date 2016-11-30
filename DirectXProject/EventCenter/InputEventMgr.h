@@ -8,11 +8,11 @@
 enum HInputEventType {
 //原始按键
 //	键盘
-	HInputEventType_SK_Min,
-	HInputEventType_SK_Max,
+	HInputEventType_RK_Min,
+	HInputEventType_RK_Max,
 //	手柄
-	HInputEventType_SG_Min,
-	HInputEventType_SG_Max,
+	HInputEventType_RG_Min,
+	HInputEventType_RG_Max,
 //游戏识别按键
 	HInputEventType_D_Min,
 	HInputEventType_D_Max,
