@@ -6,7 +6,7 @@
 
 HProgram *g_program;
 
-HRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
+LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 	if (g_program) {
 		switch (msg) {
 		case WM_KEYDOWN:

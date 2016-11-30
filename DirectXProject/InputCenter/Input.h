@@ -5,7 +5,6 @@
 
 #include "EventCenter/WndProcEventMgr.h"
 #include "EventCenter/InputEventMgr.h"
-#include "KeyboardInput.h"
 
 class HIInputDevice : public HIWndProcEventReceiver {
 public:
@@ -16,9 +15,12 @@ public:
 
 class HInputMgr : public HIInputEventReceiver {
 private:
-	HKeyboardInput m_keyboard;
+	HIInputDevice *m_keyboard;
 
 public:
+	HInputMgr();
+	~HInputMgr();
+
 	BOOL Create();
 	BOOL Release();
 

@@ -1,7 +1,7 @@
 #include "program.h"
 #include "Common/CommonCode.h"
 
-extern HRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+extern LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 BOOL HProgram::Create(HINSTANCE hInstance, int showType) {
 	RETURN_IF_FAILED(m_wndProcEventMgr.Create());
