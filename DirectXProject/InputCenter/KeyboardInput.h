@@ -3,25 +3,31 @@
 
 #include "Input.h"
 #include <list>
+#include <map>
 #include <Windows.h>
 
 struct HKeyboard_Data {
-	WPARAM m_key;
-	BOOL m_isContinue;
+	HInputEventType m_key;
 	double m_lastActiveTimeStamp;
 };
 
 class HKeyboardInput : public HIInputDevice {
 private:
+	typedef std::map<WPARAM, HInputEventType> M_KIEM;
+	typedef std::pair<WPARAM, HInputEventType> M_KIEP;
 	typedef std::list<HKeyboard_Data*> M_KDL;
 
 private:
+	M_KIEM m_keyEventMap;
 	M_KDL m_keyboardDataList;
 
 private:
+	void CreateKeyboardMap();
+	void ReleaseKeyboardMap();
 	void SubscribeEvent();
 	void UnsubscribeEnent();
-	BOOL IsKeyActive(WPARAM m_key);
+	M_KDL::iterator IsKeyActive(HInputEventType key);
+	HInputEventType VKToRK(WPARAM key);
 
 public:
 	virtual BOOL Create();

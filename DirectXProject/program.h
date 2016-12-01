@@ -3,8 +3,10 @@
 
 #include <d3d9.h>
 #include "EventCenter/WndProcEventMgr.h"
+#include "EventCenter/InputEventMgr.h"
 #include "TimeCenter/Time.h"
 #include "TimerCenter/Timer.h"
+#include "InputCenter/Input.h"
 /*
 #include "ViewCenter/ViewObjectMgr.h"
 */
@@ -13,6 +15,7 @@ class HProgram : public HIWndProcEventReceiver, public HITimerMgrReceiver {
 private:
 	//event system
 	HWndProcEventMgr m_wndProcEventMgr;
+	HInputEventMgr m_inputEventMgr;
 
 	//program system
 	WNDCLASS m_wndClass;
@@ -28,6 +31,9 @@ private:
 	//timer system
 	HTimerMgr m_timerMgr;
 
+	//input system
+	HInputMgr m_inputMgr;
+
 	//view object system
 	//HViewObjectMgr m_viewObjectMgr;
 
@@ -41,6 +47,7 @@ public:
 	BOOL Update();
 
 	HWndProcEventMgr* Get_m_wndProcEventMgr();
+	HInputEventMgr* Get_m_inputEventMgr();
 	HWND Get_m_hWnd();
 	IDirect3DDevice9* Get_m_device();
 	HTimeMgr* Get_m_timeMgr();

@@ -24,6 +24,10 @@ public:
 	BOOL Create();
 	BOOL Release();
 
+private:
+	void SubscribeEvent();
+	void UnsubscribeEnent();
+
 public:
 	virtual BOOL OnMessage(HInputEventType eventType, double durationTime, BOOL isContinue);
 };
