@@ -67,6 +67,10 @@ HTimeMgr* HProgram::Get_m_timeMgr() {
 	return &m_timeMgr;
 }
 
+HTime* HProgram::Get_m_time() {
+	return &m_time;
+}
+
 HWndProcEventMgr* HProgram::Get_m_wndProcEventMgr() {
 	return &m_wndProcEventMgr;
 }

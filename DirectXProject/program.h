@@ -44,6 +44,7 @@ public:
 	HWND Get_m_hWnd();
 	IDirect3DDevice9* Get_m_device();
 	HTimeMgr* Get_m_timeMgr();
+	HTime* Get_m_time();
 
 private:
 	void InitWndClass(HINSTANCE hInstance);
