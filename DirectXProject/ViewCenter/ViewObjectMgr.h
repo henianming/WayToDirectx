@@ -1,4 +1,3 @@
-#if 0
 #ifndef VIEW_OBJECT_MGR_H
 #define VIEW_OBJECT_MGR_H
 
@@ -25,10 +24,12 @@ public:
 	virtual void Unload() = 0;
 	virtual void Show() = 0;
 	virtual void Hide() = 0;
+	virtual void OnGetFocus() = 0;
+	virtual void OnLostFocus() = 0;
 	virtual void Update();
 };
 
-class HViewObjectMgr : public HIWndProcEventReceiver {
+class HViewObjectMgr {
 private:
 	HIViewObject *m_rootViewObject;
 	
@@ -38,20 +39,9 @@ private:
 	D3DXVECTOR3 m_up;
 
 public:
-	HViewObjectMgr();
-
 	BOOL Create();
 	BOOL Release();
 	void Update();
-	void SubscribeEvent();
-	void UnsubscribeEvent();
-
-private:
-	void MoveCameraToPosition(D3DXVECTOR3 const *position);
-
-public:
-	virtual BOOL OnMessage(HEventType eventType, WPARAM wParam, LPARAM lParam);
 };
 
 #endif //VIEW_OBJECT_MGR_H
-#endif

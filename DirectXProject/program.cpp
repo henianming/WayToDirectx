@@ -6,15 +6,11 @@ extern LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lPara
 BOOL HProgram::Create(HINSTANCE hInstance, int showType) {
 	RETURN_IF_FAILED(m_wndProcEventMgr.Create());
 
-	RETURN_IF_FAILED(m_inputEventMgr.Create());
-
 	RETURN_IF_FAILED(CreateWnd(hInstance, showType));
 
 	RETURN_IF_FAILED(CreateDirectX());
 
 	RETURN_IF_FAILED(m_timeMgr.Create());
-
-	RETURN_IF_FAILED(m_inputMgr.Create());
 
 	SubscribeEvent();
 
@@ -22,13 +18,13 @@ BOOL HProgram::Create(HINSTANCE hInstance, int showType) {
 
 	RegisteTimer();
 
-	//RETURN_IF_FAILED(m_viewObjectMgr.Create());
+	RETURN_IF_FAILED(m_viewObjectMgr.Create());
 
 	return TRUE;
 }
 
 BOOL HProgram::Release() {
-	//RETURN_IF_FAILED(m_viewObjectMgr.Release());
+	RETURN_IF_FAILED(m_viewObjectMgr.Release());
 
 	UnregisteTimer();
 
@@ -36,15 +32,11 @@ BOOL HProgram::Release() {
 
 	UnsubscribeEvent();
 
-	RETURN_IF_FAILED(m_inputMgr.Release());
-
 	RETURN_IF_FAILED(m_timeMgr.Release());
 
 	RETURN_IF_FAILED(ReleaseDirectX());
 
 	RETURN_IF_FAILED(ReleaseWnd());
-
-	RETURN_IF_FAILED(m_inputEventMgr.Release());
 
 	RETURN_IF_FAILED(m_wndProcEventMgr.Release());
 
@@ -58,7 +50,7 @@ BOOL HProgram::Update() {
 	
 	m_timerMgr.Update();
 
-	//m_viewObjectMgr.Update();
+	m_viewObjectMgr.Update();
 	
 	return TRUE;
 }
@@ -81,10 +73,6 @@ HTime* HProgram::Get_m_time() {
 
 HWndProcEventMgr* HProgram::Get_m_wndProcEventMgr() {
 	return &m_wndProcEventMgr;
-}
-
-HInputEventMgr* HProgram::Get_m_inputEventMgr() {
-	return &m_inputEventMgr;
 }
 
 void HProgram::InitWndClass(HINSTANCE hInstance) {

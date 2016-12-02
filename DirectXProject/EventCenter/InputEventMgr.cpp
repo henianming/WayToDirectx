@@ -3,7 +3,7 @@
 BOOL HInputEventMgr::Create() {
 	int i;
 
-	for (i = 0; i < HInputEventType_D_Max; i++) {
+	for (i = 0; i < HInputEventType_Max; i++) {
 		m_etv.push_back(new M_RL());
 	}
 

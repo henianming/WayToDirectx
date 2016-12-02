@@ -1,3 +1,4 @@
+#if 0
 #include "KeyboardInput.h"
 
 #include "program.h"
@@ -5,10 +6,10 @@
 extern HProgram *g_program;
 
 void HKeyboardInput::CreateKeyboardMap() {
-	WPARAM node;
-	for (node = 'A'; node <= 'Z'; node++) {
-		m_keyEventMap.insert(M_KIEP(node, (HInputEventType)(HInputEventType_RK_A + (node - 'A'))));
-	}
+	m_keyEventMap.insert(M_KIEP('W', HInputEventType_W));
+	m_keyEventMap.insert(M_KIEP('A', HInputEventType_A));
+	m_keyEventMap.insert(M_KIEP('S', HInputEventType_S));
+	m_keyEventMap.insert(M_KIEP('D', HInputEventType_D));
 }
 
 void HKeyboardInput::ReleaseKeyboardMap() {
@@ -21,8 +22,8 @@ void HKeyboardInput::SubscribeEvent() {
 }
 
 void HKeyboardInput::UnsubscribeEnent() {
-	g_program->Get_m_wndProcEventMgr()->Unsubscribe(this, WndProcEventType_KeyDown);
 	g_program->Get_m_wndProcEventMgr()->Unsubscribe(this, WndProcEventType_KeyUp);
+	g_program->Get_m_wndProcEventMgr()->Unsubscribe(this, WndProcEventType_KeyDown);
 }
 
 HKeyboardInput::M_KDL::iterator HKeyboardInput::IsKeyActive(HInputEventType key) {
@@ -41,7 +42,7 @@ HKeyboardInput::M_KDL::iterator HKeyboardInput::IsKeyActive(HInputEventType key)
 HInputEventType HKeyboardInput::VKToRK(WPARAM key) {
 	M_KIEM::iterator it = m_keyEventMap.find(key);
 	if (it == m_keyEventMap.end()) {
-		return HInputEventType_RK_Min;
+		return HInputEventType_Min;
 	} else {
 		return it->second;
 	}
@@ -81,7 +82,7 @@ BOOL HKeyboardInput::OnMessage(HWndProcEventType eventType, WPARAM wParam, LPARA
 	case WndProcEventType_KeyDown:
 	{
 		HInputEventType keyTemp = VKToRK(wParam);
-		if (keyTemp == HInputEventType_RK_Min) {
+		if (keyTemp == HInputEventType_Min) {
 			return FALSE;
 		}
 
@@ -103,7 +104,7 @@ BOOL HKeyboardInput::OnMessage(HWndProcEventType eventType, WPARAM wParam, LPARA
 	case WndProcEventType_KeyUp:
 	{
 		HInputEventType keyTemp = VKToRK(wParam);
-		if (keyTemp == HInputEventType_RK_Min) {
+		if (keyTemp == HInputEventType_Min) {
 			return FALSE;
 		}
 
@@ -122,3 +123,4 @@ BOOL HKeyboardInput::OnMessage(HWndProcEventType eventType, WPARAM wParam, LPARA
 
 	return FALSE;
 }
+#endif

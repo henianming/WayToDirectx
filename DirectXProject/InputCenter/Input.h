@@ -1,3 +1,4 @@
+#if 0
 #ifndef INPUT_H
 #define INPUT_H
 
@@ -13,23 +14,5 @@ public:
 	virtual BOOL Update() = 0;
 };
 
-class HInputMgr : public HIInputEventReceiver {
-private:
-	HIInputDevice *m_keyboard;
-
-public:
-	HInputMgr();
-	~HInputMgr();
-
-	BOOL Create();
-	BOOL Release();
-
-private:
-	void SubscribeEvent();
-	void UnsubscribeEnent();
-
-public:
-	virtual BOOL OnMessage(HInputEventType eventType, double durationTime, BOOL isContinue);
-};
-
 #endif //INPUT_H
+#endif

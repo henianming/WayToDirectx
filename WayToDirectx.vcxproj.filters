@@ -123,9 +123,6 @@
     <ClCompile Include="DirectXProject\TimeCenter\Time.cpp">
       <Filter>DirectXProject\TimeCenter</Filter>
     </ClCompile>
-    <ClCompile Include="DirectXProject\InputCenter\Input.cpp">
-      <Filter>DirectXProject\InputCenter</Filter>
-    </ClCompile>
     <ClCompile Include="DirectXProject\InputCenter\KeyboardInput.cpp">
       <Filter>DirectXProject\InputCenter</Filter>
     </ClCompile>
