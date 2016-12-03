@@ -1,3 +1,4 @@
+#if 0
 #ifndef INPUT_EVENT_MGR_H
 #define INPUT_EVENT_MGR_H
 
@@ -37,3 +38,4 @@ public:
 };
 
 #endif //INPUT_EVENT_MGR_H
+#endif

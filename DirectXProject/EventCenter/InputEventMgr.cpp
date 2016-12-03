@@ -1,3 +1,4 @@
+#if 0
 #include "InputEventMgr.h"
 
 BOOL HInputEventMgr::Create() {
@@ -63,3 +64,4 @@ BOOL HInputEventMgr::FireEvent(HInputEventType eventType, double durationTime, B
 
 	return isDealed;
 }
+#endif

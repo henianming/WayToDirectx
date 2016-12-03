@@ -111,9 +111,6 @@
     <ClCompile Include="DirectXProject\ViewCenter\ViewObjectMgr.cpp">
       <Filter>DirectXProject\ViewCenter</Filter>
     </ClCompile>
-    <ClCompile Include="DirectXProject\ViewCenter\ViewObject\InitialViewObject.cpp">
-      <Filter>DirectXProject\ViewCenter\ViewObject</Filter>
-    </ClCompile>
     <ClCompile Include="DirectXProject\ViewCenter\ViewObject\CoordinateAxis.cpp">
       <Filter>DirectXProject\ViewCenter\ViewObject</Filter>
     </ClCompile>
@@ -128,6 +125,9 @@
     </ClCompile>
     <ClCompile Include="DirectXProject\EventCenter\InputEventMgr.cpp">
       <Filter>DirectXProject\EventCenter</Filter>
+    </ClCompile>
+    <ClCompile Include="DirectXProject\ViewCenter\ViewObject\GameViewObject.cpp">
+      <Filter>DirectXProject\ViewCenter\ViewObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -159,9 +159,6 @@
     <ClInclude Include="DirectXProject\ViewCenter\ViewObjectMgr.h">
       <Filter>DirectXProject\ViewCenter</Filter>
     </ClInclude>
-    <ClInclude Include="DirectXProject\ViewCenter\ViewObject\InitialViewObject.h">
-      <Filter>DirectXProject\ViewCenter\ViewObject</Filter>
-    </ClInclude>
     <ClInclude Include="DirectXProject\ViewCenter\ViewObject\CoordinateAxis.h">
       <Filter>DirectXProject\ViewCenter\ViewObject</Filter>
     </ClInclude>
@@ -179,6 +176,9 @@
     </ClInclude>
     <ClInclude Include="DirectXProject\EventCenter\InputEventMgr.h">
       <Filter>DirectXProject\EventCenter</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectXProject\ViewCenter\ViewObject\GameViewObject.h">
+      <Filter>DirectXProject\ViewCenter\ViewObject</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

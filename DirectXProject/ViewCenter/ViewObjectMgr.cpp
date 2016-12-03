@@ -8,18 +8,15 @@ extern HProgram *g_program;
 
 HIViewObject::~HIViewObject() {
 	//clear child
-	std::list<HIViewObject*>::iterator it = m_childViewObjectList.begin();
-	while (it != m_childViewObjectList.end()) {
-		delete (*it);
+	std::list<HIViewObject*>::reverse_iterator rit = m_childViewObjectList.rbegin();
+	while (rit != m_childViewObjectList.rend()) {
+		delete (*rit);
 
-		it++;
+		rit++;
 	}
 
-	//Hide();
-	//Unload();
-	UnsetParentViewObject();
-
-	//clear self data
+	Hide();
+	Unload();
 }
 
 void HIViewObject::SetParentViewObject(HIViewObject *parent, BOOL isOtherCall) {
@@ -84,31 +81,30 @@ void HIViewObject::Update() {
 }
 
 BOOL HViewObjectMgr::Create() {
-	m_rootViewObject = new HInitialViewObject();
-	m_rootViewObject->Load();
-	m_rootViewObject->Show();
+	m_gameViewObject = new HGameViewObject();
+	m_gameViewObject->Load();
+	m_gameViewObject->Show();
+	m_gameViewObject->OnGetFocus();
 
 	return TRUE;
 }
 
 BOOL HViewObjectMgr::Release() {
-	m_rootViewObject->Hide();
-	m_rootViewObject->Unload();
-	SAFEDELETENULL(m_rootViewObject);
+	m_gameViewObject->OnLostFocus();
+	m_gameViewObject->Hide();
+	m_gameViewObject->Unload();
+	SAFEDELETENULL(m_gameViewObject);
 
 	return TRUE;
 }
 
 void HViewObjectMgr::Update() {
 	IDirect3DDevice9 *device = g_program->Get_m_device();
-	D3DXMATRIX camera;
-	D3DXMatrixLookAtLH(&camera, &m_eye, &m_target, &m_up);
-	device->SetTransform(D3DTS_VIEW, &camera);
 
 	device->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(0, 0, 0), 1.0f, 0);
 
-	m_rootViewObject->Update();
-	m_rootViewObject->UpdateChile();
+	m_gameViewObject->Update();
+	m_gameViewObject->UpdateChile();
 
 	device->Present(NULL, NULL, 0, NULL);
 }

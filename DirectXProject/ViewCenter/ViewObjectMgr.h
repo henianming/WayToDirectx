@@ -31,12 +31,8 @@ public:
 
 class HViewObjectMgr {
 private:
-	HIViewObject *m_rootViewObject;
-	
-	float m_cameraSpeed;
-	D3DXVECTOR3 m_eye;
-	D3DXVECTOR3 m_target;
-	D3DXVECTOR3 m_up;
+	HIViewObject *m_gameViewObject;
+	HIViewObject *m_uiViewObject;
 
 public:
 	BOOL Create();

@@ -147,7 +147,7 @@
     <ClCompile Include="DirectXProject\TimerCenter\Timer.cpp" />
     <ClCompile Include="DirectXProject\ViewCenter\ViewObjectMgr.cpp" />
     <ClCompile Include="DirectXProject\ViewCenter\ViewObject\CoordinateAxis.cpp" />
-    <ClCompile Include="DirectXProject\ViewCenter\ViewObject\InitialViewObject.cpp" />
+    <ClCompile Include="DirectXProject\ViewCenter\ViewObject\GameViewObject.cpp" />
     <ClCompile Include="DirectXProject\ViewCenter\ViewObject\Prismatic.cpp" />
     <ClCompile Include="dragon_lesson000_000.cpp" />
     <ClCompile Include="dragon_lesson001_001.cpp" />
@@ -175,7 +175,7 @@
     <ClInclude Include="DirectXProject\TimerCenter\Timer.h" />
     <ClInclude Include="DirectXProject\ViewCenter\ViewObjectMgr.h" />
     <ClInclude Include="DirectXProject\ViewCenter\ViewObject\CoordinateAxis.h" />
-    <ClInclude Include="DirectXProject\ViewCenter\ViewObject\InitialViewObject.h" />
+    <ClInclude Include="DirectXProject\ViewCenter\ViewObject\GameViewObject.h" />
     <ClInclude Include="DirectXProject\ViewCenter\ViewObject\Prismatic.h" />
     <ClInclude Include="lesson.h" />
     <ClInclude Include="MyDirectX\directx_window.h" />

@@ -2,16 +2,15 @@
 #define INITIAL_VIEW_OBJECT_H
 
 #include "../ViewObjectMgr.h"
-#include "CoordinateAxis.h"
 
-class HInitialViewObject/* : public HIViewObject */{
-	HCoordinateAxis m_coordinateAxis;
-
+class HGameViewObject : public HIViewObject {
 public:
 	virtual void Load();
 	virtual void Unload();
 	virtual void Show();
 	virtual void Hide();
+	virtual void OnGetFocus();
+	virtual void OnLostFocus();
 	virtual void Update();
 };
 
