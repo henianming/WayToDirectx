@@ -37,6 +37,9 @@
     <Filter Include="DirectXProject\InputCenter">
       <UniqueIdentifier>{9d9c750b-4478-443a-af5a-35a29d2b12f4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="DirectXProject\ViewCenter\ViewObject\GameViewObject">
+      <UniqueIdentifier>{001a5cf0-e505-4f2b-9ae6-58a9e8ed2de1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="csdn_lesson001.cpp">
@@ -111,12 +114,6 @@
     <ClCompile Include="DirectXProject\ViewCenter\ViewObjectMgr.cpp">
       <Filter>DirectXProject\ViewCenter</Filter>
     </ClCompile>
-    <ClCompile Include="DirectXProject\ViewCenter\ViewObject\CoordinateAxis.cpp">
-      <Filter>DirectXProject\ViewCenter\ViewObject</Filter>
-    </ClCompile>
-    <ClCompile Include="DirectXProject\ViewCenter\ViewObject\Prismatic.cpp">
-      <Filter>DirectXProject\ViewCenter\ViewObject</Filter>
-    </ClCompile>
     <ClCompile Include="DirectXProject\TimeCenter\Time.cpp">
       <Filter>DirectXProject\TimeCenter</Filter>
     </ClCompile>
@@ -128,6 +125,12 @@
     </ClCompile>
     <ClCompile Include="DirectXProject\ViewCenter\ViewObject\GameViewObject.cpp">
       <Filter>DirectXProject\ViewCenter\ViewObject</Filter>
+    </ClCompile>
+    <ClCompile Include="DirectXProject\ViewCenter\ViewObject\CoordinateAxisViewItem.cpp">
+      <Filter>DirectXProject\ViewCenter\ViewObject\GameViewObject</Filter>
+    </ClCompile>
+    <ClCompile Include="DirectXProject\ViewCenter\ViewObject\Prismatic.cpp">
+      <Filter>DirectXProject\ViewCenter\ViewObject\GameViewObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -159,12 +162,6 @@
     <ClInclude Include="DirectXProject\ViewCenter\ViewObjectMgr.h">
       <Filter>DirectXProject\ViewCenter</Filter>
     </ClInclude>
-    <ClInclude Include="DirectXProject\ViewCenter\ViewObject\CoordinateAxis.h">
-      <Filter>DirectXProject\ViewCenter\ViewObject</Filter>
-    </ClInclude>
-    <ClInclude Include="DirectXProject\ViewCenter\ViewObject\Prismatic.h">
-      <Filter>DirectXProject\ViewCenter\ViewObject</Filter>
-    </ClInclude>
     <ClInclude Include="DirectXProject\TimeCenter\Time.h">
       <Filter>DirectXProject\TimeCenter</Filter>
     </ClInclude>
@@ -179,6 +176,12 @@
     </ClInclude>
     <ClInclude Include="DirectXProject\ViewCenter\ViewObject\GameViewObject.h">
       <Filter>DirectXProject\ViewCenter\ViewObject</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectXProject\ViewCenter\ViewObject\CoordinateAxisViewItem.h">
+      <Filter>DirectXProject\ViewCenter\ViewObject\GameViewObject</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectXProject\ViewCenter\ViewObject\Prismatic.h">
+      <Filter>DirectXProject\ViewCenter\ViewObject\GameViewObject</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

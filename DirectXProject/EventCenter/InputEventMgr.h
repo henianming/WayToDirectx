@@ -1,6 +1,5 @@
 #if 0
-#ifndef INPUT_EVENT_MGR_H
-#define INPUT_EVENT_MGR_H
+#pragma once
 
 #include <Windows.h>
 #include <list>
@@ -36,6 +35,4 @@ public:
 	void Unsubscribe(HIInputEventReceiver *receiver, HInputEventType eventType);
 	BOOL FireEvent(HInputEventType eventType, double durationTime, BOOL isContinue);
 };
-
-#endif //INPUT_EVENT_MGR_H
 #endif

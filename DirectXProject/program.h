@@ -1,5 +1,4 @@
-#ifndef PROGRAM_H
-#define PROGRAM_H
+#pragma once
 
 #include <d3d9.h>
 #include "EventCenter/WndProcEventMgr.h"
@@ -65,5 +64,3 @@ public:
 	virtual BOOL OnMessage(HWndProcEventType eventType, WPARAM wParam, LPARAM lParam);
 	virtual void OnTimer(int id);
 };
-
-#endif //PROGRAM_H

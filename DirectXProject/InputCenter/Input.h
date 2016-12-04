@@ -1,6 +1,5 @@
 #if 0
-#ifndef INPUT_H
-#define INPUT_H
+#pragma once
 
 #include <Windows.h>
 
@@ -13,6 +12,4 @@ public:
 	virtual BOOL Release() = 0;
 	virtual BOOL Update() = 0;
 };
-
-#endif //INPUT_H
 #endif

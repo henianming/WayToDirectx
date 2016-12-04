@@ -1,5 +1,4 @@
-#ifndef I_GRAPHIC_OBJECT_H
-#define I_GRAPHIC_OBJECT_H
+#pragma once
 
 #include <d3d9.h>
 
@@ -19,5 +18,3 @@ public:
 	virtual BOOL Update(void *data) = 0;
 	virtual BOOL OnMessage(UINT msg, WPARAM wParam, LPARAM lParam) = 0;
 };
-
-#endif //I_GRAPHIC_OBJECT_H

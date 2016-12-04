@@ -1,5 +1,4 @@
-#ifndef TIME_H
-#define TIME_H
+#pragma once
 
 #include <Windows.h>
 #include <list>
@@ -38,5 +37,3 @@ public:
 
 	double GetCurRealTimeStamp();
 };
-
-#endif //TIME_H

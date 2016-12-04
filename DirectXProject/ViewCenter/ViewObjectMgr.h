@@ -1,10 +1,10 @@
-#ifndef VIEW_OBJECT_MGR_H
-#define VIEW_OBJECT_MGR_H
+#pragma once
 
 #include <list>
 #include <d3dx9.h>
 #include "EventCenter\WndProcEventMgr.h"
 
+//--------分界线-----------------------------------------------------------------
 class HIViewObject {
 private:
 	HIViewObject *m_parentViewObject;
@@ -20,15 +20,16 @@ public:
 	void UpdateChile();
 
 public:
-	virtual void Load() = 0;
-	virtual void Unload() = 0;
-	virtual void Show() = 0;
-	virtual void Hide() = 0;
-	virtual void OnGetFocus() = 0;
-	virtual void OnLostFocus() = 0;
+	virtual void Load();
+	virtual void Unload();
+	virtual void Show();
+	virtual void Hide();
+	virtual void OnGetFocus();
+	virtual void OnLostFocus();
 	virtual void Update();
 };
 
+//--------分界线-----------------------------------------------------------------
 class HViewObjectMgr {
 private:
 	HIViewObject *m_gameViewObject;
@@ -39,5 +40,3 @@ public:
 	BOOL Release();
 	void Update();
 };
-
-#endif //VIEW_OBJECT_MGR_H

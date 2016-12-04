@@ -1,5 +1,4 @@
-#ifndef GRAPHIC4
-#define GRAPHIC4
+#pragma once
 
 #include "i_graphic_object.h"
 #include <d3dx9.h>
@@ -35,5 +34,3 @@ public:
 	virtual BOOL Update(void *data);
 	virtual BOOL OnMessage(UINT msg, WPARAM wParam, LPARAM lParam);
 };
-
-#endif //GRAPHIC4

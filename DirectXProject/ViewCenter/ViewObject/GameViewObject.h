@@ -1,9 +1,25 @@
-#ifndef INITIAL_VIEW_OBJECT_H
-#define INITIAL_VIEW_OBJECT_H
+#pragma once
 
 #include "../ViewObjectMgr.h"
+#include "EventCenter/WndProcEventMgr.h"
 
-class HGameViewObject : public HIViewObject {
+//--------分界线-----------------------------------------------------------------
+class HIGameViewItem {
+public:
+	virtual void Load();
+	virtual void Unload();
+	virtual void Show();
+	virtual void Hide();
+	virtual void Update();
+};
+
+//--------分界线-----------------------------------------------------------------
+class HGameViewObject : public HIViewObject, public HIWndProcEventReceiver {
+private:
+	IDirect3DDevice9 *m_device;
+
+	HIGameViewItem *m_coordinateAxix;
+
 public:
 	virtual void Load();
 	virtual void Unload();
@@ -12,6 +28,7 @@ public:
 	virtual void OnGetFocus();
 	virtual void OnLostFocus();
 	virtual void Update();
-};
 
-#endif //INITIAL_VIEW_OBJECT_H
+public:
+	virtual BOOL OnMessage(HWndProcEventType eventType, WPARAM wParam, LPARAM lParam);
+};

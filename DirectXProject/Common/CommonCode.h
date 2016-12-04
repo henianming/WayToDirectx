@@ -1,5 +1,4 @@
-#ifndef COMMON_CODE_H
-#define COMMON_CODE_H
+#pragma once
 
 #include <Windows.h>
 #include <d3d9.h>
@@ -39,5 +38,3 @@ public:
 public:
 	XYZCVertex(float x, float y, float z, D3DCOLOR color);
 };
-
-#endif //COMMON_CODE_H

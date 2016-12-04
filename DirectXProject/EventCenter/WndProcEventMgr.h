@@ -1,5 +1,4 @@
-#ifndef WNDPROC_EVENT_MGR_H
-#define WNDPROC_EVENT_MGR_H
+#pragma once
 
 #include <Windows.h>
 #include <vector>
@@ -38,5 +37,3 @@ public:
 	void Unsubscribe(HIWndProcEventReceiver *receiver, HWndProcEventType eventType);
 	BOOL FireEvent(HWndProcEventType eventType, WPARAM wParam, LPARAM lParam);
 };
-
-#endif //WNDPROC_EVENT_MGR_H

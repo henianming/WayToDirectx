@@ -1,11 +1,12 @@
 #include "ViewObjectMgr.h"
 
-#include "ViewObject/InitialViewObject.h"
+#include "ViewObject/GameViewObject.h"
 #include "Common/CommonCode.h"
 #include "program.h"
 
 extern HProgram *g_program;
 
+//--------分界线-----------------------------------------------------------------
 HIViewObject::~HIViewObject() {
 	//clear child
 	std::list<HIViewObject*>::reverse_iterator rit = m_childViewObjectList.rbegin();
@@ -76,10 +77,35 @@ void HIViewObject::UpdateChile() {
 	}
 }
 
+void HIViewObject::Load() {
+
+}
+
+void HIViewObject::Unload() {
+
+}
+
+void HIViewObject::Show() {
+
+}
+
+void HIViewObject::Hide() {
+
+}
+
+void HIViewObject::OnGetFocus() {
+
+}
+
+void HIViewObject::OnLostFocus() {
+
+}
+
 void HIViewObject::Update() {
 
 }
 
+//--------分界线-----------------------------------------------------------------
 BOOL HViewObjectMgr::Create() {
 	m_gameViewObject = new HGameViewObject();
 	m_gameViewObject->Load();
@@ -99,12 +125,14 @@ BOOL HViewObjectMgr::Release() {
 }
 
 void HViewObjectMgr::Update() {
+	HRESULT hr;
+
 	IDirect3DDevice9 *device = g_program->Get_m_device();
 
-	device->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(0, 0, 0), 1.0f, 0);
+	hr = device->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(0, 0, 0), 1.0f, 0);
 
 	m_gameViewObject->Update();
 	m_gameViewObject->UpdateChile();
 
-	device->Present(NULL, NULL, 0, NULL);
+	hr = device->Present(NULL, NULL, 0, NULL);
 }

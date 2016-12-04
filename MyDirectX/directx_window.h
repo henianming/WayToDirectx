@@ -1,5 +1,4 @@
-#ifndef DIRECTX_WINDOW_H
-#define DIRECTX_WINDOW_H
+#pragma once
 
 #include <d3d9.h>
 #include <map>
@@ -46,5 +45,3 @@ private:
 	void InitWndClass();
 	void InitD3DPresentParameters();
 };
-
-#endif

@@ -1,6 +1,5 @@
 #if 0
-#ifndef KEYBOARD_INPUT_H
-#define KEYBOARD_INPUT_H
+#pragma once
 
 #include "Input.h"
 #include <list>
@@ -36,6 +35,4 @@ public:
 	virtual BOOL Update();
 	virtual BOOL OnMessage(HWndProcEventType eventType, WPARAM wParam, LPARAM lParam);
 };
-
-#endif //KEYBOARD_INPUT_H
 #endif

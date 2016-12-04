@@ -1,5 +1,4 @@
-#ifndef TIMER_H
-#define TIMER_H
+#pragma once
 
 #include <Windows.h>
 #include <map>
@@ -38,5 +37,3 @@ public:
 
 	void Update();
 };
-
-#endif //TIMER_H
