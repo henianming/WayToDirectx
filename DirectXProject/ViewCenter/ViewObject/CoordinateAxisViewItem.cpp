@@ -8,7 +8,7 @@ extern HProgram *g_program;
 //--------·Ö½çÏß-----------------------------------------------------------------
 void HCoordinateAxisViewItem::Load() {
 	m_device = g_program->Get_m_device();
-	D3DXMatrixTranslation(&m_worldPos, 0.0f, 0.0f, 0.0f);
+	D3DXMatrixTranslation(&m_worldPos, 1.0f, 1.0f, 1.0f);
 }
 
 void HCoordinateAxisViewItem::Unload() {
@@ -33,7 +33,7 @@ void HCoordinateAxisViewItem::Show() {
 		data[2] = XYZCVertex(0.0f, 0.0f, 0.0f, D3DCOLOR_XRGB(0, 255, 0));
 		data[3] = XYZCVertex(0.0f, 10.0f, 0.0f, D3DCOLOR_XRGB(0, 255, 0));
 		data[4] = XYZCVertex(0.0f, 0.0f, 0.0f, D3DCOLOR_XRGB(0, 0, 255));
-		data[0] = XYZCVertex(0.0f, 0.0f, 10.0f, D3DCOLOR_XRGB(0, 0, 255));
+		data[5] = XYZCVertex(0.0f, 0.0f, 10.0f, D3DCOLOR_XRGB(0, 0, 255));
 	}
 	hr = m_vertexBuffer->Unlock();
 }
@@ -53,12 +53,7 @@ void HCoordinateAxisViewItem::Update() {
 
 	hr = m_device->BeginScene();
 	{
-		//m_device->SetTransform(D3DTS_WORLD, &m_worldPos);
-		D3DXMATRIX Rx, Ry;
-		D3DXMatrixRotationX(&Rx, 0.0f);
-		D3DXMatrixRotationY(&Ry, 0.0f);
-		D3DXMATRIX p = Rx * Ry;
-		m_device->SetTransform(D3DTS_WORLD, &p);
+		m_device->SetTransform(D3DTS_WORLD, &m_worldPos);
 
 		m_device->SetStreamSource(1, m_vertexBuffer, 0, sizeof(XYZCVertex));
 		m_device->SetFVF(XYZCVertex::FVF);
