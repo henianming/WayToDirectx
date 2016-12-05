@@ -36,6 +36,25 @@ void HCoordinateAxisViewItem::Show() {
 		data[5] = XYZCVertex(0.0f, 0.0f, 10.0f, D3DCOLOR_XRGB(0, 0, 255));
 	}
 	hr = m_vertexBuffer->Unlock();
+
+	
+
+	RECT rect;
+	GetWindowRect(g_program->Get_m_hWnd(), &rect);
+	int w = rect.right - rect.left;
+	int h = rect.bottom - rect.top;
+	D3DXMATRIX pf;
+	D3DXMatrixPerspectiveFovLH(
+		&pf,
+		D3DX_PI * 0.5f,
+		(float)w / (float)h,
+		1.0f,
+		1000.0f
+	);
+	m_device->SetTransform(D3DTS_PROJECTION, &pf);
+
+	m_device->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
+	m_device->SetRenderState(D3DRS_LIGHTING, FALSE);
 }
 
 void HCoordinateAxisViewItem::Hide() {
@@ -46,18 +65,18 @@ void HCoordinateAxisViewItem::Hide() {
 }
 
 void HCoordinateAxisViewItem::Update() {
-	HRESULT hr;
+	D3DXMATRIX itemLocate;
+	D3DXMatrixTranslation(&itemLocate, 0.0f, 0.0f, 0.0f);
+	m_device->SetTransform(D3DTS_WORLD, &itemLocate);
 
-	hr = m_device->SetRenderState(D3DRS_LIGHTING, FALSE);
-	hr = m_device->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
-
-	hr = m_device->BeginScene();
+	m_device->BeginScene();
 	{
-		m_device->SetTransform(D3DTS_WORLD, &m_worldPos);
-
-		m_device->SetStreamSource(1, m_vertexBuffer, 0, sizeof(XYZCVertex));
+		m_device->SetStreamSource(0, m_vertexBuffer, 0, sizeof(XYZCVertex));
 		m_device->SetFVF(XYZCVertex::FVF);
-		m_device->DrawPrimitive(D3DPT_LINELIST, 0, 3);
+		m_device->DrawPrimitive(
+			D3DPT_LINELIST,
+			0, 3
+		);
 	}
-	hr = m_device->EndScene();
+	m_device->EndScene();
 }

@@ -20,6 +20,15 @@ BOOL HProgram::Create(HINSTANCE hInstance, int showType) {
 
 	RETURN_IF_FAILED(m_viewObjectMgr.Create());
 
+	//初始化数据
+	m_count = 0;
+
+	GetWindowRect(m_hWnd, &m_rect);
+	m_width = m_rect.right - m_rect.left;
+	m_height = m_rect.bottom - m_rect.top;
+	m_center.x = (m_rect.right + m_rect.left) / 2;
+	m_center.y = (m_rect.bottom + m_rect.top) / 2;
+
 	return TRUE;
 }
 
@@ -44,9 +53,9 @@ BOOL HProgram::Release() {
 }
 int iii = 0;
 BOOL HProgram::Update() {
-	m_timeMgr.Update();
+	m_count++;
 
-	UpdataFps();
+	m_timeMgr.Update();
 	
 	m_timerMgr.Update();
 
@@ -69,6 +78,22 @@ HTimeMgr* HProgram::Get_m_timeMgr() {
 
 HTime* HProgram::Get_m_time() {
 	return &m_time;
+}
+
+RECT const* HProgram::Get_m_rect() {
+	return &m_rect;
+}
+
+LONG HProgram::Get_m_width() {
+	return m_width;
+}
+
+LONG HProgram::Get_m_height() {
+	return m_height;
+}
+
+POINT const* HProgram::Get_m_center() {
+	return &m_center;
 }
 
 HWndProcEventMgr* HProgram::Get_m_wndProcEventMgr() {
@@ -96,7 +121,7 @@ BOOL HProgram::CreateWnd(HINSTANCE hInstance, int showType) {
 	m_hWnd = CreateWindow(
 		m_wndClass.lpszClassName, L"",
 		WS_OVERLAPPEDWINDOW,
-		CW_USEDEFAULT, CW_USEDEFAULT, 400, 300,
+		CW_USEDEFAULT, CW_USEDEFAULT, 1280, 720,
 		0, 0, m_wndClass.hInstance, 0
 	);
 	if (m_hWnd == 0) {
@@ -115,16 +140,11 @@ BOOL HProgram::ReleaseWnd() {
 }
 
 void HProgram::InitDirectPresentParameters() {
-	RECT rect;
-	GetWindowRect(m_hWnd, &rect);
-	LONG w = rect.right - rect.left;
-	LONG h = rect.bottom - rect.top;
-
 	m_d3dPresentParameters.AutoDepthStencilFormat = D3DFMT_D24S8;
 	m_d3dPresentParameters.BackBufferCount = 2;
 	m_d3dPresentParameters.BackBufferFormat = D3DFMT_A8R8G8B8;
-	m_d3dPresentParameters.BackBufferHeight = h;
-	m_d3dPresentParameters.BackBufferWidth = w;
+	m_d3dPresentParameters.BackBufferHeight = Get_m_height();
+	m_d3dPresentParameters.BackBufferWidth = Get_m_width();
 	m_d3dPresentParameters.EnableAutoDepthStencil = TRUE;
 	m_d3dPresentParameters.Flags = 0;
 	m_d3dPresentParameters.FullScreen_RefreshRateInHz = D3DPRESENT_RATE_DEFAULT;
@@ -181,11 +201,11 @@ BOOL HProgram::ReleaseDirectX() {
 }
 
 void HProgram::SubscribeEvent() {
-	m_wndProcEventMgr.Subscribe(this, WndProcEventType_KeyUp);
+	m_wndProcEventMgr.Subscribe(this, WndProcEventType_KeyDown);
 }
 
 void HProgram::UnsubscribeEvent() {
-	m_wndProcEventMgr.Unsubscribe(this, WndProcEventType_KeyUp);
+	m_wndProcEventMgr.Unsubscribe(this, WndProcEventType_KeyDown);
 }
 
 void HProgram::RegisteTime() {
@@ -197,7 +217,7 @@ void HProgram::UnregisteTime() {
 }
 
 void HProgram::RegisteTimer() {
-	m_timerMgr.Registe(this, 1, 0.1, &m_time);
+	m_timerMgr.Registe(this, 1, m_fpsRefreshIntervalSec, &m_time);
 }
 
 void HProgram::UnregisteTimer() {
@@ -205,9 +225,7 @@ void HProgram::UnregisteTimer() {
 }
  
 void HProgram::UpdataFps() {
-	double nowTimeStamp = m_time.Get_m_curTimeStamp();
-	m_fps = (double)1 / (nowTimeStamp - m_oldTimeStamp);
-	m_oldTimeStamp = nowTimeStamp;
+	m_fps = (double)m_count / (double)m_fpsRefreshIntervalSec;
 }
 
 void HProgram::TitleView() {
@@ -218,7 +236,7 @@ void HProgram::TitleView() {
 
 BOOL HProgram::OnMessage(HWndProcEventType eventType, WPARAM wParam, LPARAM lParam) {
 	switch (eventType) {
-	case WndProcEventType_KeyUp:
+	case WndProcEventType_KeyDown:
 	{
 		switch (wParam) {
 		case VK_ESCAPE:
@@ -237,7 +255,9 @@ void HProgram::OnTimer(int id) {
 	switch (id) {
 	case 1:
 	{
+		UpdataFps();
 		TitleView();
+		m_count = 0;
 	}break;
 	}
 }

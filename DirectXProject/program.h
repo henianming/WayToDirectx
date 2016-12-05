@@ -29,8 +29,13 @@ private:
 	HViewObjectMgr m_viewObjectMgr;
 
 	//self data
-	double m_oldTimeStamp;
+	int m_count;
+	double m_fpsRefreshIntervalSec = 1.0;
 	double m_fps;
+	RECT m_rect;
+	LONG m_width;
+	LONG m_height;
+	POINT m_center;
 
 public:
 	BOOL Create(HINSTANCE hInstance, int showType);
@@ -42,6 +47,10 @@ public:
 	IDirect3DDevice9* Get_m_device();
 	HTimeMgr* Get_m_timeMgr();
 	HTime* Get_m_time();
+	RECT const* Get_m_rect();
+	LONG Get_m_width();
+	LONG Get_m_height();
+	POINT const* Get_m_center();
 
 private:
 	void InitWndClass(HINSTANCE hInstance);
