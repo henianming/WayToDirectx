@@ -47,6 +47,7 @@ public:
 	IDirect3DDevice9* Get_m_device();
 	HTimeMgr* Get_m_timeMgr();
 	HTime* Get_m_time();
+	HTimerMgr* Get_m_timerMgr();
 	RECT const* Get_m_rect();
 	LONG Get_m_width();
 	LONG Get_m_height();

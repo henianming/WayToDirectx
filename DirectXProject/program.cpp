@@ -80,6 +80,10 @@ HTime* HProgram::Get_m_time() {
 	return &m_time;
 }
 
+HTimerMgr* HProgram::Get_m_timerMgr() {
+	return &m_timerMgr;
+}
+
 RECT const* HProgram::Get_m_rect() {
 	return &m_rect;
 }

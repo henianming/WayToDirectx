@@ -74,6 +74,14 @@ WPARAM MsgLoop() {
 }
 
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hInstancePrev, LPSTR argv, int showType) {
+	AllocConsole();
+	freopen("CONOUT$", "w", stdout);
+	freopen("CONOUT$", "w", stderr);
+	HWND hWnd = GetConsoleWindow();
+	RECT rect;
+	GetWindowRect(hWnd, &rect);
+	SetWindowPos(hWnd, HWND_TOP, 0, 0, rect.right - rect.left, rect.bottom - rect.top, SWP_SHOWWINDOW);
+
 	g_program = new HProgram();
 
 	g_program->Create(hInstance, showType);
