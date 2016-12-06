@@ -3,8 +3,11 @@
 
 extern LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
+//--------·Ö½çÏß-----------------------------------------------------------------
 BOOL HProgram::Create(HINSTANCE hInstance, int showType) {
 	RETURN_IF_FAILED(m_wndProcEventMgr.Create());
+
+	SubscribeEvent();
 
 	RETURN_IF_FAILED(CreateWnd(hInstance, showType));
 
@@ -12,9 +15,9 @@ BOOL HProgram::Create(HINSTANCE hInstance, int showType) {
 
 	RETURN_IF_FAILED(m_timeMgr.Create());
 
-	SubscribeEvent();
-
 	RegisteTime();
+
+	RETURN_IF_FAILED(m_timerMgr.Create());
 
 	RegisteTimer();
 
@@ -37,15 +40,17 @@ BOOL HProgram::Release() {
 
 	UnregisteTimer();
 
-	UnregisteTime();
+	RETURN_IF_FAILED(m_timerMgr.Release());
 
-	UnsubscribeEvent();
+	UnregisteTime();
 
 	RETURN_IF_FAILED(m_timeMgr.Release());
 
 	RETURN_IF_FAILED(ReleaseDirectX());
 
 	RETURN_IF_FAILED(ReleaseWnd());
+
+	UnsubscribeEvent();
 
 	RETURN_IF_FAILED(m_wndProcEventMgr.Release());
 

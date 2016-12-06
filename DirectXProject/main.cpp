@@ -58,6 +58,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 		}break;
 		}
 	}
+	if (wParam == 304 && lParam == 17817868) {
+		int ii = 333;
+	}
 	return DefWindowProc(hWnd, msg, wParam, lParam);
 }
 

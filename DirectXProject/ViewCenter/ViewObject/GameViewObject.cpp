@@ -48,7 +48,10 @@ void HGameViewObject::Unload() {
 }
 
 void HGameViewObject::Show() {
-	D3DXMatrixLookAtLH(&m_coordinateAxixLocate, &D3DXVECTOR3(1.0f, 1.0f, -3.0f), &D3DXVECTOR3(0.0f, 0.0f, 0.0f), &D3DXVECTOR3(0.0f, 1.0f, 0.0f));
+	D3DXMatrixLookAtLH(&m_criterionLocate, &D3DXVECTOR3(1.0f, 1.0f, -5.0f), &D3DXVECTOR3(1.0f, 1.0f, 0.0f), &D3DXVECTOR3(0.0f, 1.0f, 0.0f));
+	D3DXMatrixRotationY(&m_oldFmtLocateY, 0.0f);
+	D3DXMatrixRotationX(&m_oldFmtLocateX, 0.0f);
+	m_factLocate = m_criterionLocate * m_oldFmtLocateY * m_oldFmtLocateX;
 
 	m_coordinateAxix->Show();
 }
@@ -70,7 +73,7 @@ void HGameViewObject::OnLostFocus() {
 }
 
 void HGameViewObject::Update() {
-	m_device->SetTransform(D3DTS_VIEW, &m_coordinateAxixLocate);
+	m_device->SetTransform(D3DTS_VIEW, &m_factLocate);
 	m_coordinateAxix->Update();
 }
 
@@ -78,21 +81,24 @@ BOOL HGameViewObject::OnMessage(HWndProcEventType eventType, WPARAM wParam, LPAR
 	switch (eventType) {
 	case WndProcEventType_MOUSEMOVE:
 	{
-		printf("move   %f\n", g_program->Get_m_time()->Get_m_curTimeStamp());
 		POINT const *center = g_program->Get_m_center();
 		POINT curCursorPos;
 		GetCursorPos(&curCursorPos);
 		LONG xOffset = curCursorPos.x - center->x;
 		LONG yOffset = curCursorPos.y - center->y;
 		//ÊÓ½ÇÐý×ª²Ù×÷
-		D3DXMATRIX rx;
-		D3DXMatrixRotationY(&rx, (float)(xOffset * m_cameraSpeed) / 10);
+		FLOAT angle;
 		D3DXMATRIX ry;
-		D3DXMatrixRotationX(&ry, (float)(yOffset * m_cameraSpeed) / 10);
-		m_coordinateAxixLocate = m_oldCoordinateAxixLocate * rx * ry;
+		angle = (float)(xOffset * m_cameraSpeed);
+		D3DXMatrixRotationY(&ry, angle / 2);
+		D3DXMATRIX rx;
+		angle = (float)(yOffset * m_cameraSpeed);
+		D3DXMatrixRotationX(&rx, (0 - angle) / 2);
+		m_factLocate = m_criterionLocate * m_oldFmtLocateY * ry * m_oldFmtLocateX * rx;
 		if (m_isCursorNeedReset == TRUE) {
 			SetCursorPos(center->x, center->y);
-			m_oldCoordinateAxixLocate = m_coordinateAxixLocate;
+			m_oldFmtLocateY = m_oldFmtLocateY * ry;
+			m_oldFmtLocateX = m_oldFmtLocateX * rx;
 			m_isCursorNeedReset = FALSE;
 		}
 	}break;

@@ -3,6 +3,7 @@
 #include <Windows.h>
 #include <list>
 
+//--------分界线-----------------------------------------------------------------
 class HTime {
 private:
 	double m_timeDensity;
@@ -17,6 +18,7 @@ public:
 	void AddTime(double realTime);
 };
 
+//--------分界线-----------------------------------------------------------------
 class HTimeMgr {
 private:
 	typedef std::list<HTime*> M_TL;

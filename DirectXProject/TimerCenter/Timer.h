@@ -5,6 +5,7 @@
 
 #include "TimeCenter/Time.h"
 
+//--------分界线-----------------------------------------------------------------
 struct HTimerData {
 public:
 	HTime const *m_time;
@@ -15,11 +16,13 @@ public:
 	HTimerData(HTime const *time, double intervalTime, double lastActiveTime);
 };
 
+//--------分界线-----------------------------------------------------------------
 class HITimerMgrReceiver {
 public:
 	virtual void OnTimer(int id) = 0;
 };
 
+//--------分界线-----------------------------------------------------------------
 class HTimerMgr {
 private:
 	typedef std::map<int, HTimerData> M_ID_INTERVAL;

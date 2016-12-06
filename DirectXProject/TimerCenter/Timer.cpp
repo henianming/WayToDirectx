@@ -5,10 +5,12 @@
 
 extern HProgram *g_program;
 
+//--------分界线-----------------------------------------------------------------
 HTimerData::HTimerData(HTime const *time, double intervalTime, double lastActiveTime)
 	: m_time(time), m_intervalTime(intervalTime), m_lastActiveTime(lastActiveTime) {
 }
 
+//--------分界线-----------------------------------------------------------------
 BOOL HTimerMgr::Create() {
 	g_program->Get_m_timeMgr()->Registe(&m_time);
 

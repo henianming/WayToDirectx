@@ -6,6 +6,7 @@
 #include "TimerCenter/Timer.h"
 #include "ViewCenter/ViewObjectMgr.h"
 
+//--------·Ö½çÏß-----------------------------------------------------------------
 class HProgram : public HIWndProcEventReceiver, public HITimerMgrReceiver {
 private:
 	//event system

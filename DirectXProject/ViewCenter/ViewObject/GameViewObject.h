@@ -20,8 +20,10 @@ private:
 	IDirect3DDevice9 *m_device;
 
 	HIGameViewItem *m_coordinateAxix;
-	D3DXMATRIX m_oldCoordinateAxixLocate;
-	D3DXMATRIX m_coordinateAxixLocate;
+	D3DXMATRIX m_criterionLocate;
+	D3DXMATRIX m_oldFmtLocateX;
+	D3DXMATRIX m_oldFmtLocateY;
+	D3DXMATRIX m_factLocate;
 	BOOL m_isCursorNeedReset;
 
 	double const m_cameraSpeed = (double)1 / (double)360 * D3DX_PI;

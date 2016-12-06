@@ -46,7 +46,7 @@ void HCoordinateAxisViewItem::Show() {
 	D3DXMATRIX pf;
 	D3DXMatrixPerspectiveFovLH(
 		&pf,
-		D3DX_PI * 0.5f,
+		D3DX_PI * 0.33f,
 		(float)w / (float)h,
 		1.0f,
 		1000.0f

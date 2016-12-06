@@ -1,5 +1,6 @@
 #include "Time.h"
 
+//--------分界线-----------------------------------------------------------------
 HTime::HTime()
 	: m_timeDensity(1.0) {
 }
@@ -17,6 +18,7 @@ void HTime::AddTime(double realTime) {
 	m_curTimeStamp += realTime * m_timeDensity;
 }
 
+//--------分界线-----------------------------------------------------------------
 HTimeMgr::HTimeMgr() {
 	QueryPerformanceFrequency(&m_frequency);
 }
@@ -68,8 +70,6 @@ void HTimeMgr::Update() {
 		it++;
 	}
 }
-
-#include <stdio.h>
 
 double HTimeMgr::GetCurRealTimeStamp() {
 	LARGE_INTEGER count;
