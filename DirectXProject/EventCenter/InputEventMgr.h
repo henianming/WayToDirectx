@@ -1,4 +1,3 @@
-#if 0
 #pragma once
 
 #include <Windows.h>
@@ -6,19 +5,23 @@
 #include <vector>
 
 enum HInputEventType {
-	HInputEventType_Min,
+	HInputEventType_Min = 0,
 	HInputEventType_W,
 	HInputEventType_A,
 	HInputEventType_S,
 	HInputEventType_D,
+	HInputEventType_SPACE,
+	HInputEventType_SHIFT,
 	HInputEventType_Max,
 };
 
+//--------分界线-----------------------------------------------------------------
 class HIInputEventReceiver {
 public:
 	virtual BOOL OnMessage(HInputEventType eventType, double durationTime, BOOL isContinue) = 0;
 };
 
+//--------分界线-----------------------------------------------------------------
 class HInputEventMgr {
 private:
 	typedef std::list<HIInputEventReceiver*> M_RL;
@@ -31,8 +34,7 @@ public:
 	BOOL Create();
 	BOOL Release();
 
-	void Subscribe(HIInputEventReceiver *receiver, HInputEventType eventType);
-	void Unsubscribe(HIInputEventReceiver *receiver, HInputEventType eventType);
+	VOID Subscribe(HIInputEventReceiver *receiver, HInputEventType eventType);
+	VOID Unsubscribe(HIInputEventReceiver *receiver, HInputEventType eventType);
 	BOOL FireEvent(HInputEventType eventType, double durationTime, BOOL isContinue);
 };
-#endif

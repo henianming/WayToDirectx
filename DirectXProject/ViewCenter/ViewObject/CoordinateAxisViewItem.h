@@ -6,13 +6,13 @@
 //--------·Ö½çÏß-----------------------------------------------------------------
 class HCoordinateAxisViewItem : public HIGameViewItem {
 private:
-	float g_speed = 0.1F;
-	float g_X = 0.0F;
-	float g_Y = 0.0F;
+	FLOAT g_speed = 0.1F;
+	FLOAT g_X = 0.0F;
+	FLOAT g_Y = 0.0F;
 	bool g_mouseDown = false;
 	POINT g_lPoint = {};
-	float g_lX = 0.0F;
-	float g_lY = 0.0F;
+	FLOAT g_lX = 0.0F;
+	FLOAT g_lY = 0.0F;
 	IDirect3DVertexBuffer9 *buff;
 
 	D3DXMATRIX m_worldPos;
@@ -21,9 +21,9 @@ private:
 	IDirect3DVertexBuffer9 *m_vertexBuffer;
 
 public:
-	virtual void Load();
-	virtual void Unload();
-	virtual void Show();
-	virtual void Hide();
-	virtual void Update();
+	virtual VOID Load();
+	virtual VOID Unload();
+	virtual VOID Show();
+	virtual VOID Hide();
+	virtual VOID Update();
 };

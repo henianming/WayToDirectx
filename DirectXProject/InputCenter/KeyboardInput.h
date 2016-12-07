@@ -1,17 +1,17 @@
-#if 0
 #pragma once
 
 #include "Input.h"
 #include <list>
 #include <map>
-#include <Windows.h>
+#include "EventCenter/InputEventMgr.h"
 
 struct HKeyboard_Data {
 	HInputEventType m_key;
 	double m_lastActiveTimeStamp;
 };
 
-class HKeyboardInput : public HIInputDevice {
+//--------·Ö½çÏß-----------------------------------------------------------------
+class HKeyboardInput : public HIInputDevice, public HIWndProcEventReceiver {
 private:
 	typedef std::map<WPARAM, HInputEventType> M_KIEM;
 	typedef std::pair<WPARAM, HInputEventType> M_KIEP;
@@ -22,10 +22,10 @@ private:
 	M_KDL m_keyboardDataList;
 
 private:
-	void CreateKeyboardMap();
-	void ReleaseKeyboardMap();
-	void SubscribeEvent();
-	void UnsubscribeEnent();
+	VOID CreateKeyboardMap();
+	VOID ReleaseKeyboardMap();
+	VOID SubscribeEvent();
+	VOID UnsubscribeEnent();
 	M_KDL::iterator IsKeyActive(HInputEventType key);
 	HInputEventType VKToRK(WPARAM key);
 
@@ -35,4 +35,3 @@ public:
 	virtual BOOL Update();
 	virtual BOOL OnMessage(HWndProcEventType eventType, WPARAM wParam, LPARAM lParam);
 };
-#endif

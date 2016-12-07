@@ -8,15 +8,15 @@
 
 IDirect3DVertexBuffer9 *vb = 0;
 IDirect3DIndexBuffer9 *ib = 0;
-int wndWidth = 0;
-int wndHeight = 0;
-float g_speed = 0.1F;
-float g_X = 0.0F;
-float g_Y = 0.0F;
+INT wndWidth = 0;
+INT wndHeight = 0;
+FLOAT g_speed = 0.1F;
+FLOAT g_X = 0.0F;
+FLOAT g_Y = 0.0F;
 bool g_mouseDown = false;
 POINT g_lPoint = {0};
-float g_lX = 0.0F;
-float g_lY = 0.0F;
+FLOAT g_lX = 0.0F;
+FLOAT g_lY = 0.0F;
 
 class MyVertex {
 public:
@@ -24,11 +24,11 @@ public:
 
 	}
 
-	MyVertex(float x, float y, float z)
+	MyVertex(FLOAT x, FLOAT y, FLOAT z)
 		: m_x(x), m_y(y), m_z(z) {
 	}
 
-	float m_x, m_y, m_z;
+	FLOAT m_x, m_y, m_z;
 	static DWORD const FVF = D3DFVF_XYZ;
 };
 
@@ -52,7 +52,7 @@ bool Setup(IDirect3DDevice9 *device) {
 	);
 
 	MyVertex *vertex;
-	vb->Lock(0, 0, (void**)&vertex, 0);
+	vb->Lock(0, 0, (VOID**)&vertex, 0);
 
 	vertex[0] = MyVertex(-1.0F, -1.0F, -1.0F);
 	vertex[1] = MyVertex(-1.0F,  1.0F, -1.0F);
@@ -66,7 +66,7 @@ bool Setup(IDirect3DDevice9 *device) {
 	vb->Unlock();
 
 	WORD *idx = 0;
-	ib->Lock(0, 0, (void**)&idx, 0);
+	ib->Lock(0, 0, (VOID**)&idx, 0);
 
 	WORD idxs[36] = {
 		0,1,2,
@@ -82,7 +82,7 @@ bool Setup(IDirect3DDevice9 *device) {
 		4,0,3,
 		4,3,7
 	};
-	for (int i = 1; i < 36; i++) {
+	for (INT i = 1; i < 36; i++) {
 		idx[i] = idxs[i];
 	}
 
@@ -103,7 +103,7 @@ bool Setup(IDirect3DDevice9 *device) {
 	D3DXMatrixPerspectiveFovLH(
 		&proj,
 		D3DX_PI * 0.5F,
-		(float)wndWidth / (float)wndHeight,
+		(FLOAT)wndWidth / (FLOAT)wndHeight,
 		1.0F,
 		1000.0F
 	);
@@ -162,7 +162,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 	return DefWindowProc(hWnd, msg, wParam, lParam);
 }
 
-void InitWNDCLASS(WNDCLASS *wc, HINSTANCE hInstance) {
+VOID InitWNDCLASS(WNDCLASS *wc, HINSTANCE hInstance) {
 	wc->cbClsExtra = 0;
 	wc->cbWndExtra = 0;
 	wc->hbrBackground = static_cast<HBRUSH>(GetStockObject(WHITE_BRUSH));
@@ -175,22 +175,22 @@ void InitWNDCLASS(WNDCLASS *wc, HINSTANCE hInstance) {
 	wc->style = CS_HREDRAW | CS_VREDRAW;
 }
 
-bool DisplayFunc(HWND hwnd, IDirect3DDevice9 *dev, float timeInterval) {
-	int fps = (int)(30.0F / timeInterval);
+bool DisplayFunc(HWND hwnd, IDirect3DDevice9 *dev, FLOAT timeInterval) {
+	INT fps = (INT)(30.0F / timeInterval);
 	wchar_t wc[256];
 	swprintf(wc, 256, L"Main Window:%d", fps);
 
 	SetWindowText(hwnd, wc);
 
 	if (dev) {
-		static float totalTime = 0;
+		static FLOAT totalTime = 0;
 		totalTime += timeInterval;
 
 		D3DXMATRIX Rx, Ry;
 
 		D3DXMatrixRotationX(&Rx, g_X);
 
-		static float y = 0.0F;
+		static FLOAT y = 0.0F;
 		D3DXMatrixRotationY(&Ry, g_Y);
 
 		D3DXMATRIX p = Rx * Ry;
@@ -212,7 +212,7 @@ bool DisplayFunc(HWND hwnd, IDirect3DDevice9 *dev, float timeInterval) {
 	return true;
 }
 
-void Clearup() {
+VOID Clearup() {
 	if (vb) {
 		vb->Release();
 		vb = NULL;
@@ -223,17 +223,17 @@ void Clearup() {
 	}
 }
 
-WPARAM MsgLoop(HWND hwnd, IDirect3DDevice9* dev, bool(*displayFunc)(HWND, IDirect3DDevice9*, float)) {
+WPARAM MsgLoop(HWND hwnd, IDirect3DDevice9* dev, bool(*displayFunc)(HWND, IDirect3DDevice9*, FLOAT)) {
 	MSG msg = {};
 
-	float prevTime = (float)timeGetTime();
-	float curTime;
+	FLOAT prevTime = (FLOAT)timeGetTime();
+	FLOAT curTime;
 
 	while (msg.message != WM_QUIT) {
 		if (PeekMessage(&msg, 0, 0, 0, PM_REMOVE)) {
 			DispatchMessage(&msg);
 		} else {
-			curTime = (float)timeGetTime();
+			curTime = (FLOAT)timeGetTime();
 			displayFunc(hwnd, dev, curTime - prevTime);
 			prevTime = curTime;
 		}
@@ -241,7 +241,7 @@ WPARAM MsgLoop(HWND hwnd, IDirect3DDevice9* dev, bool(*displayFunc)(HWND, IDirec
 	return msg.wParam;
 }
 
-void InitD3DParam(D3DPRESENT_PARAMETERS *d3dPresentParam, HWND hWnd, UINT d3dWidth, UINT d3dHeight, BOOL Windowed) {
+VOID InitD3DParam(D3DPRESENT_PARAMETERS *d3dPresentParam, HWND hWnd, UINT d3dWidth, UINT d3dHeight, BOOL Windowed) {
 	d3dPresentParam->AutoDepthStencilFormat = D3DFMT_D24S8;
 	d3dPresentParam->BackBufferCount = 2;
 	d3dPresentParam->BackBufferFormat = D3DFMT_A8R8G8B8;
@@ -262,13 +262,13 @@ bool Start() {
 	return true;
 }
 
-void End() {
+VOID End() {
 
 }
 
 
 
-int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hInstancePrev, LPSTR lpCmdLine, int nCmdShow) {
+INT APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hInstancePrev, LPSTR lpCmdLine, INT nCmdShow) {
 	WNDCLASS wc;
 
 	InitWNDCLASS(&wc, hInstance);

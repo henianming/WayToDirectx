@@ -22,7 +22,7 @@ WPARAM MsgLoop(DirectXWindow *directXWindow) {
 	return msg.wParam;
 }
 
-int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hInstancePrev, LPSTR argv, int showType) {
+INT APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hInstancePrev, LPSTR argv, INT showType) {
 	DirectXWindow dxWnd(hInstance, L"DirectX Wnd Class", L"DirectX Window");
 
 	dxWnd.CreateWnd();

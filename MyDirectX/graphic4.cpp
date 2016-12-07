@@ -2,7 +2,7 @@
 
 #include <d3dx9.h>
 
-MyVertex4::MyVertex4(float x, float y, float z, D3DCOLOR color)
+MyVertex4::MyVertex4(FLOAT x, FLOAT y, FLOAT z, D3DCOLOR color)
 	: m_x(x), m_y(y), m_z(z), m_color(color) {
 }
 
@@ -35,9 +35,9 @@ BOOL Graphic4::Show() {
 		0
 		);
 	MyVertex4 *line;
-	m_lineBuffer->Lock(0, 0, (void**)(&line), 0);
+	m_lineBuffer->Lock(0, 0, (VOID**)(&line), 0);
 
-	float const coordinateLen = 100.0f;
+	FLOAT const coordinateLen = 100.0f;
 	line[0] = MyVertex4(0.0f, 0.0f, 0.0f, D3DCOLOR_XRGB(255, 0, 0));
 	line[1] = MyVertex4(coordinateLen, 0.0f, 0.0f, D3DCOLOR_XRGB(255, 0, 0));
 	line[2] = MyVertex4(0.0f, 0.0f, 0.0f, D3DCOLOR_XRGB(0, 255, 0));
@@ -56,7 +56,7 @@ BOOL Graphic4::Show() {
 		0
 		);
 	MyVertex4 *vertex;
-	m_vertexBuffer->Lock(0, 0, (void**)(&vertex), 0);
+	m_vertexBuffer->Lock(0, 0, (VOID**)(&vertex), 0);
 
 	vertex[0] = MyVertex4(0.0f, 1.0f, 0.0f, D3DCOLOR_XRGB(125, 255, 125));
 	vertex[1] = MyVertex4(1.0f, 0.0f, 0.0f, D3DCOLOR_XRGB(255, 125, 125));
@@ -76,7 +76,7 @@ BOOL Graphic4::Show() {
 		0
 		);
 	DWORD *index;
-	m_indexBuffer->Lock(0, 0, (void**)(&index), 0);
+	m_indexBuffer->Lock(0, 0, (VOID**)(&index), 0);
 
 	DWORD idx[24] = {
 		0,1,4,
@@ -88,7 +88,7 @@ BOOL Graphic4::Show() {
 		2,3,5,
 		3,4,5
 	};
-	for (int i = 0; i < 24; i++) {
+	for (INT i = 0; i < 24; i++) {
 		index[i] = idx[i];
 	}
 
@@ -103,13 +103,13 @@ BOOL Graphic4::Show() {
 
 	RECT rect;
 	GetWindowRect(m_hWnd, &rect);
-	int w = rect.right - rect.left;
-	int h = rect.bottom - rect.top;
+	INT w = rect.right - rect.left;
+	INT h = rect.bottom - rect.top;
 	D3DXMATRIX pf;
 	D3DXMatrixPerspectiveFovLH(
 		&pf,
 		D3DX_PI * 0.5f,
-		(float)w / (float)h,
+		(FLOAT)w / (FLOAT)h,
 		1.0f,
 		1000.0f
 	);
@@ -125,7 +125,7 @@ BOOL Graphic4::Hide() {
 	return TRUE;
 }
 
-BOOL Graphic4::Update(void *data) {
+BOOL Graphic4::Update(VOID *data) {
 	m_device->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(0, 0, 0), 1.0f, 0);
 
 	m_device->BeginScene();

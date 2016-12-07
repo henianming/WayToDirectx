@@ -1,7 +1,8 @@
 #include "WndProcEventMgr.h"
 
+//--------·Ö½çÏß-----------------------------------------------------------------
 BOOL HWndProcEventMgr::Create() {
-	int i;
+	INT i;
 
 	for (i = 0; i < WndProcEventType_Max; i++) {
 		m_etv.push_back(new M_RL());
@@ -22,11 +23,11 @@ BOOL HWndProcEventMgr::Release() {
 	return TRUE;
 }
 
-void HWndProcEventMgr::Subscribe(HIWndProcEventReceiver *receiver, HWndProcEventType eventType) {
+VOID HWndProcEventMgr::Subscribe(HIWndProcEventReceiver *receiver, HWndProcEventType eventType) {
 	M_RL *rl = m_etv.at(eventType);
 	M_RL::iterator it = rl->begin();
 	while (it != rl->end()) {
-		if ((int)(*it) == (int)receiver) {
+		if ((INT)(*it) == (INT)receiver) {
 			return;
 		}
 
@@ -36,16 +37,16 @@ void HWndProcEventMgr::Subscribe(HIWndProcEventReceiver *receiver, HWndProcEvent
 	m_etv.at(eventType)->push_back(receiver);
 }
 
-void HWndProcEventMgr::Unsubscribe(HIWndProcEventReceiver *receiver, HWndProcEventType eventType) {
+VOID HWndProcEventMgr::Unsubscribe(HIWndProcEventReceiver *receiver, HWndProcEventType eventType) {
 	M_RL *rl = m_etv.at(eventType);
-	M_RL::iterator it = rl->begin();
-	while (it != rl->end()) {
-		if ((int)(*it) == (int)receiver) {
-			rl->erase(it);
+	M_RL::reverse_iterator rit = rl->rbegin();
+	while (rit != rl->rend()) {
+		if ((INT)(*rit) == (INT)receiver) {
+			rl->erase(rit.base());
 			return;
 		}
 
-		it++;
+		rit++;
 	}
 }
 

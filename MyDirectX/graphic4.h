@@ -5,9 +5,9 @@
 
 class MyVertex4 {
 public:
-	MyVertex4(float x, float y, float z, D3DCOLOR color);
+	MyVertex4(FLOAT x, FLOAT y, FLOAT z, D3DCOLOR color);
 
-	float m_x, m_y, m_z;
+	FLOAT m_x, m_y, m_z;
 	D3DCOLOR m_color;
 	static DWORD const FVF = D3DFVF_XYZ | D3DFVF_DIFFUSE;
 };
@@ -31,6 +31,6 @@ public:
 	virtual BOOL Unload();
 	virtual BOOL Show();
 	virtual BOOL Hide();
-	virtual BOOL Update(void *data);
+	virtual BOOL Update(VOID *data);
 	virtual BOOL OnMessage(UINT msg, WPARAM wParam, LPARAM lParam);
 };

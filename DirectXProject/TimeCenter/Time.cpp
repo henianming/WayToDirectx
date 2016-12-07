@@ -5,16 +5,16 @@ HTime::HTime()
 	: m_timeDensity(1.0) {
 }
 
-BOOL HTime::Set_m_timeDensity(double timeDensity) {
+BOOL HTime::Set_m_timeDensity(DOUBLE timeDensity) {
 	m_timeDensity = timeDensity;
 	return TRUE;
 }
 
-double HTime::Get_m_curTimeStamp() const {
+DOUBLE HTime::Get_m_curTimeStamp() const {
 	return m_curTimeStamp;
 }
 
-void HTime::AddTime(double realTime) {
+VOID HTime::AddTime(DOUBLE realTime) {
 	m_curTimeStamp += realTime * m_timeDensity;
 }
 
@@ -33,10 +33,10 @@ BOOL HTimeMgr::Release() {
 	return TRUE;
 }
 
-void HTimeMgr::Registe(HTime *time) {
+VOID HTimeMgr::Registe(HTime *time) {
 	M_TL::iterator it = m_timeList.begin();
 	while (it != m_timeList.end()) {
-		if ((int*)time == (int*)(*it)) {
+		if ((INT*)time == (INT*)(*it)) {
 			return;
 		}
 
@@ -46,10 +46,10 @@ void HTimeMgr::Registe(HTime *time) {
 	m_timeList.push_back(time);
 }
 
-void HTimeMgr::Unregiste(HTime *time) {
+VOID HTimeMgr::Unregiste(HTime *time) {
 	M_TL::iterator it = m_timeList.begin();
 	while (it != m_timeList.end()) {
-		if ((int*)time == (int*)(*it)) {
+		if ((INT*)time == (INT*)(*it)) {
 			m_timeList.erase(it);
 			return;
 		}
@@ -58,10 +58,10 @@ void HTimeMgr::Unregiste(HTime *time) {
 	}
 }
 
-void HTimeMgr::Update() {
-	double oldRealTimeStamp = m_curRealTimeStamp;
+VOID HTimeMgr::Update() {
+	DOUBLE oldRealTimeStamp = m_curRealTimeStamp;
 	m_curRealTimeStamp = GetCurRealTimeStamp();
-	double realTime = m_curRealTimeStamp - oldRealTimeStamp;
+	DOUBLE realTime = m_curRealTimeStamp - oldRealTimeStamp;
 
 	M_TL::iterator it = m_timeList.begin();
 	while (it != m_timeList.end()) {
@@ -71,8 +71,8 @@ void HTimeMgr::Update() {
 	}
 }
 
-double HTimeMgr::GetCurRealTimeStamp() {
+DOUBLE HTimeMgr::GetCurRealTimeStamp() {
 	LARGE_INTEGER count;
 	QueryPerformanceCounter(&count);
-	return ((double)(count.QuadPart) / (double)(m_frequency.QuadPart));
+	return ((DOUBLE)(count.QuadPart) / (DOUBLE)(m_frequency.QuadPart));
 }

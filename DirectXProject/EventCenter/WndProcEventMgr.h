@@ -16,11 +16,13 @@ enum HWndProcEventType {
 	WndProcEventType_Max,
 };
 
+//--------分界线-----------------------------------------------------------------
 class HIWndProcEventReceiver {
 public:
 	virtual BOOL OnMessage(HWndProcEventType eventType, WPARAM wParam, LPARAM lParam) = 0;
 };
 
+//--------分界线-----------------------------------------------------------------
 class HWndProcEventMgr {
 private:
 	typedef std::list<HIWndProcEventReceiver*> M_RL;
@@ -33,7 +35,7 @@ public:
 	BOOL Create();
 	BOOL Release();
 
-	void Subscribe(HIWndProcEventReceiver *receiver, HWndProcEventType eventType);
-	void Unsubscribe(HIWndProcEventReceiver *receiver, HWndProcEventType eventType);
+	VOID Subscribe(HIWndProcEventReceiver *receiver, HWndProcEventType eventType);
+	VOID Unsubscribe(HIWndProcEventReceiver *receiver, HWndProcEventType eventType);
 	BOOL FireEvent(HWndProcEventType eventType, WPARAM wParam, LPARAM lParam);
 };

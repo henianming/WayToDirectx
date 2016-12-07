@@ -1,27 +1,29 @@
-#if 0
 #include "KeyboardInput.h"
 
 #include "program.h"
 
 extern HProgram *g_program;
 
-void HKeyboardInput::CreateKeyboardMap() {
+//--------·Ö½çÏß-----------------------------------------------------------------
+VOID HKeyboardInput::CreateKeyboardMap() {
 	m_keyEventMap.insert(M_KIEP('W', HInputEventType_W));
 	m_keyEventMap.insert(M_KIEP('A', HInputEventType_A));
 	m_keyEventMap.insert(M_KIEP('S', HInputEventType_S));
 	m_keyEventMap.insert(M_KIEP('D', HInputEventType_D));
+	m_keyEventMap.insert(M_KIEP(VK_SPACE, HInputEventType_SPACE));
+	m_keyEventMap.insert(M_KIEP(VK_SHIFT, HInputEventType_SHIFT));
 }
 
-void HKeyboardInput::ReleaseKeyboardMap() {
+VOID HKeyboardInput::ReleaseKeyboardMap() {
 	m_keyEventMap.clear();
 }
 
-void HKeyboardInput::SubscribeEvent() {
+VOID HKeyboardInput::SubscribeEvent() {
 	g_program->Get_m_wndProcEventMgr()->Subscribe(this, WndProcEventType_KeyDown);
 	g_program->Get_m_wndProcEventMgr()->Subscribe(this, WndProcEventType_KeyUp);
 }
 
-void HKeyboardInput::UnsubscribeEnent() {
+VOID HKeyboardInput::UnsubscribeEnent() {
 	g_program->Get_m_wndProcEventMgr()->Unsubscribe(this, WndProcEventType_KeyUp);
 	g_program->Get_m_wndProcEventMgr()->Unsubscribe(this, WndProcEventType_KeyDown);
 }
@@ -123,4 +125,3 @@ BOOL HKeyboardInput::OnMessage(HWndProcEventType eventType, WPARAM wParam, LPARA
 
 	return FALSE;
 }
-#endif

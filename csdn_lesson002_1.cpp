@@ -14,14 +14,14 @@ LPDIRECT3DDEVICE9 d3dDevice = NULL;
 //自定函数声明
 LRESULT CALLBACK wndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 bool initailizeD3D(HWND hwnd);
-void renderSence();
-void shutDown();
+VOID renderSence();
+VOID shutDown();
 
-int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hInstPrev, LPSTR lpCmdLine, int nCmdShow) {
-	int posX = 25;
-	int posY = 25;
-	unsigned int width = 1024;
-	unsigned int height = 768;
+INT APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hInstPrev, LPSTR lpCmdLine, INT nCmdShow) {
+	INT posX = 25;
+	INT posY = 25;
+	unsigned INT width = 1024;
+	unsigned INT height = 768;
 
 	//声明窗口类
 	WNDCLASSEX wc = {};
@@ -99,14 +99,14 @@ bool initailizeD3D(HWND hwnd) {
 	return true;
 }
 
-void renderSence() {
+VOID renderSence() {
 	d3dDevice->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_ARGB(0, 0, 0, 0), 1.0f, 0);
 	d3dDevice->BeginScene();
 	d3dDevice->EndScene();
 	d3dDevice->Present(NULL, NULL, NULL, NULL);
 }
 
-void shutDown() {
+VOID shutDown() {
 	if (d3dManager != NULL) {
 		d3dManager->Release();
 		d3dManager = NULL;

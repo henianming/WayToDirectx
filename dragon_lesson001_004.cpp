@@ -18,7 +18,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 	return DefWindowProc(hWnd, msg, wParam, lParam);
 }
 
-void initWndClass(WNDCLASS &wc, HINSTANCE hInstance) {
+VOID initWndClass(WNDCLASS &wc, HINSTANCE hInstance) {
 	wc.cbClsExtra = 0;
 	wc.cbWndExtra = 0;
 	wc.hbrBackground = static_cast<HBRUSH>(GetStockObject(BLACK_BRUSH));
@@ -31,7 +31,7 @@ void initWndClass(WNDCLASS &wc, HINSTANCE hInstance) {
 	wc.style = CS_VREDRAW | CS_HREDRAW;
 }
 
-int runMsgLoop() {
+INT runMsgLoop() {
 	MSG msg = {};
 	while (msg.message != WM_QUIT) {
 		if (PeekMessage(&msg, 0, 0, 0, PM_REMOVE)) {
@@ -43,7 +43,7 @@ int runMsgLoop() {
 	return 0;
 }
 
-int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hInstancePrev, LPSTR lpCmdLine, int nCmdShow) {
+INT APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hInstancePrev, LPSTR lpCmdLine, INT nCmdShow) {
 	//声明窗口类
 	WNDCLASS wc;
 	//初始化窗口类

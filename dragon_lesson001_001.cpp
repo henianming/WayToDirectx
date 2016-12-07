@@ -3,7 +3,7 @@
 
 #include <d3d9.h>
 
-int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hInstancePrev, LPSTR lpCmdLine, int nCmdShow) {
+INT APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hInstancePrev, LPSTR lpCmdLine, INT nCmdShow) {
 	//D3D设备种类枚举
 	D3DDEVTYPE d3dDevType;
 	d3dDevType = D3DDEVTYPE_HAL; //硬件设备

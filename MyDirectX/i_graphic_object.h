@@ -15,6 +15,6 @@ public:
 	virtual BOOL Unload() = 0;
 	virtual BOOL Show() = 0;
 	virtual BOOL Hide() = 0;
-	virtual BOOL Update(void *data) = 0;
+	virtual BOOL Update(VOID *data) = 0;
 	virtual BOOL OnMessage(UINT msg, WPARAM wParam, LPARAM lParam) = 0;
 };

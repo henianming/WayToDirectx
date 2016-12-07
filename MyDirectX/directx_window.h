@@ -36,12 +36,12 @@ public:
 	BOOL ReleaseWnd();
 	BOOL CreateDirectX();
 	BOOL ReleaseDirectX();
-	BOOL ShowWnd(int showType);
+	BOOL ShowWnd(INT showType);
 
 	LRESULT ObjWndProc(UINT msg, WPARAM wParam, LPARAM lParam);
-	void displayFunc(void *data);
+	VOID displayFunc(VOID *data);
 
 private:
-	void InitWndClass();
-	void InitD3DPresentParameters();
+	VOID InitWndClass();
+	VOID InitD3DPresentParameters();
 };

@@ -3,7 +3,7 @@
 
 #include <D3dx9math.h>
 
-int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hInstancePrev, LPSTR lpCmdLine, int nCmdShow) {
+INT APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hInstancePrev, LPSTR lpCmdLine, INT nCmdShow) {
 	//-------------------------------------------------------------------------向量
 	D3DXVECTOR3 l_D3DXVECTOR3_u(1.0f, 0.0f, 0.0f);
 	D3DXVECTOR3 l_D3DXVECTOR3_v(0.0f, 1.0f, 0.0f);
@@ -13,15 +13,15 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hInstancePrev, LPSTR lpCmdLi
 	//比较向量
 	BOOL bSame = (l_D3DXVECTOR3_u == l_D3DXVECTOR3_v);
 	//向量的长度
-	float length1 = D3DXVec3Length(&l_D3DXVECTOR3_result);
+	FLOAT length1 = D3DXVec3Length(&l_D3DXVECTOR3_result);
 	//向量规范化(把result矩阵转换为单位矩阵，输出到normalize矩阵)
 	D3DXVECTOR3 *l_D3DXVECTOR3_normalize = new D3DXVECTOR3();
 	D3DXVec3Normalize(l_D3DXVECTOR3_normalize, &l_D3DXVECTOR3_result);
-	float length2 = D3DXVec3Length(l_D3DXVECTOR3_normalize);
+	FLOAT length2 = D3DXVec3Length(l_D3DXVECTOR3_normalize);
 	//数乘(放大)
 	D3DXVECTOR3 l_D3DXVECTOR3_shucheng(2.0f * *l_D3DXVECTOR3_normalize);
 	//点积(若u和v都是单位向量，则product1为这2单位向量夹角的余弦)
-	float product1 = D3DXVec3Dot(&l_D3DXVECTOR3_u, &l_D3DXVECTOR3_v);
+	FLOAT product1 = D3DXVec3Dot(&l_D3DXVECTOR3_u, &l_D3DXVECTOR3_v);
 	//叉积(得到了同时与向量u和v垂直的向量crosss)
 	D3DXVECTOR3 *l_D3DXVECTOR3_cross = new D3DXVECTOR3();
 	D3DXVec3Cross(l_D3DXVECTOR3_cross, &l_D3DXVECTOR3_u, &l_D3DXVECTOR3_v);
@@ -95,12 +95,12 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hInstancePrev, LPSTR lpCmdLi
 	//计算点于平面的有符号距离(当l_D3DXPLANE_a模为1时)
 	D3DXVECTOR3 l_D3DXVECTOR3_distance(10.0f, 10.0f, 10.0f);
 	//此函数认为第4维w=1
-	float distance_a = D3DXPlaneDotCoord(&l_D3DXPLANE_a, &l_D3DXVECTOR3_distance);
+	FLOAT distance_a = D3DXPlaneDotCoord(&l_D3DXPLANE_a, &l_D3DXVECTOR3_distance);
 	//此函数认为第4维w=0
-	float distance_b = D3DXPlaneDotNormal(&l_D3DXPLANE_a, &l_D3DXVECTOR3_distance);
+	FLOAT distance_b = D3DXPlaneDotNormal(&l_D3DXPLANE_a, &l_D3DXVECTOR3_distance);
 	//此函数第4维w由给出的4维向量决定
 	D3DXVECTOR4 l_D3DXVECTOR4_distance(10.0f, 10.0f, 10.0f, 1.0f);
-	float dixtance_c = D3DXPlaneDot(&l_D3DXPLANE_a, &l_D3DXVECTOR4_distance);
+	FLOAT dixtance_c = D3DXPlaneDot(&l_D3DXPLANE_a, &l_D3DXVECTOR4_distance);
 	//平面规范化
 	D3DXPLANE l_D3DXPLANE_normalize;
 	D3DXPlaneNormalize(&l_D3DXPLANE_normalize, &l_D3DXPLANE_a);

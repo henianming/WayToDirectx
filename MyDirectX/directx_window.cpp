@@ -107,7 +107,7 @@ BOOL DirectXWindow::ReleaseDirectX() {
 	return TRUE;
 }
 
-BOOL DirectXWindow::ShowWnd(int showType) {
+BOOL DirectXWindow::ShowWnd(INT showType) {
 	return ShowWindow(m_hWnd, showType);
 }
 
@@ -118,11 +118,11 @@ LRESULT DirectXWindow::ObjWndProc(UINT msg, WPARAM wParam, LPARAM lParam) {
 	return DefWindowProc(m_hWnd, msg, wParam, lParam);
 }
 
-void DirectXWindow::displayFunc(void *data) {
+VOID DirectXWindow::displayFunc(VOID *data) {
 	m_graphicObject->Update(data);
 }
 
-void DirectXWindow::InitWndClass() {
+VOID DirectXWindow::InitWndClass() {
 	m_wndClass.cbClsExtra = 0;
 	m_wndClass.cbWndExtra = 0;
 	m_wndClass.hbrBackground = static_cast<HBRUSH>(GetStockObject(BLACK_BRUSH));
@@ -133,7 +133,7 @@ void DirectXWindow::InitWndClass() {
 	m_wndClass.style = CS_HREDRAW | CS_VREDRAW;
 }
 
-void DirectXWindow::InitD3DPresentParameters() {
+VOID DirectXWindow::InitD3DPresentParameters() {
 	RECT rect;
 	GetWindowRect(m_hWnd, &rect);
 	LONG w = rect.right - rect.left;

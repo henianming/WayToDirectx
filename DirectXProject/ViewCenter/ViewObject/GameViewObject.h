@@ -7,11 +7,11 @@
 //--------分界线-----------------------------------------------------------------
 class HIGameViewItem {
 public:
-	virtual void Load();
-	virtual void Unload();
-	virtual void Show();
-	virtual void Hide();
-	virtual void Update();
+	virtual VOID Load();
+	virtual VOID Unload();
+	virtual VOID Show();
+	virtual VOID Hide();
+	virtual VOID Update();
 };
 
 //--------分界线-----------------------------------------------------------------
@@ -26,18 +26,19 @@ private:
 	D3DXMATRIX m_factLocate;
 	BOOL m_isCursorNeedReset;
 
-	double const m_cameraSpeed = (double)1 / (double)360 * D3DX_PI;
+	LONG const m_cursorResetDistance = 100;
+	DOUBLE const m_cameraSpeed = (DOUBLE)1 / (DOUBLE)360 * D3DX_PI;
 
 public:
-	virtual void Load();
-	virtual void Unload();
-	virtual void Show();
-	virtual void Hide();
-	virtual void OnGetFocus();
-	virtual void OnLostFocus();
-	virtual void Update();
+	virtual VOID Load();
+	virtual VOID Unload();
+	virtual VOID Show();
+	virtual VOID Hide();
+	virtual VOID OnGetFocus();
+	virtual VOID OnLostFocus();
+	virtual VOID Update();
 
 public:
 	virtual BOOL OnMessage(HWndProcEventType eventType, WPARAM wParam, LPARAM lParam);
-	virtual void OnTimer(int id);
+	virtual VOID OnTimer(INT id);
 };

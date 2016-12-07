@@ -6,16 +6,16 @@
 //--------分界线-----------------------------------------------------------------
 class HTime {
 private:
-	double m_timeDensity;
-	double m_curTimeStamp;
+	DOUBLE m_timeDensity;
+	DOUBLE m_curTimeStamp;
 
 public:
 	HTime();
 
-	BOOL Set_m_timeDensity(double timeDensity);
-	double Get_m_curTimeStamp() const;
+	BOOL Set_m_timeDensity(DOUBLE timeDensity);
+	DOUBLE Get_m_curTimeStamp() const;
 
-	void AddTime(double realTime);
+	VOID AddTime(DOUBLE realTime);
 };
 
 //--------分界线-----------------------------------------------------------------
@@ -26,16 +26,16 @@ private:
 private:
 	M_TL m_timeList;
 	LARGE_INTEGER m_frequency;
-	double m_curRealTimeStamp;
+	DOUBLE m_curRealTimeStamp;
 
 public:
 	HTimeMgr();
 
 	BOOL Create();
 	BOOL Release();
-	void Registe(HTime *time);
-	void Unregiste(HTime *time);
-	void Update();
+	VOID Registe(HTime *time);
+	VOID Unregiste(HTime *time);
+	VOID Update();
 
-	double GetCurRealTimeStamp();
+	DOUBLE GetCurRealTimeStamp();
 };

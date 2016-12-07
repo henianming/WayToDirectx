@@ -9,23 +9,23 @@
 struct HTimerData {
 public:
 	HTime const *m_time;
-	double m_intervalTime;
-	double m_lastActiveTime;
+	DOUBLE m_intervalTime;
+	DOUBLE m_lastActiveTime;
 
 public:
-	HTimerData(HTime const *time, double intervalTime, double lastActiveTime);
+	HTimerData(HTime const *time, DOUBLE intervalTime, DOUBLE lastActiveTime);
 };
 
 //--------分界线-----------------------------------------------------------------
 class HITimerMgrReceiver {
 public:
-	virtual void OnTimer(int id) = 0;
+	virtual VOID OnTimer(INT id) = 0;
 };
 
 //--------分界线-----------------------------------------------------------------
 class HTimerMgr {
 private:
-	typedef std::map<int, HTimerData> M_ID_INTERVAL;
+	typedef std::map<INT, HTimerData> M_ID_INTERVAL;
 	typedef std::map<HITimerMgrReceiver*, M_ID_INTERVAL*> M_RECEIVER_ID;
 
 private:
@@ -35,8 +35,8 @@ private:
 public:
 	BOOL Create();
 	BOOL Release();
-	void Registe(HITimerMgrReceiver *receiver, int id, double intervalSecond, HTime const *time = NULL);
-	void Unregiste(HITimerMgrReceiver *receiver, int id);
+	VOID Registe(HITimerMgrReceiver *receiver, INT id, DOUBLE intervalSecond, HTime const *time = NULL);
+	VOID Unregiste(HITimerMgrReceiver *receiver, INT id);
 
-	void Update();
+	VOID Update();
 };

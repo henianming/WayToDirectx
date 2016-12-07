@@ -20,7 +20,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 	return DefWindowProc(hWnd, msg, wParam, lParam);
 }
 
-void InitWNDCLASS(WNDCLASS *wc, HINSTANCE hInstance) {
+VOID InitWNDCLASS(WNDCLASS *wc, HINSTANCE hInstance) {
 	wc->cbClsExtra = 0;
 	wc->cbWndExtra = 0;
 	wc->hbrBackground = static_cast<HBRUSH>(GetStockObject(WHITE_BRUSH));
@@ -33,7 +33,7 @@ void InitWNDCLASS(WNDCLASS *wc, HINSTANCE hInstance) {
 	wc->style = CS_HREDRAW | CS_VREDRAW;
 }
 
-bool DisplayFunc(IDirect3DDevice9 *dev, float timeInterval) {
+bool DisplayFunc(IDirect3DDevice9 *dev, FLOAT timeInterval) {
 	if (dev) {
 		dev->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER,
 				   0x00000000, 1.0f, 0);
@@ -42,17 +42,17 @@ bool DisplayFunc(IDirect3DDevice9 *dev, float timeInterval) {
 	return true;
 }
 
-WPARAM MsgLoop(IDirect3DDevice9* dev, bool (*displayFunc)(IDirect3DDevice9*, float)) {
+WPARAM MsgLoop(IDirect3DDevice9* dev, bool (*displayFunc)(IDirect3DDevice9*, FLOAT)) {
 	MSG msg = {};
 
-	float prevTime = (float)timeGetTime();
-	float curTime;
+	FLOAT prevTime = (FLOAT)timeGetTime();
+	FLOAT curTime;
 
 	while (msg.message != WM_QUIT) {
 		if (PeekMessage(&msg, 0, 0, 0, PM_REMOVE)) {
 			DispatchMessage(&msg);
 		} else {
-			curTime = (float)timeGetTime();
+			curTime = (FLOAT)timeGetTime();
 			displayFunc(dev, curTime - prevTime);
 			prevTime = curTime;
 		}
@@ -60,7 +60,7 @@ WPARAM MsgLoop(IDirect3DDevice9* dev, bool (*displayFunc)(IDirect3DDevice9*, flo
 	return msg.wParam;
 }
 
-void InitD3DParam(D3DPRESENT_PARAMETERS *d3dPresentParam, HWND hWnd, UINT d3dWidth, UINT d3dHeight, BOOL Windowed) {
+VOID InitD3DParam(D3DPRESENT_PARAMETERS *d3dPresentParam, HWND hWnd, UINT d3dWidth, UINT d3dHeight, BOOL Windowed) {
 	d3dPresentParam->AutoDepthStencilFormat = D3DFMT_D24S8;
 	d3dPresentParam->BackBufferCount = 2;
 	d3dPresentParam->BackBufferFormat = D3DFMT_A8R8G8B8;
@@ -81,13 +81,13 @@ bool Start() {
 	return true;
 }
 
-void End() {
+VOID End() {
 
 }
 
 
 
-int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hInstancePrev, LPSTR lpCmdLine, int nCmdShow) {
+INT APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hInstancePrev, LPSTR lpCmdLine, INT nCmdShow) {
 	WNDCLASS wc;
 
 	InitWNDCLASS(&wc, hInstance);

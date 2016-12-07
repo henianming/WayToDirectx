@@ -1,6 +1,6 @@
-#if 0
 #include "InputEventMgr.h"
 
+//--------·Ö½çÏß-----------------------------------------------------------------
 BOOL HInputEventMgr::Create() {
 	int i;
 
@@ -23,7 +23,7 @@ BOOL HInputEventMgr::Release() {
 	return TRUE;
 }
 
-void HInputEventMgr::Subscribe(HIInputEventReceiver *receiver, HInputEventType eventType) {
+VOID HInputEventMgr::Subscribe(HIInputEventReceiver *receiver, HInputEventType eventType) {
 	M_RL *rl = m_etv.at(eventType);
 	M_RL::iterator it = rl->begin();
 	while (it != rl->end()) {
@@ -37,16 +37,16 @@ void HInputEventMgr::Subscribe(HIInputEventReceiver *receiver, HInputEventType e
 	m_etv.at(eventType)->push_back(receiver);
 }
 
-void HInputEventMgr::Unsubscribe(HIInputEventReceiver *receiver, HInputEventType eventType) {
+VOID HInputEventMgr::Unsubscribe(HIInputEventReceiver *receiver, HInputEventType eventType) {
 	M_RL *rl = m_etv.at(eventType);
-	M_RL::iterator it = rl->begin();
-	while (it != rl->end()) {
-		if ((int)(*it) == (int)receiver) {
-			rl->erase(it);
+	M_RL::reverse_iterator rit = rl->rbegin();
+	while (rit != rl->rend()) {
+		if ((int)(*rit) == (int)receiver) {
+			rl->erase(rit.base());
 			return;
 		}
 
-		it++;
+		rit++;
 	}
 }
 
@@ -64,4 +64,3 @@ BOOL HInputEventMgr::FireEvent(HInputEventType eventType, double durationTime, B
 
 	return isDealed;
 }
-#endif

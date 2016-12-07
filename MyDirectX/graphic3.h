@@ -5,9 +5,9 @@
 
 class MyVertex3 {
 public:
-	MyVertex3(float x, float y, float z, D3DCOLOR color);
+	MyVertex3(FLOAT x, FLOAT y, FLOAT z, D3DCOLOR color);
 
-	float m_x, m_y, m_z;
+	FLOAT m_x, m_y, m_z;
 	D3DCOLOR m_color;
 	static DWORD const FVF = D3DFVF_XYZ | D3DFVF_DIFFUSE;
 };
@@ -21,13 +21,13 @@ private:
 	D3DXVECTOR3 m_targetPos;
 	D3DXVECTOR3 m_up;
 
-	float g_speed = 0.1F;
-	float g_X = 0.0F;
-	float g_Y = 0.0F;
+	FLOAT g_speed = 0.1F;
+	FLOAT g_X = 0.0F;
+	FLOAT g_Y = 0.0F;
 	bool g_mouseDown = false;
 	POINT g_lPoint = {};
-	float g_lX = 0.0F;
-	float g_lY = 0.0F;
+	FLOAT g_lX = 0.0F;
+	FLOAT g_lY = 0.0F;
 
 public:
 	Graphic3();
@@ -37,6 +37,6 @@ public:
 	virtual BOOL Unload();
 	virtual BOOL Show();
 	virtual BOOL Hide();
-	virtual BOOL Update(void *data);
+	virtual BOOL Update(VOID *data);
 	virtual BOOL OnMessage(UINT msg, WPARAM wParam, LPARAM lParam);
 };

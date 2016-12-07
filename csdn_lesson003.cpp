@@ -13,22 +13,22 @@ LPDIRECT3DDEVICE9 d3dDevice = NULL;
 LPDIRECT3DVERTEXBUFFER9 d3dVertexBuf = NULL;
 
 struct D3DVertexXYZRHW {
-	float x, y, z, rhw;
-	unsigned int color;
+	FLOAT x, y, z, rhw;
+	unsigned INT color;
 };
 
 //自定函数声明
 LRESULT CALLBACK wndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 bool initializeD3D(HWND hwnd);
-void renderScene();
-void shutDown();
+VOID renderScene();
+VOID shutDown();
 bool initializeObj();
 
-int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hInstPrev, LPSTR lpCmdLine, int nCmdShow) {
-	int posX = 25;
-	int posY = 25;
-	unsigned int width = 1024;
-	unsigned int height = 768;
+INT APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hInstPrev, LPSTR lpCmdLine, INT nCmdShow) {
+	INT posX = 25;
+	INT posY = 25;
+	unsigned INT width = 1024;
+	unsigned INT height = 768;
 
 	//声明窗口类
 	WNDCLASSEX wc = {};
@@ -113,7 +113,7 @@ bool initializeD3D(HWND hwnd) {
 	return true;
 }
 
-void renderScene() {
+VOID renderScene() {
 	d3dDevice->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_ARGB(1, 0, 0, 0), 1.0f, 0);
 
 	//渲染过程
@@ -139,7 +139,7 @@ void renderScene() {
 	d3dDevice->Present(NULL, NULL, NULL, NULL);//指示CPU从GPU读取渲染结果，并呈现  (此操作会等待GPU计算渲染完成才会返回，故不宜距离EndScene()过近，使CPU长期处于阻塞状态，以致失去CPU与GPU并发目的，浪费性能)
 }
 
-void shutDown() {
+VOID shutDown() {
 	if (d3dDevice != NULL) {
 		d3dDevice->Release();
 		d3dDevice = NULL;
@@ -158,7 +158,7 @@ void shutDown() {
 
 bool initializeObj() {
 	//手动创建数组保存顶点数据
-	unsigned int colorInfo = D3DCOLOR_ARGB(1, 255, 255, 255);
+	unsigned INT colorInfo = D3DCOLOR_ARGB(1, 255, 255, 255);
 	D3DVertexXYZRHW vertexData[] =
 	{
 		{ 10.0f, 10.0f, 0.0f, 1.0f, colorInfo },
@@ -175,8 +175,8 @@ bool initializeObj() {
 		return false;
 
 	//用ptr当媒介，向缓存填入顶点数据
-	void *ptr;
-	if (FAILED(d3dVertexBuf->Lock(0, sizeof(vertexData), (void**)&ptr, 0)))
+	VOID *ptr;
+	if (FAILED(d3dVertexBuf->Lock(0, sizeof(vertexData), (VOID**)&ptr, 0)))
 		return false;
 	memcpy(ptr, vertexData, sizeof(vertexData));
 	d3dVertexBuf->Unlock();

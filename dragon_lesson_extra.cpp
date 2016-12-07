@@ -44,7 +44,7 @@ nCmdShow:指定应用程序窗口的显示形式
 		 SW_SHOWMINIMIZED:以最小化运行
 		 SW_SHOWMAXIMIZED:以最大化运行
 ------------------------------------------------------------------------------*/
-int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hInstancePrev, LPSTR lpCmdLine, int nCmdShow) {
+INT APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hInstancePrev, LPSTR lpCmdLine, INT nCmdShow) {
 	//定义一个窗口类，以下必须全部指定明确的值
 	WNDCLASS wc;
 	wc.cbClsExtra = 0;
@@ -74,7 +74,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hInstancePrev, LPSTR lpCmdLi
 	ShowWindow(hWnd, nCmdShow);
 
 	//消息循环
-	int ret;
+	INT ret;
 	MSG msg;
 	//从系统捕获消息，只要不是捕获的QUIT信号，均返回非0值
 	if (false) {

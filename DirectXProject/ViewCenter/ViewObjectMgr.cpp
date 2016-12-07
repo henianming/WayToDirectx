@@ -20,7 +20,7 @@ HIViewObject::~HIViewObject() {
 	Unload();
 }
 
-void HIViewObject::SetParentViewObject(HIViewObject *parent, BOOL isOtherCall) {
+VOID HIViewObject::SetParentViewObject(HIViewObject *parent, BOOL isOtherCall) {
 	if (m_parentViewObject != NULL) {
 		UnsetParentViewObject();
 	}
@@ -31,7 +31,7 @@ void HIViewObject::SetParentViewObject(HIViewObject *parent, BOOL isOtherCall) {
 	}
 }
 
-void HIViewObject::UnsetParentViewObject(BOOL isOtherCall) {
+VOID HIViewObject::UnsetParentViewObject(BOOL isOtherCall) {
 	if (m_parentViewObject == NULL) {
 		return;
 	}
@@ -42,7 +42,7 @@ void HIViewObject::UnsetParentViewObject(BOOL isOtherCall) {
 	m_parentViewObject = NULL;
 }
 
-void HIViewObject::AddChildViewObject(HIViewObject *child, BOOL isOtherCall) {
+VOID HIViewObject::AddChildViewObject(HIViewObject *child, BOOL isOtherCall) {
 	if (child == NULL) {
 		return;
 	}
@@ -53,10 +53,10 @@ void HIViewObject::AddChildViewObject(HIViewObject *child, BOOL isOtherCall) {
 	}
 }
 
-void HIViewObject::DelChildViewObject(HIViewObject *child, BOOL isOtherCall) {
+VOID HIViewObject::DelChildViewObject(HIViewObject *child, BOOL isOtherCall) {
 	std::list<HIViewObject*>::iterator it = m_childViewObjectList.begin();
 	while (it != m_childViewObjectList.end()) {
-		if ((int)(*it) == (int)child) {
+		if ((INT)(*it) == (INT)child) {
 			if (isOtherCall == TRUE) {
 				(*it)->UnsetParentViewObject(FALSE);
 			}
@@ -68,7 +68,7 @@ void HIViewObject::DelChildViewObject(HIViewObject *child, BOOL isOtherCall) {
 	}
 }
 
-void HIViewObject::UpdateChile() {
+VOID HIViewObject::UpdateChile() {
 	std::list<HIViewObject*>::iterator it = m_childViewObjectList.begin();
 	while (it != m_childViewObjectList.end()) {
 		(*it)->Update();
@@ -77,31 +77,31 @@ void HIViewObject::UpdateChile() {
 	}
 }
 
-void HIViewObject::Load() {
+VOID HIViewObject::Load() {
 
 }
 
-void HIViewObject::Unload() {
+VOID HIViewObject::Unload() {
 
 }
 
-void HIViewObject::Show() {
+VOID HIViewObject::Show() {
 
 }
 
-void HIViewObject::Hide() {
+VOID HIViewObject::Hide() {
 
 }
 
-void HIViewObject::OnGetFocus() {
+VOID HIViewObject::OnGetFocus() {
 
 }
 
-void HIViewObject::OnLostFocus() {
+VOID HIViewObject::OnLostFocus() {
 
 }
 
-void HIViewObject::Update() {
+VOID HIViewObject::Update() {
 
 }
 
@@ -124,7 +124,7 @@ BOOL HViewObjectMgr::Release() {
 	return TRUE;
 }
 
-void HViewObjectMgr::Update() {
+VOID HViewObjectMgr::Update() {
 	HRESULT hr;
 
 	IDirect3DDevice9 *device = g_program->Get_m_device();

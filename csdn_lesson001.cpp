@@ -9,11 +9,11 @@
 
 LRESULT CALLBACK wndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
-int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hInstPrev, LPSTR lpCmdLine, int nCmdShow) {
-	int posX = 25;
-	int posY = 25;
-	unsigned int width = 1024;
-	unsigned int height = 768;
+INT APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hInstPrev, LPSTR lpCmdLine, INT nCmdShow) {
+	INT posX = 25;
+	INT posY = 25;
+	unsigned INT width = 1024;
+	unsigned INT height = 768;
 
 	//声明窗口类
 	WNDCLASSEX wc = {};

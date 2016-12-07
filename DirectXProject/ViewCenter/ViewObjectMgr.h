@@ -13,20 +13,20 @@ private:
 public:
 	~HIViewObject();
 
-	void SetParentViewObject(HIViewObject *parent, BOOL isOtherCall = TRUE);
-	void UnsetParentViewObject(BOOL isOtherCall = TRUE);
-	void AddChildViewObject(HIViewObject *child, BOOL isOtherCall = TRUE);
-	void DelChildViewObject(HIViewObject *child, BOOL isOtherCall = TRUE);
-	void UpdateChile();
+	VOID SetParentViewObject(HIViewObject *parent, BOOL isOtherCall = TRUE);
+	VOID UnsetParentViewObject(BOOL isOtherCall = TRUE);
+	VOID AddChildViewObject(HIViewObject *child, BOOL isOtherCall = TRUE);
+	VOID DelChildViewObject(HIViewObject *child, BOOL isOtherCall = TRUE);
+	VOID UpdateChile();
 
 public:
-	virtual void Load();
-	virtual void Unload();
-	virtual void Show();
-	virtual void Hide();
-	virtual void OnGetFocus();
-	virtual void OnLostFocus();
-	virtual void Update();
+	virtual VOID Load();
+	virtual VOID Unload();
+	virtual VOID Show();
+	virtual VOID Hide();
+	virtual VOID OnGetFocus();
+	virtual VOID OnLostFocus();
+	virtual VOID Update();
 };
 
 //--------·Ö½çÏß-----------------------------------------------------------------
@@ -38,5 +38,5 @@ private:
 public:
 	BOOL Create();
 	BOOL Release();
-	void Update();
+	VOID Update();
 };

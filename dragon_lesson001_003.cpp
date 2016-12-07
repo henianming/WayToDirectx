@@ -3,7 +3,7 @@
 
 #include <d3d9.h>
 
-int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hInstancePrev, LPSTR lpCmdLine, int nCmdShow) {
+INT APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hInstancePrev, LPSTR lpCmdLine, INT nCmdShow) {
 	if (false) {
 		IDirect3DSurface9 *surface; //生成一个表面类型surface，此为测试代码，未分配内存
 
@@ -23,7 +23,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hInstancePrev, LPSTR lpCmdLi
 			for (UINT i = 0; i < desc.Height; i++) {
 				for (UINT j = 0; j < desc.Width; j++) {
 					//因Pitch以字节为单位，pBits以DWORD的4字节长度为跨度当索引，故Pitch需要除以4来当索引用
-					int index = i*rect.Pitch / 4 + j;
+					INT index = i*rect.Pitch / 4 + j;
 					imageData[index] = 0xFFFF0000;
 				}
 			}

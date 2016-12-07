@@ -30,16 +30,16 @@ private:
 	HViewObjectMgr m_viewObjectMgr;
 
 	//self data
-	int m_count;
-	double m_fpsRefreshIntervalSec = 1.0;
-	double m_fps;
+	INT m_count;
+	DOUBLE m_fpsRefreshIntervalSec = 1.0;
+	DOUBLE m_fps;
 	RECT m_rect;
 	LONG m_width;
 	LONG m_height;
 	POINT m_center;
 
 public:
-	BOOL Create(HINSTANCE hInstance, int showType);
+	BOOL Create(HINSTANCE hInstance, INT showType);
 	BOOL Release();
 	BOOL Update();
 
@@ -55,23 +55,23 @@ public:
 	POINT const* Get_m_center();
 
 private:
-	void InitWndClass(HINSTANCE hInstance);
-	BOOL CreateWnd(HINSTANCE hInstance, int showType);
+	VOID InitWndClass(HINSTANCE hInstance);
+	BOOL CreateWnd(HINSTANCE hInstance, INT showType);
 	BOOL ReleaseWnd();
-	void InitDirectPresentParameters();
+	VOID InitDirectPresentParameters();
 	BOOL CreateDirectX();
 	BOOL ReleaseDirectX();
-	void SubscribeEvent();
-	void UnsubscribeEvent();
-	void RegisteTime();
-	void UnregisteTime();
-	void RegisteTimer();
-	void UnregisteTimer();
+	VOID SubscribeEvent();
+	VOID UnsubscribeEvent();
+	VOID RegisteTime();
+	VOID UnregisteTime();
+	VOID RegisteTimer();
+	VOID UnregisteTimer();
 	
-	void UpdataFps();
-	void TitleView();
+	VOID UpdataFps();
+	VOID TitleView();
 
 public:
 	virtual BOOL OnMessage(HWndProcEventType eventType, WPARAM wParam, LPARAM lParam);
-	virtual void OnTimer(int id);
+	virtual VOID OnTimer(INT id);
 };

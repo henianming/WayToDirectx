@@ -59,7 +59,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 		}
 	}
 	if (wParam == 304 && lParam == 17817868) {
-		int ii = 333;
+		INT ii = 333;
 	}
 	return DefWindowProc(hWnd, msg, wParam, lParam);
 }
@@ -76,7 +76,8 @@ WPARAM MsgLoop() {
 	return msg.wParam;
 }
 
-int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hInstancePrev, LPSTR argv, int showType) {
+INT APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hInstancePrev, LPSTR argv, INT showType) {
+	/*
 	AllocConsole();
 	freopen("CONOUT$", "w", stdout);
 	freopen("CONOUT$", "w", stderr);
@@ -84,6 +85,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hInstancePrev, LPSTR argv, i
 	RECT rect;
 	GetWindowRect(hWnd, &rect);
 	SetWindowPos(hWnd, HWND_TOP, 0, 0, rect.right - rect.left, rect.bottom - rect.top, SWP_SHOWWINDOW);
+	*/
 
 	g_program = new HProgram();
 

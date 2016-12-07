@@ -1,6 +1,6 @@
 #include "graphic3.h"
 
-MyVertex3::MyVertex3(float x, float y, float z, D3DCOLOR color)
+MyVertex3::MyVertex3(FLOAT x, FLOAT y, FLOAT z, D3DCOLOR color)
 	: m_x(x), m_y(y), m_z(z), m_color(color) {
 }
 
@@ -37,7 +37,7 @@ BOOL Graphic3::Show() {
 	}
 
 	MyVertex3 *myVertex;
-	m_vertexBuffer->Lock(0, 0, (void**)(&myVertex), 0);
+	m_vertexBuffer->Lock(0, 0, (VOID**)(&myVertex), 0);
 
 	myVertex[0] = MyVertex3(-1.0f, 0.0f, 0.0f, D3DCOLOR_XRGB(200, 0, 0));
 	myVertex[1] = MyVertex3(0.0f, 1.0f, 0.0f, D3DCOLOR_XRGB(125, 255, 0));
@@ -58,7 +58,7 @@ BOOL Graphic3::Show() {
 	}
 
 	DWORD *index;
-	m_indexBuffer->Lock(0, 0, (void**)(&index), 0);
+	m_indexBuffer->Lock(0, 0, (VOID**)(&index), 0);
 
 	index[0] = 0;
 	index[1] = 1;
@@ -82,7 +82,7 @@ BOOL Graphic3::Show() {
 	D3DXMatrixPerspectiveFovLH(
 		&proj,
 		D3DX_PI * 0.5F,
-		(float)wndWidth / (float)wndHeight,
+		(FLOAT)wndWidth / (FLOAT)wndHeight,
 		1.0F,
 		1000.0F
 		);
@@ -109,7 +109,7 @@ BOOL Graphic3::Hide() {
 	return TRUE;
 }
 
-BOOL Graphic3::Update(void *data) {
+BOOL Graphic3::Update(VOID *data) {
 	if (!m_device) {
 		return FALSE;
 	}

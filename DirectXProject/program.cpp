@@ -4,7 +4,7 @@
 extern LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 //--------·Ö½çÏß-----------------------------------------------------------------
-BOOL HProgram::Create(HINSTANCE hInstance, int showType) {
+BOOL HProgram::Create(HINSTANCE hInstance, INT showType) {
 	RETURN_IF_FAILED(m_wndProcEventMgr.Create());
 
 	SubscribeEvent();
@@ -56,7 +56,7 @@ BOOL HProgram::Release() {
 
 	return TRUE;
 }
-int iii = 0;
+INT iii = 0;
 BOOL HProgram::Update() {
 	m_count++;
 
@@ -109,7 +109,7 @@ HWndProcEventMgr* HProgram::Get_m_wndProcEventMgr() {
 	return &m_wndProcEventMgr;
 }
 
-void HProgram::InitWndClass(HINSTANCE hInstance) {
+VOID HProgram::InitWndClass(HINSTANCE hInstance) {
 	m_wndClass.cbClsExtra = 0;
 	m_wndClass.cbWndExtra = 0;
 	m_wndClass.hbrBackground = static_cast<HBRUSH>(GetStockObject(BLACK_BRUSH));
@@ -122,15 +122,15 @@ void HProgram::InitWndClass(HINSTANCE hInstance) {
 	m_wndClass.style = CS_HREDRAW | CS_VREDRAW;
 }
 
-BOOL HProgram::CreateWnd(HINSTANCE hInstance, int showType) {
+BOOL HProgram::CreateWnd(HINSTANCE hInstance, INT showType) {
 	InitWndClass(hInstance);
 
 	RegisterClass(&m_wndClass);
 
 	m_hWnd = CreateWindow(
 		m_wndClass.lpszClassName, L"",
-		WS_OVERLAPPEDWINDOW,
-		CW_USEDEFAULT, CW_USEDEFAULT, 1280, 720,
+		WS_POPUP | WS_THICKFRAME,
+		CW_USEDEFAULT, CW_USEDEFAULT, 800, 600,
 		0, 0, m_wndClass.hInstance, 0
 	);
 	if (m_hWnd == 0) {
@@ -148,7 +148,7 @@ BOOL HProgram::ReleaseWnd() {
 	return TRUE;
 }
 
-void HProgram::InitDirectPresentParameters() {
+VOID HProgram::InitDirectPresentParameters() {
 	m_d3dPresentParameters.AutoDepthStencilFormat = D3DFMT_D24S8;
 	m_d3dPresentParameters.BackBufferCount = 2;
 	m_d3dPresentParameters.BackBufferFormat = D3DFMT_A8R8G8B8;
@@ -209,35 +209,35 @@ BOOL HProgram::ReleaseDirectX() {
 	return TRUE;
 }
 
-void HProgram::SubscribeEvent() {
+VOID HProgram::SubscribeEvent() {
 	m_wndProcEventMgr.Subscribe(this, WndProcEventType_KeyDown);
 }
 
-void HProgram::UnsubscribeEvent() {
+VOID HProgram::UnsubscribeEvent() {
 	m_wndProcEventMgr.Unsubscribe(this, WndProcEventType_KeyDown);
 }
 
-void HProgram::RegisteTime() {
+VOID HProgram::RegisteTime() {
 	m_timeMgr.Registe(&m_time);
 }
 
-void HProgram::UnregisteTime() {
+VOID HProgram::UnregisteTime() {
 	m_timeMgr.Unregiste(&m_time);
 }
 
-void HProgram::RegisteTimer() {
+VOID HProgram::RegisteTimer() {
 	m_timerMgr.Registe(this, 1, m_fpsRefreshIntervalSec, &m_time);
 }
 
-void HProgram::UnregisteTimer() {
+VOID HProgram::UnregisteTimer() {
 	m_timerMgr.Unregiste(this, 1);
 }
  
-void HProgram::UpdataFps() {
-	m_fps = (double)m_count / (double)m_fpsRefreshIntervalSec;
+VOID HProgram::UpdataFps() {
+	m_fps = (DOUBLE)m_count / (DOUBLE)m_fpsRefreshIntervalSec;
 }
 
-void HProgram::TitleView() {
+VOID HProgram::TitleView() {
 	wchar_t wc[256];
 	swprintf(wc, 256, L"DirectX Program Window       fps->%lf", m_fps);
 	SetWindowText(m_hWnd, wc);
@@ -260,7 +260,7 @@ BOOL HProgram::OnMessage(HWndProcEventType eventType, WPARAM wParam, LPARAM lPar
 	return FALSE;
 }
 
-void HProgram::OnTimer(int id) {
+VOID HProgram::OnTimer(INT id) {
 	switch (id) {
 	case 1:
 	{
