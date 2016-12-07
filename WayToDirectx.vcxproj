@@ -142,6 +142,7 @@
     <ClCompile Include="DirectXProject\Common\CommonCode.cpp" />
     <ClCompile Include="DirectXProject\EventCenter\InputEventMgr.cpp" />
     <ClCompile Include="DirectXProject\EventCenter\WndProcEventMgr.cpp" />
+    <ClCompile Include="DirectXProject\InputCenter\Input.cpp" />
     <ClCompile Include="DirectXProject\InputCenter\KeyboardInput.cpp" />
     <ClCompile Include="DirectXProject\main.cpp" />
     <ClCompile Include="DirectXProject\program.cpp" />

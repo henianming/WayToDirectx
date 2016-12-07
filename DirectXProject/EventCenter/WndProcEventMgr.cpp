@@ -42,7 +42,7 @@ VOID HWndProcEventMgr::Unsubscribe(HIWndProcEventReceiver *receiver, HWndProcEve
 	M_RL::reverse_iterator rit = rl->rbegin();
 	while (rit != rl->rend()) {
 		if ((INT)(*rit) == (INT)receiver) {
-			rl->erase(rit.base());
+			rl->erase((++rit).base());
 			return;
 		}
 

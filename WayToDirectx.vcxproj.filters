@@ -132,6 +132,9 @@
     <ClCompile Include="DirectXProject\ViewCenter\ViewObject\Prismatic.cpp">
       <Filter>DirectXProject\ViewCenter\ViewObject\GameViewObject</Filter>
     </ClCompile>
+    <ClCompile Include="DirectXProject\InputCenter\Input.cpp">
+      <Filter>DirectXProject\InputCenter</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lesson.h" />

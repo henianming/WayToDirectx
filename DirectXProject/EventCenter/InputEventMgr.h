@@ -18,7 +18,7 @@ enum HInputEventType {
 //--------分界线-----------------------------------------------------------------
 class HIInputEventReceiver {
 public:
-	virtual BOOL OnMessage(HInputEventType eventType, double durationTime, BOOL isContinue) = 0;
+	virtual BOOL OnMessage(HInputEventType eventType, DOUBLE durationTime, DOUBLE firstActiveTimeStamp, BOOL isContinue) = 0;
 };
 
 //--------分界线-----------------------------------------------------------------
@@ -36,5 +36,5 @@ public:
 
 	VOID Subscribe(HIInputEventReceiver *receiver, HInputEventType eventType);
 	VOID Unsubscribe(HIInputEventReceiver *receiver, HInputEventType eventType);
-	BOOL FireEvent(HInputEventType eventType, double durationTime, BOOL isContinue);
+	BOOL FireEvent(HInputEventType eventType, DOUBLE durationTime, DOUBLE firstActiveTimeStamp, BOOL isContinue);
 };

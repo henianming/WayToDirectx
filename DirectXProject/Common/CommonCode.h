@@ -27,6 +27,13 @@ do { \
 	} \
 } while(0) \
 
+#define RETURN_IF_NULL(A) \
+do { \
+	if ((A) == NULL) { \
+		return FALSE; \
+	} \
+} while(0) \
+
 #define IS_IN_RANGE_LN_HN(S, L, H) ((S) > (L) && (S) < (H)) ? TRUE : FALSE
 #define IS_IN_RANGE_LE_HE(S, L, H) ((S) >= (L) && (S) <= (H)) ? TRUE : FALSE
 #define IS_IN_RANGE_LE_HN(S, L, H) ((S) >= (L) && (S) < (H)) ? TRUE : FALSE

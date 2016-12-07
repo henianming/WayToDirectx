@@ -3,11 +3,14 @@
 #include "Input.h"
 #include <list>
 #include <map>
+#include "EventCenter/WndProcEventMgr.h"
 #include "EventCenter/InputEventMgr.h"
+#include "InputCenter/Input.h"
 
 struct HKeyboard_Data {
 	HInputEventType m_key;
-	double m_lastActiveTimeStamp;
+	DOUBLE m_firstActiveTimeStamp;
+	DOUBLE m_lastActiveTimeStamp;
 };
 
 //--------·Ö½çÏß-----------------------------------------------------------------

@@ -42,7 +42,7 @@ VOID HInputEventMgr::Unsubscribe(HIInputEventReceiver *receiver, HInputEventType
 	M_RL::reverse_iterator rit = rl->rbegin();
 	while (rit != rl->rend()) {
 		if ((int)(*rit) == (int)receiver) {
-			rl->erase(rit.base());
+			rl->erase((++rit).base());
 			return;
 		}
 
@@ -50,13 +50,13 @@ VOID HInputEventMgr::Unsubscribe(HIInputEventReceiver *receiver, HInputEventType
 	}
 }
 
-BOOL HInputEventMgr::FireEvent(HInputEventType eventType, double durationTime, BOOL isContinue) {
+BOOL HInputEventMgr::FireEvent(HInputEventType eventType, DOUBLE durationTime, DOUBLE firstActiveTimeStamp, BOOL isContinue) {
 	BOOL isDealed = FALSE;
 
 	M_RL *rl = m_etv.at(eventType);
 	M_RL::iterator it = rl->begin();
 	while (it != rl->end()) {
-		if ((*it)->OnMessage(eventType, durationTime, isContinue) == TRUE) {
+		if ((*it)->OnMessage(eventType, durationTime, firstActiveTimeStamp, isContinue) == TRUE) {
 			isDealed = TRUE;
 		}
 		it++;

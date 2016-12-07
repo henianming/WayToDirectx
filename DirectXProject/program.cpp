@@ -9,6 +9,12 @@ BOOL HProgram::Create(HINSTANCE hInstance, INT showType) {
 
 	SubscribeEvent();
 
+	RETURN_IF_FAILED(m_inputEventMgr.Create());
+
+	m_keyboard = HInputDeviceFactory::GetInputDevice(HInputDeviceType_Keyboard);
+	RETURN_IF_NULL(m_keyboard);
+	RETURN_IF_FAILED(m_keyboard->Create());
+
 	RETURN_IF_FAILED(CreateWnd(hInstance, showType));
 
 	RETURN_IF_FAILED(CreateDirectX());
@@ -50,19 +56,27 @@ BOOL HProgram::Release() {
 
 	RETURN_IF_FAILED(ReleaseWnd());
 
+	RETURN_IF_NULL(m_keyboard);
+	RETURN_IF_FAILED(m_keyboard->Release());
+	m_keyboard = NULL;
+
+	RETURN_IF_FAILED(m_inputEventMgr.Release());
+
 	UnsubscribeEvent();
 
 	RETURN_IF_FAILED(m_wndProcEventMgr.Release());
 
 	return TRUE;
 }
-INT iii = 0;
+
 BOOL HProgram::Update() {
 	m_count++;
 
 	m_timeMgr.Update();
 	
 	m_timerMgr.Update();
+
+	m_keyboard->Update();
 
 	m_viewObjectMgr.Update();
 	
@@ -107,6 +121,10 @@ POINT const* HProgram::Get_m_center() {
 
 HWndProcEventMgr* HProgram::Get_m_wndProcEventMgr() {
 	return &m_wndProcEventMgr;
+}
+
+HInputEventMgr* HProgram::Get_m_inputEventMgr() {
+	return &m_inputEventMgr;
 }
 
 VOID HProgram::InitWndClass(HINSTANCE hInstance) {

@@ -30,9 +30,11 @@ VOID HIGameViewItem::Update() {
 //--------·Ö½çÏß-----------------------------------------------------------------
 VOID HGameViewObject::Load() {
 	POINT const *center = g_program->Get_m_center();
-	SetCursorPos(center->x, center->y);
 	m_isCursorNeedReset = TRUE;
 	m_device = g_program->Get_m_device();
+	m_oldPitch = 0.0f;
+	m_oldYaw = 0.0f;
+	m_oldRoll = 0.0f;
 
 	g_program->Get_m_timerMgr()->Registe(this, 1, 0.001);
 
@@ -48,10 +50,10 @@ VOID HGameViewObject::Unload() {
 }
 
 VOID HGameViewObject::Show() {
-	D3DXMatrixLookAtLH(&m_criterionLocate, &D3DXVECTOR3(1.0f, 1.0f, -5.0f), &D3DXVECTOR3(1.0f, 1.0f, 0.0f), &D3DXVECTOR3(0.0f, 1.0f, 0.0f));
-	D3DXMatrixRotationY(&m_oldFmtLocateY, 0.0f);
-	D3DXMatrixRotationX(&m_oldFmtLocateX, 0.0f);
-	m_factLocate = m_criterionLocate * m_oldFmtLocateY * m_oldFmtLocateX;
+	D3DXMatrixLookAtLH(&m_cameraLocateNormal, &D3DXVECTOR3(1.0f, 1.0f, 1.0f), &D3DXVECTOR3(2.0f, 1.0f, 1.0f), &D3DXVECTOR3(0.0f, 1.0f, 0.0f));
+	D3DXMATRIX change;
+	D3DXMatrixRotationYawPitchRoll(&change, m_oldYaw, m_oldPitch, m_oldRoll);
+	m_cameraLocateActual = m_cameraLocateNormal;// * change;
 
 	m_coordinateAxix->Show();
 }
@@ -73,69 +75,63 @@ VOID HGameViewObject::OnLostFocus() {
 }
 
 VOID HGameViewObject::Update() {
-	m_device->SetTransform(D3DTS_VIEW, &m_factLocate);
+	m_device->SetTransform(D3DTS_VIEW, &m_cameraLocateActual);
 	m_coordinateAxix->Update();
 }
 
 BOOL HGameViewObject::OnMessage(HWndProcEventType eventType, WPARAM wParam, LPARAM lParam) {
 	switch (eventType) {
 	case WndProcEventType_MOUSEMOVE:
-	{
+	{/*
 		POINT const *center = g_program->Get_m_center();
 		POINT curCursorPos;
 		GetCursorPos(&curCursorPos);
 		LONG xOffset = curCursorPos.x - center->x;
 		LONG yOffset = curCursorPos.y - center->y;
 		if (ABS(xOffset) <= m_cursorResetDistance && ABS(yOffset) <= m_cursorResetDistance) {
-			FLOAT angle;
-			D3DXMATRIX ry;
-			angle = (FLOAT)(xOffset * m_cameraSpeed);
-			D3DXMatrixRotationY(&ry, (0 - angle) / 2);
-			D3DXMATRIX rx;
-			angle = (FLOAT)(yOffset * m_cameraSpeed);
-			D3DXMatrixRotationX(&rx, (0 - angle) / 2);
-			m_factLocate = m_criterionLocate * m_oldFmtLocateY * ry * m_oldFmtLocateX * rx;
+			FLOAT anglePitch = m_oldPitch - (FLOAT)yOffset * m_cameraSpeed;
+			FLOAT angleYaw = m_oldYaw + (FLOAT)xOffset * m_cameraSpeed;
+			D3DXMATRIX change;
+			D3DXMatrixRotationYawPitchRoll(&change, angleYaw, anglePitch, m_oldRoll);
+			m_cameraLocateActual = m_cameraLocateNormal * change;
 
 			if (m_isCursorNeedReset == TRUE) {
 				SetCursorPos(center->x, center->y);
-				m_oldFmtLocateY = m_oldFmtLocateY * ry;
-				m_oldFmtLocateX = m_oldFmtLocateX * rx;
+				m_oldPitch = anglePitch;
+				m_oldYaw = angleYaw;
 				m_isCursorNeedReset = FALSE;
 			}
 		} else {
 			SetCursorPos(center->x, center->y);
-		}
+		}*/
 		return TRUE;
-	}break;
-	case WndProcEventType_KeyDown:
-	{
-		switch (wParam) {
-		case 'W':
-		{
-		}break;
-		case 'A':
-		{
-		}break;
-		case 'S':
-		{
-		}break;
-		case 'D':
-		{
-		}break;
-		case VK_SPACE:
-		{
-		}break;
-		case VK_SHIFT:
-		{
-		}break;
-		}
-	}break;
-	case WndProcEventType_KeyUp:
-	{
-
 	}break;
 	}
 
+	return FALSE;
+}
+
+BOOL HGameViewObject::OnMessage(HInputEventType eventType, DOUBLE durationTime, DOUBLE firstActiveTimeStamp, BOOL isContinue) {
+	switch (eventType) {
+	case HInputEventType_W:
+	{
+	}break;
+	case HInputEventType_A:
+	{
+	}break;
+	case HInputEventType_S:
+	{
+	}break;
+	case HInputEventType_D:
+	{
+	}break;
+	case HInputEventType_SPACE:
+	{
+	}break;
+	case HInputEventType_SHIFT:
+	{
+	}break;
+	}
 	return FALSE;
 }
 

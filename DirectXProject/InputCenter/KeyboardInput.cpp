@@ -69,9 +69,10 @@ BOOL HKeyboardInput::Release() {
 BOOL HKeyboardInput::Update() {
 	M_KDL::iterator it = m_keyboardDataList.begin();
 	while (it != m_keyboardDataList.end()) {
-		double curTimeStamp = g_program->Get_m_time()->Get_m_curTimeStamp();
-		double keyDurationTime = curTimeStamp - (*it)->m_lastActiveTimeStamp;
-		g_program->Get_m_inputEventMgr()->FireEvent((*it)->m_key, keyDurationTime, TRUE);
+		DOUBLE curTimeStamp = g_program->Get_m_time()->Get_m_curTimeStamp();
+		DOUBLE keyDurationTime = curTimeStamp - (*it)->m_lastActiveTimeStamp;
+		g_program->Get_m_inputEventMgr()->FireEvent((*it)->m_key, keyDurationTime, (*it)->m_firstActiveTimeStamp, TRUE);
+		(*it)->m_lastActiveTimeStamp = curTimeStamp;
 
 		it++;
 	}
@@ -89,10 +90,11 @@ BOOL HKeyboardInput::OnMessage(HWndProcEventType eventType, WPARAM wParam, LPARA
 		}
 
 		M_KDL::iterator it = IsKeyActive(keyTemp);
-		double curTimeStamp = g_program->Get_m_time()->Get_m_curTimeStamp();
+		DOUBLE curTimeStamp = g_program->Get_m_time()->Get_m_curTimeStamp();
 		if (it == m_keyboardDataList.end()) {
 			HKeyboard_Data *kd = new HKeyboard_Data();
 			kd->m_key = keyTemp;
+			kd->m_firstActiveTimeStamp = curTimeStamp;
 			kd->m_lastActiveTimeStamp = curTimeStamp;
 			m_keyboardDataList.push_back(kd);
 			it = IsKeyActive(keyTemp);
@@ -100,7 +102,7 @@ BOOL HKeyboardInput::OnMessage(HWndProcEventType eventType, WPARAM wParam, LPARA
 			(*it)->m_lastActiveTimeStamp = curTimeStamp;
 		}
 
-		g_program->Get_m_inputEventMgr()->FireEvent(keyTemp, 0, TRUE);
+		g_program->Get_m_inputEventMgr()->FireEvent(keyTemp, 0, (*it)->m_firstActiveTimeStamp, TRUE);
 		return TRUE;
 	}break;
 	case WndProcEventType_KeyUp:
@@ -112,9 +114,9 @@ BOOL HKeyboardInput::OnMessage(HWndProcEventType eventType, WPARAM wParam, LPARA
 
 		M_KDL::iterator it = IsKeyActive(keyTemp);
 		if (it != m_keyboardDataList.end()) {
-			double curTimeStamp = g_program->Get_m_time()->Get_m_curTimeStamp();
-			double keyDurationTime = curTimeStamp - (*it)->m_lastActiveTimeStamp;
-			g_program->Get_m_inputEventMgr()->FireEvent(VKToRK((*it)->m_key), keyDurationTime, FALSE);
+			DOUBLE curTimeStamp = g_program->Get_m_time()->Get_m_curTimeStamp();
+			DOUBLE keyDurationTime = curTimeStamp - (*it)->m_lastActiveTimeStamp;
+			g_program->Get_m_inputEventMgr()->FireEvent(keyTemp, keyDurationTime, (*it)->m_firstActiveTimeStamp, FALSE);
 			delete (*it);
 			m_keyboardDataList.erase(it);
 		}
