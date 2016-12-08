@@ -21,14 +21,20 @@ private:
 	IDirect3DDevice9 *m_device;
 
 	HIGameViewItem *m_coordinateAxix;
-	D3DXMATRIX m_cameraOldY;
-	D3DXMATRIX m_cameraOldX;
+	FLOAT m_cameraRYNormal;
+	FLOAT m_cameraRXNormal;
+	FLOAT m_cameraRYChange;
+	FLOAT m_cameraRXChange;
 	D3DXMATRIX m_cameraLocateNormal;
 	D3DXMATRIX m_cameraLocateActual;
 	BOOL m_isCursorNeedReset;
 
 	LONG const m_cursorResetDistance = 100;
-	FLOAT const m_cameraSpeed = (FLOAT)1 / (FLOAT)360 * D3DX_PI;
+	FLOAT const m_cameraMSpeed = 1.0f;
+	FLOAT const m_cameraRSpeed = (FLOAT)1 / (FLOAT)360 * D3DX_PI;
+
+private:
+	VOID CalculateCameraLocalActual();
 
 public:
 	virtual VOID Load();

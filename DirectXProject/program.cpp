@@ -147,7 +147,7 @@ BOOL HProgram::CreateWnd(HINSTANCE hInstance, INT showType) {
 
 	m_hWnd = CreateWindow(
 		m_wndClass.lpszClassName, L"",
-		WS_POPUP | WS_THICKFRAME,
+		WS_OVERLAPPEDWINDOW,
 		CW_USEDEFAULT, CW_USEDEFAULT, 800, 600,
 		0, 0, m_wndClass.hInstance, 0
 	);

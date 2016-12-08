@@ -51,6 +51,18 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 				return 0;
 			}
 		}break;
+		case WM_MOVE:
+		{
+			if (g_program->Get_m_wndProcEventMgr()->FireEvent(WndProcEventType_MOVE, wParam, lParam)) {
+				return 0;
+			}
+		}break;
+		case WM_MOVING:
+		{
+			if (g_program->Get_m_wndProcEventMgr()->FireEvent(WndProcEventType_MOVING, wParam, lParam)) {
+				return 0;
+			}
+		}break;
 		case WM_DESTROY:
 		{
 			PostQuitMessage(0);
@@ -77,7 +89,6 @@ WPARAM MsgLoop() {
 }
 
 INT APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hInstancePrev, LPSTR argv, INT showType) {
-	/*
 	AllocConsole();
 	freopen("CONOUT$", "w", stdout);
 	freopen("CONOUT$", "w", stderr);
@@ -85,7 +96,6 @@ INT APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hInstancePrev, LPSTR argv, I
 	RECT rect;
 	GetWindowRect(hWnd, &rect);
 	SetWindowPos(hWnd, HWND_TOP, 0, 0, rect.right - rect.left, rect.bottom - rect.top, SWP_SHOWWINDOW);
-	*/
 
 	g_program = new HProgram();
 

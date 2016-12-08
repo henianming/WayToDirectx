@@ -13,6 +13,8 @@ enum HWndProcEventType {
 	WndProcEventType_MOUSEMOVE,
 	WndProcEventType_LBUTTONUP,
 	WndProcEventType_RBUTTONUP,
+	WndProcEventType_MOVE,
+	WndProcEventType_MOVING,
 	WndProcEventType_Max,
 };
 

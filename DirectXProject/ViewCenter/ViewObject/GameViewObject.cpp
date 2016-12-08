@@ -28,6 +28,14 @@ VOID HIGameViewItem::Update() {
 }
 
 //--------·Ö½çÏß-----------------------------------------------------------------
+VOID HGameViewObject::CalculateCameraLocalActual() {
+	D3DXMATRIX ry;
+	D3DXMatrixRotationY(&ry, m_cameraRYChange);
+	D3DXMATRIX rx;
+	D3DXMatrixRotationX(&rx, m_cameraRXChange);
+	m_cameraLocateActual = m_cameraLocateNormal * ry * rx;
+}
+
 VOID HGameViewObject::Load() {
 	POINT const *center = g_program->Get_m_center();
 	m_isCursorNeedReset = TRUE;
@@ -47,12 +55,12 @@ VOID HGameViewObject::Unload() {
 }
 
 VOID HGameViewObject::Show() {
-	D3DXMatrixLookAtLH(&m_cameraLocateNormal, &D3DXVECTOR3(-5.0f, -1.0f, -1.0f), &D3DXVECTOR3(2.0f, -1.0f, -1.0f), &D3DXVECTOR3(0.0f, 1.0f, 0.0f));
-	//D3DXMatrixRotationYawPitchRoll(&m_cameraOldY, 0.1f * D3DX_PI, 0.0f, 0.0f);
-	//D3DXMatrixRotationYawPitchRoll(&m_cameraOldX, 0.0f, 0.1f * D3DX_PI, 0.0f);
-	D3DXMatrixRotationYawPitchRoll(&m_cameraOldX, 0.1f * D3DX_PI, 0.1f * D3DX_PI, 0.0f);
-	m_cameraLocateActual = m_cameraLocateNormal * m_cameraOldX;
-	//m_cameraLocateActual = m_cameraLocateNormal * m_cameraOldY * m_cameraOldX;
+	D3DXMatrixLookAtLH(&m_cameraLocateNormal, &D3DXVECTOR3(0.0f, 0.0f, 0.0f), &D3DXVECTOR3(0.0f, 0.0f, 1.0f), &D3DXVECTOR3(0.0f, 1.0f, 0.0f));
+	m_cameraRYNormal = 0.0f;
+	m_cameraRXNormal = 0.0f;
+	m_cameraRYChange = 0.0f;
+	m_cameraRXChange = 0.0f;
+	CalculateCameraLocalActual();
 
 	m_coordinateAxix->Show();
 }
@@ -63,13 +71,21 @@ VOID HGameViewObject::Hide() {
 
 VOID HGameViewObject::OnGetFocus() {
 	g_program->Get_m_wndProcEventMgr()->Subscribe(this, WndProcEventType_MOUSEMOVE);
-	g_program->Get_m_wndProcEventMgr()->Subscribe(this, WndProcEventType_KeyDown);
-	g_program->Get_m_wndProcEventMgr()->Subscribe(this, WndProcEventType_KeyUp);
+	g_program->Get_m_inputEventMgr()->Subscribe(this, HInputEventType_W);
+	g_program->Get_m_inputEventMgr()->Subscribe(this, HInputEventType_A);
+	g_program->Get_m_inputEventMgr()->Subscribe(this, HInputEventType_S);
+	g_program->Get_m_inputEventMgr()->Subscribe(this, HInputEventType_D);
+	g_program->Get_m_inputEventMgr()->Subscribe(this, HInputEventType_SPACE);
+	g_program->Get_m_inputEventMgr()->Subscribe(this, HInputEventType_SHIFT);
 }
 
 VOID HGameViewObject::OnLostFocus() {
-	g_program->Get_m_wndProcEventMgr()->Unsubscribe(this, WndProcEventType_KeyUp);
-	g_program->Get_m_wndProcEventMgr()->Unsubscribe(this, WndProcEventType_KeyDown);
+	g_program->Get_m_inputEventMgr()->Unsubscribe(this, HInputEventType_SHIFT);
+	g_program->Get_m_inputEventMgr()->Unsubscribe(this, HInputEventType_SPACE);
+	g_program->Get_m_inputEventMgr()->Unsubscribe(this, HInputEventType_D);
+	g_program->Get_m_inputEventMgr()->Unsubscribe(this, HInputEventType_S);
+	g_program->Get_m_inputEventMgr()->Unsubscribe(this, HInputEventType_A);
+	g_program->Get_m_inputEventMgr()->Unsubscribe(this, HInputEventType_W);
 	g_program->Get_m_wndProcEventMgr()->Unsubscribe(this, WndProcEventType_MOUSEMOVE);
 }
 
@@ -81,28 +97,33 @@ VOID HGameViewObject::Update() {
 BOOL HGameViewObject::OnMessage(HWndProcEventType eventType, WPARAM wParam, LPARAM lParam) {
 	switch (eventType) {
 	case WndProcEventType_MOUSEMOVE:
-	{/*
+	{
 		POINT const *center = g_program->Get_m_center();
 		POINT curCursorPos;
 		GetCursorPos(&curCursorPos);
 		LONG xOffset = curCursorPos.x - center->x;
 		LONG yOffset = curCursorPos.y - center->y;
 		if (ABS(xOffset) <= m_cursorResetDistance && ABS(yOffset) <= m_cursorResetDistance) {
-			D3DXMATRIX cameraChangeY;
-			D3DXMatrixRotationY(&cameraChangeY, 0 - (FLOAT)xOffset * m_cameraSpeed);
-			D3DXMATRIX cameraChangeX;
-			D3DXMatrixRotationX(&cameraChangeX, (FLOAT)yOffset * m_cameraSpeed);
-			m_cameraLocateActual = m_cameraLocateNormal * m_cameraOldY * cameraChangeY * m_cameraOldX * cameraChangeX;
+			m_cameraRYChange = m_cameraRYNormal - (FLOAT)xOffset * m_cameraRSpeed;
+			m_cameraRXChange = m_cameraRXNormal - (FLOAT)yOffset * m_cameraRSpeed;
+			FLOAT Radian90 = 0.5f * D3DX_PI;
+			if (m_cameraRXChange > Radian90) {
+				m_cameraRXChange = Radian90;
+			}
+			if (m_cameraRXChange < (0 - Radian90)) {
+				m_cameraRXChange = (0 - Radian90);
+			}
+			CalculateCameraLocalActual();
 
 			if (m_isCursorNeedReset == TRUE) {
 				SetCursorPos(center->x, center->y);
-				m_cameraOldY = m_cameraOldY * cameraChangeY;
-				m_cameraOldX = m_cameraOldX * cameraChangeX;
+				m_cameraRYNormal = m_cameraRYChange;
+				m_cameraRXNormal = m_cameraRXChange;
 				m_isCursorNeedReset = FALSE;
 			}
 		} else {
 			SetCursorPos(center->x, center->y);
-		}*/
+		}
 		return TRUE;
 	}break;
 	}
@@ -112,23 +133,47 @@ BOOL HGameViewObject::OnMessage(HWndProcEventType eventType, WPARAM wParam, LPAR
 
 BOOL HGameViewObject::OnMessage(HInputEventType eventType, DOUBLE durationTime, DOUBLE firstActiveTimeStamp, BOOL isContinue) {
 	switch (eventType) {
-	case HInputEventType_W:
-	{
-	}break;
 	case HInputEventType_A:
 	{
-	}break;
-	case HInputEventType_S:
-	{
+		D3DXMATRIX posChange;
+		D3DXMatrixTranslation(&posChange, (FLOAT)durationTime * m_cameraMSpeed, 0.0f, 0.0f);
+		m_cameraLocateNormal = m_cameraLocateNormal * posChange;
+		CalculateCameraLocalActual();
 	}break;
 	case HInputEventType_D:
 	{
-	}break;
-	case HInputEventType_SPACE:
-	{
+		D3DXMATRIX posChange;
+		D3DXMatrixTranslation(&posChange, 0 - (FLOAT)durationTime * m_cameraMSpeed, 0.0f, 0.0f);
+		m_cameraLocateNormal = m_cameraLocateNormal * posChange;
+		CalculateCameraLocalActual();
 	}break;
 	case HInputEventType_SHIFT:
 	{
+		D3DXMATRIX posChange;
+		D3DXMatrixTranslation(&posChange, 0.0f, (FLOAT)durationTime * m_cameraMSpeed, 0.0f);
+		m_cameraLocateNormal = m_cameraLocateNormal * posChange;
+		CalculateCameraLocalActual();
+	}break;
+	case HInputEventType_SPACE:
+	{
+		D3DXMATRIX posChange;
+		D3DXMatrixTranslation(&posChange, 0.0f, 0 - (FLOAT)durationTime * m_cameraMSpeed, 0.0f);
+		m_cameraLocateNormal = m_cameraLocateNormal * posChange;
+		CalculateCameraLocalActual();
+	}break;
+	case HInputEventType_S:
+	{
+		D3DXMATRIX posChange;
+		D3DXMatrixTranslation(&posChange, 0.0f, 0.0f, (FLOAT)durationTime * m_cameraMSpeed);
+		m_cameraLocateNormal = m_cameraLocateNormal * posChange;
+		CalculateCameraLocalActual();
+	}break;
+	case HInputEventType_W:
+	{
+		D3DXMATRIX posChange;
+		D3DXMatrixTranslation(&posChange, 0.0f, 0.0f, 0 - (FLOAT)durationTime * m_cameraMSpeed);
+		m_cameraLocateNormal = m_cameraLocateNormal * posChange;
+		CalculateCameraLocalActual();
 	}break;
 	}
 	return FALSE;
