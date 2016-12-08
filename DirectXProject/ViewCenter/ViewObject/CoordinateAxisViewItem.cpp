@@ -18,7 +18,7 @@ VOID HCoordinateAxisViewItem::Show() {
 	HRESULT hr;
 
 	hr = m_device->CreateVertexBuffer(
-		6 * sizeof(HXYZCVertex),
+		14 * sizeof(HXYZCVertex),
 		D3DUSAGE_WRITEONLY,
 		HXYZCVertex::FVF,
 		D3DPOOL_MANAGED,
@@ -28,12 +28,22 @@ VOID HCoordinateAxisViewItem::Show() {
 	HXYZCVertex *data;
 	hr = m_vertexBuffer->Lock(0, 0, (VOID**)(&data), 0);
 	{
-		data[0] = HXYZCVertex(0.0f, 0.0f, 0.0f, D3DCOLOR_XRGB(255, 0, 0));
-		data[1] = HXYZCVertex(10.0f, 0.0f, 0.0f, D3DCOLOR_XRGB(255, 0, 0));
-		data[2] = HXYZCVertex(0.0f, 0.0f, 0.0f, D3DCOLOR_XRGB(0, 255, 0));
-		data[3] = HXYZCVertex(0.0f, 10.0f, 0.0f, D3DCOLOR_XRGB(0, 255, 0));
-		data[4] = HXYZCVertex(0.0f, 0.0f, 0.0f, D3DCOLOR_XRGB(0, 0, 255));
-		data[5] = HXYZCVertex(0.0f, 0.0f, 10.0f, D3DCOLOR_XRGB(0, 0, 255));
+		int i = 0;
+		data[i++] = HXYZCVertex(0.0f, 0.0f, 0.0f, D3DCOLOR_XRGB(255, 0, 0));
+		data[i++] = HXYZCVertex(10.0f, 0.0f, 0.0f, D3DCOLOR_XRGB(255, 0, 0));
+		data[i++] = HXYZCVertex(0.0f, 0.0f, 0.0f, D3DCOLOR_XRGB(0, 255, 0));
+		data[i++] = HXYZCVertex(0.0f, 10.0f, 0.0f, D3DCOLOR_XRGB(0, 255, 0));
+		data[i++] = HXYZCVertex(0.0f, 0.0f, 0.0f, D3DCOLOR_XRGB(0, 0, 255));
+		data[i++] = HXYZCVertex(0.0f, 0.0f, 10.0f, D3DCOLOR_XRGB(0, 0, 255));
+
+		data[i++] = HXYZCVertex(20.0f, 0.0f, 20.0f, D3DCOLOR_XRGB(255, 0, 0));
+		data[i++] = HXYZCVertex(-20.0f, 0.0f, 20.0f, D3DCOLOR_XRGB(255, 0, 0));
+		data[i++] = HXYZCVertex(-20.0f, 0.0f, 20.0f, D3DCOLOR_XRGB(255, 0, 0));
+		data[i++] = HXYZCVertex(-20.0f, 0.0f, -20.0f, D3DCOLOR_XRGB(255, 0, 0));
+		data[i++] = HXYZCVertex(-20.0f, 0.0f, -20.0f, D3DCOLOR_XRGB(255, 0, 0));
+		data[i++] = HXYZCVertex(20.0f, 0.0f, -20.0f, D3DCOLOR_XRGB(255, 0, 0));
+		data[i++] = HXYZCVertex(20.0f, 0.0f, -20.0f, D3DCOLOR_XRGB(255, 0, 0));
+		data[i++] = HXYZCVertex(20.0f, 0.0f, 20.0f, D3DCOLOR_XRGB(255, 0, 0));
 	}
 	hr = m_vertexBuffer->Unlock();
 
@@ -48,7 +58,7 @@ VOID HCoordinateAxisViewItem::Show() {
 		&pf,
 		D3DX_PI * 0.33f,
 		(FLOAT)w / (FLOAT)h,
-		1.0f,
+		0.0f,
 		1000.0f
 	);
 	m_device->SetTransform(D3DTS_PROJECTION, &pf);
@@ -75,7 +85,7 @@ VOID HCoordinateAxisViewItem::Update() {
 		m_device->SetFVF(HXYZCVertex::FVF);
 		m_device->DrawPrimitive(
 			D3DPT_LINELIST,
-			0, 3
+			0, 7
 		);
 	}
 	m_device->EndScene();

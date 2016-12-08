@@ -32,9 +32,6 @@ VOID HGameViewObject::Load() {
 	POINT const *center = g_program->Get_m_center();
 	m_isCursorNeedReset = TRUE;
 	m_device = g_program->Get_m_device();
-	m_oldPitch = 0.0f;
-	m_oldYaw = 0.0f;
-	m_oldRoll = 0.0f;
 
 	g_program->Get_m_timerMgr()->Registe(this, 1, 0.001);
 
@@ -50,10 +47,12 @@ VOID HGameViewObject::Unload() {
 }
 
 VOID HGameViewObject::Show() {
-	D3DXMatrixLookAtLH(&m_cameraLocateNormal, &D3DXVECTOR3(1.0f, 1.0f, 1.0f), &D3DXVECTOR3(2.0f, 1.0f, 1.0f), &D3DXVECTOR3(0.0f, 1.0f, 0.0f));
-	D3DXMATRIX change;
-	D3DXMatrixRotationYawPitchRoll(&change, m_oldYaw, m_oldPitch, m_oldRoll);
-	m_cameraLocateActual = m_cameraLocateNormal;// * change;
+	D3DXMatrixLookAtLH(&m_cameraLocateNormal, &D3DXVECTOR3(-5.0f, -1.0f, -1.0f), &D3DXVECTOR3(2.0f, -1.0f, -1.0f), &D3DXVECTOR3(0.0f, 1.0f, 0.0f));
+	//D3DXMatrixRotationYawPitchRoll(&m_cameraOldY, 0.1f * D3DX_PI, 0.0f, 0.0f);
+	//D3DXMatrixRotationYawPitchRoll(&m_cameraOldX, 0.0f, 0.1f * D3DX_PI, 0.0f);
+	D3DXMatrixRotationYawPitchRoll(&m_cameraOldX, 0.1f * D3DX_PI, 0.1f * D3DX_PI, 0.0f);
+	m_cameraLocateActual = m_cameraLocateNormal * m_cameraOldX;
+	//m_cameraLocateActual = m_cameraLocateNormal * m_cameraOldY * m_cameraOldX;
 
 	m_coordinateAxix->Show();
 }
@@ -89,16 +88,16 @@ BOOL HGameViewObject::OnMessage(HWndProcEventType eventType, WPARAM wParam, LPAR
 		LONG xOffset = curCursorPos.x - center->x;
 		LONG yOffset = curCursorPos.y - center->y;
 		if (ABS(xOffset) <= m_cursorResetDistance && ABS(yOffset) <= m_cursorResetDistance) {
-			FLOAT anglePitch = m_oldPitch - (FLOAT)yOffset * m_cameraSpeed;
-			FLOAT angleYaw = m_oldYaw + (FLOAT)xOffset * m_cameraSpeed;
-			D3DXMATRIX change;
-			D3DXMatrixRotationYawPitchRoll(&change, angleYaw, anglePitch, m_oldRoll);
-			m_cameraLocateActual = m_cameraLocateNormal * change;
+			D3DXMATRIX cameraChangeY;
+			D3DXMatrixRotationY(&cameraChangeY, 0 - (FLOAT)xOffset * m_cameraSpeed);
+			D3DXMATRIX cameraChangeX;
+			D3DXMatrixRotationX(&cameraChangeX, (FLOAT)yOffset * m_cameraSpeed);
+			m_cameraLocateActual = m_cameraLocateNormal * m_cameraOldY * cameraChangeY * m_cameraOldX * cameraChangeX;
 
 			if (m_isCursorNeedReset == TRUE) {
 				SetCursorPos(center->x, center->y);
-				m_oldPitch = anglePitch;
-				m_oldYaw = angleYaw;
+				m_cameraOldY = m_cameraOldY * cameraChangeY;
+				m_cameraOldX = m_cameraOldX * cameraChangeX;
 				m_isCursorNeedReset = FALSE;
 			}
 		} else {

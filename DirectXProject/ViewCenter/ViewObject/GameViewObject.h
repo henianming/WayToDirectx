@@ -21,9 +21,8 @@ private:
 	IDirect3DDevice9 *m_device;
 
 	HIGameViewItem *m_coordinateAxix;
-	FLOAT m_oldPitch;
-	FLOAT m_oldYaw;
-	FLOAT m_oldRoll;
+	D3DXMATRIX m_cameraOldY;
+	D3DXMATRIX m_cameraOldX;
 	D3DXMATRIX m_cameraLocateNormal;
 	D3DXMATRIX m_cameraLocateActual;
 	BOOL m_isCursorNeedReset;
