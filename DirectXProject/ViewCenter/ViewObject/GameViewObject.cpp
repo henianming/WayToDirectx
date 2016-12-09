@@ -3,8 +3,13 @@
 #include "program.h"
 #include "Common/CommonCode.h"
 #include "CoordinateAxisViewItem.h"
+#include <string>
+
+using namespace std;
 
 extern HProgram *g_program;
+extern string HGameEventStr_PROGRAM_SIZE;
+extern string HGameEventStr_PROGRAM_MOVE;
 
 //--------·Ö½çÏß-----------------------------------------------------------------
 VOID HIGameViewItem::Load() {
@@ -55,6 +60,18 @@ VOID HGameViewObject::Unload() {
 }
 
 VOID HGameViewObject::Show() {
+	INT w = g_program->Get_m_width();
+	INT h = g_program->Get_m_height();
+	D3DXMATRIX pf;
+	D3DXMatrixPerspectiveFovLH(
+		&pf,
+		D3DX_PI * 0.33f,
+		(FLOAT)w / (FLOAT)h,
+		0.0f,
+		1000.0f
+	);
+	m_device->SetTransform(D3DTS_PROJECTION, &pf);
+
 	D3DXMatrixLookAtLH(&m_cameraLocateNormal, &D3DXVECTOR3(0.0f, 0.0f, 0.0f), &D3DXVECTOR3(0.0f, 0.0f, 1.0f), &D3DXVECTOR3(0.0f, 1.0f, 0.0f));
 	m_cameraRYNormal = 0.0f;
 	m_cameraRXNormal = 0.0f;
@@ -70,7 +87,9 @@ VOID HGameViewObject::Hide() {
 }
 
 VOID HGameViewObject::OnGetFocus() {
-	g_program->Get_m_wndProcEventMgr()->Subscribe(this, WndProcEventType_MOUSEMOVE);
+	g_program->Get_m_wndProcEventMgr()->Subscribe(this, HWndProcEventType_MOUSEMOVE);
+	g_program->Get_m_wndProcEventMgr()->Subscribe(this, HWndProcEventType_MOVE);
+
 	g_program->Get_m_inputEventMgr()->Subscribe(this, HInputEventType_W);
 	g_program->Get_m_inputEventMgr()->Subscribe(this, HInputEventType_A);
 	g_program->Get_m_inputEventMgr()->Subscribe(this, HInputEventType_S);
@@ -86,7 +105,9 @@ VOID HGameViewObject::OnLostFocus() {
 	g_program->Get_m_inputEventMgr()->Unsubscribe(this, HInputEventType_S);
 	g_program->Get_m_inputEventMgr()->Unsubscribe(this, HInputEventType_A);
 	g_program->Get_m_inputEventMgr()->Unsubscribe(this, HInputEventType_W);
-	g_program->Get_m_wndProcEventMgr()->Unsubscribe(this, WndProcEventType_MOUSEMOVE);
+
+	g_program->Get_m_wndProcEventMgr()->Unsubscribe(this, HWndProcEventType_MOVE);
+	g_program->Get_m_wndProcEventMgr()->Unsubscribe(this, HWndProcEventType_MOUSEMOVE);
 }
 
 VOID HGameViewObject::Update() {
@@ -96,7 +117,7 @@ VOID HGameViewObject::Update() {
 
 BOOL HGameViewObject::OnMessage(HWndProcEventType eventType, WPARAM wParam, LPARAM lParam) {
 	switch (eventType) {
-	case WndProcEventType_MOUSEMOVE:
+	case HWndProcEventType_MOUSEMOVE:
 	{
 		POINT const *center = g_program->Get_m_center();
 		POINT curCursorPos;

@@ -135,6 +135,12 @@
     <ClCompile Include="DirectXProject\InputCenter\Input.cpp">
       <Filter>DirectXProject\InputCenter</Filter>
     </ClCompile>
+    <ClCompile Include="DirectXProject\EventCenter\GameEventMgr.cpp">
+      <Filter>DirectXProject\EventCenter</Filter>
+    </ClCompile>
+    <ClCompile Include="DirectXProject\EventCenter\GameEventDef.cpp">
+      <Filter>DirectXProject\EventCenter</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lesson.h" />
@@ -185,6 +191,9 @@
     </ClInclude>
     <ClInclude Include="DirectXProject\ViewCenter\ViewObject\Prismatic.h">
       <Filter>DirectXProject\ViewCenter\ViewObject\GameViewObject</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectXProject\EventCenter\GameEventMgr.h">
+      <Filter>DirectXProject\EventCenter</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

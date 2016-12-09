@@ -19,13 +19,13 @@ VOID HKeyboardInput::ReleaseKeyboardMap() {
 }
 
 VOID HKeyboardInput::SubscribeEvent() {
-	g_program->Get_m_wndProcEventMgr()->Subscribe(this, WndProcEventType_KeyDown);
-	g_program->Get_m_wndProcEventMgr()->Subscribe(this, WndProcEventType_KeyUp);
+	g_program->Get_m_wndProcEventMgr()->Subscribe(this, HWndProcEventType_KEYDOWN);
+	g_program->Get_m_wndProcEventMgr()->Subscribe(this, HWndProcEventType_KEYUP);
 }
 
 VOID HKeyboardInput::UnsubscribeEnent() {
-	g_program->Get_m_wndProcEventMgr()->Unsubscribe(this, WndProcEventType_KeyUp);
-	g_program->Get_m_wndProcEventMgr()->Unsubscribe(this, WndProcEventType_KeyDown);
+	g_program->Get_m_wndProcEventMgr()->Unsubscribe(this, HWndProcEventType_KEYUP);
+	g_program->Get_m_wndProcEventMgr()->Unsubscribe(this, HWndProcEventType_KEYDOWN);
 }
 
 HKeyboardInput::M_KDL::iterator HKeyboardInput::IsKeyActive(HInputEventType key) {
@@ -82,7 +82,7 @@ BOOL HKeyboardInput::Update() {
 
 BOOL HKeyboardInput::OnMessage(HWndProcEventType eventType, WPARAM wParam, LPARAM lParam) {
 	switch (eventType) {
-	case WndProcEventType_KeyDown:
+	case HWndProcEventType_KEYDOWN:
 	{
 		HInputEventType keyTemp = VKToRK(wParam);
 		if (keyTemp == HInputEventType_Min) {
@@ -105,7 +105,7 @@ BOOL HKeyboardInput::OnMessage(HWndProcEventType eventType, WPARAM wParam, LPARA
 		g_program->Get_m_inputEventMgr()->FireEvent(keyTemp, 0, (*it)->m_firstActiveTimeStamp, TRUE);
 		return TRUE;
 	}break;
-	case WndProcEventType_KeyUp:
+	case HWndProcEventType_KEYUP:
 	{
 		HInputEventType keyTemp = VKToRK(wParam);
 		if (keyTemp == HInputEventType_Min) {

@@ -47,22 +47,6 @@ VOID HCoordinateAxisViewItem::Show() {
 	}
 	hr = m_vertexBuffer->Unlock();
 
-	
-
-	RECT rect;
-	GetWindowRect(g_program->Get_m_hWnd(), &rect);
-	INT w = rect.right - rect.left;
-	INT h = rect.bottom - rect.top;
-	D3DXMATRIX pf;
-	D3DXMatrixPerspectiveFovLH(
-		&pf,
-		D3DX_PI * 0.33f,
-		(FLOAT)w / (FLOAT)h,
-		0.0f,
-		1000.0f
-	);
-	m_device->SetTransform(D3DTS_PROJECTION, &pf);
-
 	m_device->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
 	m_device->SetRenderState(D3DRS_LIGHTING, FALSE);
 }

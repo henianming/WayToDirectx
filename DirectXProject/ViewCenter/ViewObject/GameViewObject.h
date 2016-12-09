@@ -3,6 +3,7 @@
 #include "../ViewObjectMgr.h"
 #include "EventCenter/WndProcEventMgr.h"
 #include "EventCenter/InputEventMgr.h"
+#include "EventCenter/GameEventMgr.h"
 #include "TimerCenter/Timer.h"
 
 //--------·Ö½çÏß-----------------------------------------------------------------

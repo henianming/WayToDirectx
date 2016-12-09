@@ -1,5 +1,10 @@
 #include "program.h"
 #include "Common/CommonCode.h"
+#include <string>
+using namespace std;
+
+extern string HGameEventStr_PROGRAM_SIZE;
+extern string HGameEventStr_PROGRAM_MOVE;
 
 extern LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
@@ -10,6 +15,8 @@ BOOL HProgram::Create(HINSTANCE hInstance, INT showType) {
 	SubscribeEvent();
 
 	RETURN_IF_FAILED(m_inputEventMgr.Create());
+
+	RETURN_IF_FAILED(m_gameEventMgr.Create());
 
 	m_keyboard = HInputDeviceFactory::GetInputDevice(HInputDeviceType_Keyboard);
 	RETURN_IF_NULL(m_keyboard);
@@ -33,10 +40,8 @@ BOOL HProgram::Create(HINSTANCE hInstance, INT showType) {
 	m_count = 0;
 
 	GetWindowRect(m_hWnd, &m_rect);
-	m_width = m_rect.right - m_rect.left;
-	m_height = m_rect.bottom - m_rect.top;
-	m_center.x = (m_rect.right + m_rect.left) / 2;
-	m_center.y = (m_rect.bottom + m_rect.top) / 2;
+	CalculateSize();
+	CalculateCenter();
 
 	return TRUE;
 }
@@ -59,6 +64,8 @@ BOOL HProgram::Release() {
 	RETURN_IF_NULL(m_keyboard);
 	RETURN_IF_FAILED(m_keyboard->Release());
 	m_keyboard = NULL;
+
+	RETURN_IF_FAILED(m_gameEventMgr.Release());
 
 	RETURN_IF_FAILED(m_inputEventMgr.Release());
 
@@ -127,6 +134,10 @@ HInputEventMgr* HProgram::Get_m_inputEventMgr() {
 	return &m_inputEventMgr;
 }
 
+HGameEventMgr* HProgram::Get_m_gameEventMgr() {
+	return &m_gameEventMgr;
+}
+
 VOID HProgram::InitWndClass(HINSTANCE hInstance) {
 	m_wndClass.cbClsExtra = 0;
 	m_wndClass.cbWndExtra = 0;
@@ -148,7 +159,7 @@ BOOL HProgram::CreateWnd(HINSTANCE hInstance, INT showType) {
 	m_hWnd = CreateWindow(
 		m_wndClass.lpszClassName, L"",
 		WS_OVERLAPPEDWINDOW,
-		CW_USEDEFAULT, CW_USEDEFAULT, 800, 600,
+		CW_USEDEFAULT, CW_USEDEFAULT, 150, 150,
 		0, 0, m_wndClass.hInstance, 0
 	);
 	if (m_hWnd == 0) {
@@ -228,11 +239,15 @@ BOOL HProgram::ReleaseDirectX() {
 }
 
 VOID HProgram::SubscribeEvent() {
-	m_wndProcEventMgr.Subscribe(this, WndProcEventType_KeyDown);
+	m_wndProcEventMgr.Subscribe(this, HWndProcEventType_KEYDOWN);
+	m_wndProcEventMgr.Subscribe(this, HWndProcEventType_MOVE);
+	m_wndProcEventMgr.Subscribe(this, HWndProcEventType_SIZE);
 }
 
 VOID HProgram::UnsubscribeEvent() {
-	m_wndProcEventMgr.Unsubscribe(this, WndProcEventType_KeyDown);
+	m_wndProcEventMgr.Unsubscribe(this, HWndProcEventType_SIZE);
+	m_wndProcEventMgr.Unsubscribe(this, HWndProcEventType_MOVE);
+	m_wndProcEventMgr.Unsubscribe(this, HWndProcEventType_KEYDOWN);
 }
 
 VOID HProgram::RegisteTime() {
@@ -261,9 +276,19 @@ VOID HProgram::TitleView() {
 	SetWindowText(m_hWnd, wc);
 }
 
+VOID HProgram::CalculateSize() {
+	m_width = m_rect.right - m_rect.left;
+	m_height = m_rect.bottom - m_rect.top;
+}
+
+VOID HProgram::CalculateCenter() {
+	m_center.x = (m_rect.right + m_rect.left) / 2;
+	m_center.y = (m_rect.bottom + m_rect.top) / 2;
+}
+
 BOOL HProgram::OnMessage(HWndProcEventType eventType, WPARAM wParam, LPARAM lParam) {
 	switch (eventType) {
-	case WndProcEventType_KeyDown:
+	case HWndProcEventType_KEYDOWN:
 	{
 		switch (wParam) {
 		case VK_ESCAPE:
@@ -272,6 +297,19 @@ BOOL HProgram::OnMessage(HWndProcEventType eventType, WPARAM wParam, LPARAM lPar
 			return TRUE;
 		}break;
 		}
+	}break;
+	case HWndProcEventType_MOVE:
+	{
+		GetWindowRect(m_hWnd, &m_rect);
+		CalculateCenter();
+		m_gameEventMgr.FireEvent(&HGameEventStr_PROGRAM_MOVE, NULL);
+	}break;
+	case HWndProcEventType_SIZE:
+	{
+		GetWindowRect(m_hWnd, &m_rect);
+		CalculateSize();
+		CalculateCenter();
+		m_gameEventMgr.FireEvent(&HGameEventStr_PROGRAM_SIZE, NULL);
 	}break;
 	}
 

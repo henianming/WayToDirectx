@@ -11,55 +11,67 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 		switch (msg) {
 		case WM_KEYDOWN:
 		{
-			if (g_program->Get_m_wndProcEventMgr()->FireEvent(WndProcEventType_KeyDown, wParam, lParam)) {
+			if (g_program->Get_m_wndProcEventMgr()->FireEvent(HWndProcEventType_KEYDOWN, wParam, lParam)) {
 				return 0;
 			}
 		}break;
 		case WM_KEYUP:
 		{
-			if (g_program->Get_m_wndProcEventMgr()->FireEvent(WndProcEventType_KeyUp, wParam, lParam)) {
+			if (g_program->Get_m_wndProcEventMgr()->FireEvent(HWndProcEventType_KEYUP, wParam, lParam)) {
 				return 0;
 			}
 		}break;
 		case WM_LBUTTONDOWN:
 		{
-			if (g_program->Get_m_wndProcEventMgr()->FireEvent(WndProcEventType_LBUTTONDOWN, wParam, lParam)) {
+			if (g_program->Get_m_wndProcEventMgr()->FireEvent(HWndProcEventType_LBUTTONDOWN, wParam, lParam)) {
 				return 0;
 			}
 		}break;
 		case WM_RBUTTONDOWN:
 		{
-			if (g_program->Get_m_wndProcEventMgr()->FireEvent(WndProcEventType_RBUTTONDOWN, wParam, lParam)) {
+			if (g_program->Get_m_wndProcEventMgr()->FireEvent(HWndProcEventType_RBUTTONDOWN, wParam, lParam)) {
 				return 0;
 			}
 		}break;
 		case WM_MOUSEMOVE:
 		{
-			if (g_program->Get_m_wndProcEventMgr()->FireEvent(WndProcEventType_MOUSEMOVE, wParam, lParam)) {
+			if (g_program->Get_m_wndProcEventMgr()->FireEvent(HWndProcEventType_MOUSEMOVE, wParam, lParam)) {
 				return 0;
 			}
 		}break;
 		case WM_LBUTTONUP:
 		{
-			if (g_program->Get_m_wndProcEventMgr()->FireEvent(WndProcEventType_LBUTTONUP, wParam, lParam)) {
+			if (g_program->Get_m_wndProcEventMgr()->FireEvent(HWndProcEventType_LBUTTONUP, wParam, lParam)) {
 				return 0;
 			}
 		}break;
 		case WM_RBUTTONUP:
 		{
-			if (g_program->Get_m_wndProcEventMgr()->FireEvent(WndProcEventType_RBUTTONUP, wParam, lParam)) {
+			if (g_program->Get_m_wndProcEventMgr()->FireEvent(HWndProcEventType_RBUTTONUP, wParam, lParam)) {
 				return 0;
 			}
 		}break;
 		case WM_MOVE:
 		{
-			if (g_program->Get_m_wndProcEventMgr()->FireEvent(WndProcEventType_MOVE, wParam, lParam)) {
+			if (g_program->Get_m_wndProcEventMgr()->FireEvent(HWndProcEventType_MOVE, wParam, lParam)) {
 				return 0;
 			}
 		}break;
 		case WM_MOVING:
 		{
-			if (g_program->Get_m_wndProcEventMgr()->FireEvent(WndProcEventType_MOVING, wParam, lParam)) {
+			if (g_program->Get_m_wndProcEventMgr()->FireEvent(HWndProcEventType_MOVING, wParam, lParam)) {
+				return 0;
+			}
+		}break;
+		case WM_SIZE:
+		{
+			if (g_program->Get_m_wndProcEventMgr()->FireEvent(HWndProcEventType_SIZE, wParam, lParam)) {
+				return 0;
+			}
+		}break;
+		case WM_SIZING:
+		{
+			if (g_program->Get_m_wndProcEventMgr()->FireEvent(HWndProcEventType_SIZING, wParam, lParam)) {
 				return 0;
 			}
 		}break;

@@ -3,6 +3,7 @@
 #include <d3d9.h>
 #include "EventCenter/WndProcEventMgr.h"
 #include "EventCenter/InputEventMgr.h"
+#include "EventCenter/GameEventMgr.h"
 #include "TimeCenter/Time.h"
 #include "TimerCenter/Timer.h"
 #include "InputCenter/Input.h"
@@ -14,6 +15,7 @@ private:
 	//event system
 	HWndProcEventMgr m_wndProcEventMgr;
 	HInputEventMgr m_inputEventMgr;
+	HGameEventMgr m_gameEventMgr;
 
 	//program system
 	WNDCLASS m_wndClass;
@@ -51,6 +53,7 @@ public:
 
 	HWndProcEventMgr* Get_m_wndProcEventMgr();
 	HInputEventMgr* Get_m_inputEventMgr();
+	HGameEventMgr* Get_m_gameEventMgr();
 	HWND Get_m_hWnd();
 	IDirect3DDevice9* Get_m_device();
 	HTimeMgr* Get_m_timeMgr();
@@ -77,6 +80,8 @@ private:
 	
 	VOID UpdataFps();
 	VOID TitleView();
+	VOID CalculateSize();
+	VOID CalculateCenter();
 
 public:
 	virtual BOOL OnMessage(HWndProcEventType eventType, WPARAM wParam, LPARAM lParam);

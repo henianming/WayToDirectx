@@ -4,7 +4,7 @@
 BOOL HWndProcEventMgr::Create() {
 	INT i;
 
-	for (i = 0; i < WndProcEventType_Max; i++) {
+	for (i = 0; i < HWndProcEventType_MAX; i++) {
 		m_etv.push_back(new M_RL());
 	}
 

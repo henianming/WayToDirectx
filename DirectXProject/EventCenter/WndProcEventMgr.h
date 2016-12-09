@@ -5,17 +5,19 @@
 #include <list>
 
 enum HWndProcEventType {
-	WndProcEventType_Min = 0,
-	WndProcEventType_KeyDown,
-	WndProcEventType_KeyUp,
-	WndProcEventType_LBUTTONDOWN,
-	WndProcEventType_RBUTTONDOWN,
-	WndProcEventType_MOUSEMOVE,
-	WndProcEventType_LBUTTONUP,
-	WndProcEventType_RBUTTONUP,
-	WndProcEventType_MOVE,
-	WndProcEventType_MOVING,
-	WndProcEventType_Max,
+	HWndProcEventType_MIN = 0,
+	HWndProcEventType_KEYDOWN,
+	HWndProcEventType_KEYUP,
+	HWndProcEventType_LBUTTONDOWN,
+	HWndProcEventType_RBUTTONDOWN,
+	HWndProcEventType_MOUSEMOVE,
+	HWndProcEventType_LBUTTONUP,
+	HWndProcEventType_RBUTTONUP,
+	HWndProcEventType_MOVE,
+	HWndProcEventType_MOVING,
+	HWndProcEventType_SIZE,
+	HWndProcEventType_SIZING,
+	HWndProcEventType_MAX,
 };
 
 //--------·Ö½çÏß-----------------------------------------------------------------
